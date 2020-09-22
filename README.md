@@ -1,2 +1,1 @@
-# coding
-Playground and Homework
+# Playground and Homework
