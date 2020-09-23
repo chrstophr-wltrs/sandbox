@@ -1,14 +1,10 @@
 from time import perf_counter
 import sys
-global func_calls
-global cache_hits
 func_calls = 0
 cache_hits = 0
 cache = {}
 
 def weight_on(r, c):
-    global func_calls
-    global cache_hits
     if (r, c) in cache:
         cache_hits += 1
         return cache[(r, c)]
