@@ -12,26 +12,24 @@ def weight_on(r, c):
     if (r, c) in cache:
         cache_hits += 1
         return cache[(r, c)]
-    else:
-        func_calls += 1
-        if r < 1:
-            cache[(r, c)] = 0
-            return 0
-        if r == 1:
-            cache[(r, c)] = 100
-            return 100
-        else:
-            row_above = r - 1
-            left_coord = c - 1
-            left_weight = weight_on(row_above, left_coord) + 200
-            right_weight = weight_on(row_above, c) + 200
-            if left_coord < 0:
-                left_weight = 0
-            if c >= r:
-                right_weight = 0
-            above_weight = (left_weight + right_weight) / 2
-            cache[(r, c)] = above_weight
-            return above_weight
+    func_calls += 1
+    if r < 1:
+        cache[(r, c)] = 0
+        return 0
+    if r == 1:
+        cache[(r, c)] = 100
+        return 100
+    row_above = r - 1
+    left_coord = c - 1
+    left_weight = weight_on(row_above, left_coord) + 200
+    right_weight = weight_on(row_above, c) + 200
+    if left_coord < 0:
+        left_weight = 0
+    if c >= r:
+        right_weight = 0
+    above_weight = (left_weight + right_weight) / 2
+    cache[(r, c)] = above_weight
+    return above_weight
 
 def main():
     with open("part3.txt", "w") as file:
