@@ -39,7 +39,7 @@ class Student(object):
 
     def getAverage(self):
         """Returns the average score."""
-        return sum(self.scores) / len(self._scores)
+        return sum(self.scores) / len(self.scores)
     
     def getHighScore(self):
         """Returns the highest score."""
