@@ -80,15 +80,17 @@ move_bank(){
     (ImageSearch, , , 0, 0, A_ScreenWidth, A_ScreenHeight, % "*" shades " cannith.png")
     if (ErrorLevel = 0){
         deconstruct()
+        Return
     }
     (ImageSearch, , , 0, 0, A_ScreenWidth, A_ScreenHeight, % "*" shades " bank.png")
     if (ErrorLevel = 0){
         move_bank()
+        Return
     }
     else{
         Send, +{LButton}
+        Return
     }
-    Return
 }
 
 F11::Reload
