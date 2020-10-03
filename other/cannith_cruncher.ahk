@@ -1,21 +1,3 @@
-/*
-def deconstruct():
-    save_current_mouse_location as home
-    wait_until(greyed_out_clear_button.png)
-    save_locatioin_of(greyed_out_clear_button.png) as grey_clear
-    grey_clear = grey_clear + up 10 pixels
-    mouse_down
-    mouse_move(grey_clear)
-    mouse_up
-    wait_until(distiller.png)
-    move_and_click(distiller.png)
-    wait_until(deconstruct.png)
-    move_and_click(deconstruct.png)
-    move_mouse(home)
-
-bind shift + y as deconstruct()
-*/
-
 #NoEnv
 SetWorkingDir %A_ScriptDir%
 CoordMode, Mouse, Window ;*[FGO Rerolling]
