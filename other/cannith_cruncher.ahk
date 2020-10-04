@@ -11,7 +11,7 @@ SetKeyDelay 500
 SetMouseDelay -2
 SetBatchLines -1
 
- global shades := 0
+global shades := 0
 
 wait_for(image_name = ""){ ; Waits for an image to be present on screen, loops until the image appears
     global shades
@@ -57,22 +57,63 @@ move_bank(){
     MouseMove, %home_x%, %home_y%
 }
 
+destroy_item(){
+    MouseGetPos, home_x, home_y
+    click_drag("aug.png", 100, 0)
+    click_on("yes.png")
+    MouseMove, %home_x%, %home_y%
+}
+
+; +LButton::
+; {
+;     ErrorLevel := 1
+;     (ImageSearch, notx, noty, 0, 0, A_ScreenWidth, A_ScreenHeight, "*" %shades% " cannith.png")
+;     if (ErrorLevel = 0){
+;         deconstruct()
+;         Return
+;     }
+;     (ImageSearch, notx, noty, 0, 0, A_ScreenWidth, A_ScreenHeight, "*" %shades% " bank.png")
+;     if (ErrorLevel = 0){
+;         move_bank()
+;         Return
+;     }
+;     else{
+;         Send, +{LButton}
+;         Return
+;     }
+; }
+
 +LButton::
 {
-    (ImageSearch, , , 0, 0, A_ScreenWidth, A_ScreenHeight, % "*" shades " cannith.png")
+    deconstruct := 0, move_bank := 0. destroy_item := 0
+
+    ImageSearch, , , 0, 0, A_ScreenWidth, A_ScreenHeight, % "*" shades " cannith.png"
     if (ErrorLevel = 0){
+        deconstruct := 1
         deconstruct()
-        Return
+      return   ; added to stop running if it finds the first picture
     }
-    (ImageSearch, , , 0, 0, A_ScreenWidth, A_ScreenHeight, % "*" shades " bank.png")
+
+    ImageSearch, , , 0, 0, A_ScreenWidth, A_ScreenHeight, % "*" shades " bank.png"
     if (ErrorLevel = 0){
+        move_bank := 1 
         move_bank()
-        Return
+      return   ; added to stop running if it finds the second picture. 
     }
-    else{
+
+    ImageSearch, , , 0, 0, A_ScreenWidth, A_ScreenHeight, % "*" shades " aug.png"
+    if (ErrorLevel = 0){
+        destroy_item := 1 
+        destroy_item()
+      return   ; added to stop running if it finds the second picture. 
+    }
+   
+  ; because of the added "returns", this "if" statement isn't really necessary. But if you remove those "return" i added, you'll have to leave this "if" statement here. 
+    If (move_bank = 0) && (deconstruct = 0) && (destroy_item = 0)
+    {
         Send, +{LButton}
-        Return
     }
+    Return
 }
 
 F11::Reload
