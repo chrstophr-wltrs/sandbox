@@ -43,8 +43,8 @@ class CashBox:
         return self.totalReceived
 
 class Selector:
-    def __init__(self):
-        self.cash = CashBox()
+    def __init__(self, cashbox):
+        self.cash = cashbox
         black = Product("black", recipe=['coffee'])
         white = Product('white', recipe=['coffee', 'creamer'])
         sweet = Product('sweet', recipe=['coffee', 'sugar'])
@@ -56,18 +56,19 @@ class Selector:
             self.product_string += (f"{i+1}={self.products[i].name}, ")
     
     def select(self, choiceIndex = 0):
-        if self.cash.credit >= self.products[choiceIndex].price:
+        if self.cash.haveYou(self.products[choiceIndex].price):
             self.products[choiceIndex].make()
             self.cash.deduct(self.products[choiceIndex].price)
             self.cash.returnCoins()
+            return
         else:
             print(f"Sorry. Not enough money deposited.")
-        return
+            return
 
 class CoffeeMachine:
     def __init__(self):
         self.cash = CashBox()
-        self.selector = Selector()
+        self.selector = Selector(self.cash)
     
     def one_action(self):
         print(f"PRODUCT LIST: all 35 cents, except bouillon (25 cents)")
@@ -77,7 +78,11 @@ class CoffeeMachine:
         if user_input == 'quit':
             return False
         user_input = user_input.split(' ')
-        user_input[1] = int(user_input[1])
+        try:
+            user_input[1] = int(user_input[1])
+        except:
+            print("Invalid command.")
+            return True
         if user_input[0] == 'insert':
             if user_input[1] not in valid_coins:
                 print("INVALID AMOUNT")
