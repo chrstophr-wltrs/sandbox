@@ -29,8 +29,9 @@ class CashBox:
         print(f"Depositing {amount} cents. You have {self.credit} cents credit.")
 
     def returnCoins(self):
-        print(f"Returning {self.credit} cents")
-        self.credit = 0
+        if self.credit > 0:
+            print(f"Returning {self.credit} cents")
+            self.credit = 0
 
     def haveYou(self, amount):
         return self.credit >= amount
@@ -90,7 +91,8 @@ class CoffeeMachine:
                 return True
             self.cash.deposit(user_input[1])
         elif user_input[0] == 'select':
-            self.selector.select(user_input[1])
+            drink = user_input[1] - 1
+            self.selector.select(drink)
         else:
             print("Invalid command.")
         return True
