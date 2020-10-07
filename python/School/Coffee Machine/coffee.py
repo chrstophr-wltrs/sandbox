@@ -1,4 +1,3 @@
-valid_commands = ["select", "insert"]
 valid_coins = [50, 25, 10, 5]
 
 class Product:
