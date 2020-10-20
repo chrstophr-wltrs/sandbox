@@ -53,21 +53,19 @@ def recommend(book_hunter):
     recommendations.sort(key=lambda name: name[0].split(' ')[-1].lower())
     return recommendations
 
-def recommendations_list(reader_name, textArea = None):
+def recommendations_list(reader_name):
     best_friends = friends(reader_name)
     good_books = recommend(reader_name)
-    title_string = (f"Recommendtions for {reader_name} from {best_friends[0]} and {best_friends[1]}:")
-    try:
-        textArea.appendText(title_string)
-    finally:
-        print(title_string)
+    rec_list = (f"Recommendtions for {reader_name} from {best_friends[0]} and {best_friends[1]}:\n")
     for book in good_books:
-        rec_string = (f"\t {book[0]}, {book[1]}")
-        try:
-            textArea.appendText(rec_string)
-        finally:
-            print(rec_string)
+        rec_list += (f"\t {book[0]}, {book[1]}\n")
+    return rec_list
 
+def report():
+    report_string = ""
+    for i in list_of_readers:
+        report_string += (f"{recommendations_list(i)}\n")
+    return report_string
 
 def main():
     reader_to_test = input("Enter a reader's name: ")
