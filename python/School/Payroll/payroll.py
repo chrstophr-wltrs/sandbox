@@ -176,9 +176,6 @@ class Employee:
             file.write(pay_string + "\n")
     
     def __repr__(self):
-        """
-        Returns a nicer representation of an employee object.
-        """
         return (f"{self.full_name}, {self.commissioned}")
 
 def load_employees():
@@ -202,6 +199,22 @@ def find_employee_by_id(id = str):
     Looks up the employee from the dictionary, given the id string.
     """
     return all_employees[id]
- 
+
+def process_timecards():
+    """
+    Reads in the timecard file, and adds each of the hours
+    to the respective employee.
+    """
+    with open('timecards.csv', 'r') as file:
+        for line in file:
+            line_list = line.strip().split(',')
+            emp = find_employee_by_id(line_list[0])
+            clas = emp.classification
+            for item in line_list[1:]:
+                clas.add_timecard(float(item))
+            print(f"Added hours for {emp.full_name}...")
+        print("Processed timecards...")
+
 if __name__ == "__main__":
     load_employees()
+    process_timecards()
