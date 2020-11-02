@@ -165,6 +165,12 @@ class Employee:
         print(pay_string)
         with open(PAY_LOGFILE, 'w') as file:
             file.write(pay_string + "\n")
+    
+    def __repr__(self):
+        """
+        Returns a nicer representation of an employee object.
+        """
+        return (f"Employee File for {self.full_name}")
 
 def load_employees():
     """
@@ -181,11 +187,11 @@ def load_employees():
             current_obj = Employee(line_list[0], line_list[1], line_list[2], line_list[3], line_list[4], line_list[5], line_list[6], line_list[7], float(line_list[8]), float(line_list[9]), float(line_list[10]))
             all_employees[line_list[0]] = current_obj
     print("Loaded all employees from 'employees.csv'...")
+    print("Here's the employee dictionary:")
+    print(all_employees)
 
 def find_employee_by_id(id = str):
     return all_employees[id]
  
 if __name__ == "__main__":
     load_employees()
-    emp = find_employee_by_id('11-0469486')
-    print(f"Here is employee '11-0469486': {emp.full_name}")
