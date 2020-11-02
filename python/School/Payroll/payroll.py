@@ -37,6 +37,9 @@ class Hourly(Classification):
         self.timecards = []
         pay = self.hourly_rate * unpaid_hours_worked
         return pay
+    
+    def __repr__(self):
+        return "Hourly"
 
 class Salaried(Classification):
     """
@@ -53,6 +56,9 @@ class Salaried(Classification):
         """
         pay = self.salary / 24
         return pay
+    
+    def __repr__(self):
+        return "Salaried"
 
 class Commissioned(Salaried):
     """
@@ -98,6 +104,9 @@ class Commissioned(Salaried):
         salary_pay = self.salary / 24
         pay = salary_pay + commission
         return pay
+    
+    def __repr__(self):
+        return "Commissioned"
 
 class Employee:
     """
@@ -170,7 +179,7 @@ class Employee:
         """
         Returns a nicer representation of an employee object.
         """
-        return (f"Employee File for {self.full_name}")
+        return (f"{self.full_name}, {self.commissioned}")
 
 def load_employees():
     """
@@ -187,10 +196,11 @@ def load_employees():
             current_obj = Employee(line_list[0], line_list[1], line_list[2], line_list[3], line_list[4], line_list[5], line_list[6], line_list[7], float(line_list[8]), float(line_list[9]), float(line_list[10]))
             all_employees[line_list[0]] = current_obj
     print("Loaded all employees from 'employees.csv'...")
-    print("Here's the employee dictionary:")
-    print(all_employees)
 
 def find_employee_by_id(id = str):
+    """
+    Looks up the employee from the dictionary, given the id string.
+    """
     return all_employees[id]
  
 if __name__ == "__main__":
