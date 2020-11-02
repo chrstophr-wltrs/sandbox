@@ -185,6 +185,7 @@ def load_employees():
     employees dictionary, with a key based on the
     employee ID.
     """
+    print("Loading employees...")
     with open('employees.csv', 'r') as file:
         for line in file:
             line_list = line.strip().split(',')
@@ -192,7 +193,7 @@ def load_employees():
                 continue
             current_obj = Employee(line_list[0], line_list[1], line_list[2], line_list[3], line_list[4], line_list[5], line_list[6], line_list[7], float(line_list[8]), float(line_list[9]), float(line_list[10]))
             employees[line_list[0]] = current_obj
-    print("Loaded all employees from 'employees.csv'...")
+    print("Loaded all employees from 'employees.csv'")
 
 def find_employee_by_id(id = str):
     """
@@ -205,28 +206,29 @@ def process_timecards():
     Reads in the timecard file, and adds each of the hours
     to the respective employee.
     """
+    print("Loading timecards from 'timecards.csv'...")
     with open('timecards.csv', 'r') as file:
         for line in file:
             line_list = line.strip().split(',')
             emp = find_employee_by_id(line_list[0])
             clas = emp.classification
+            print(f"Adding hours for {emp.full_name}...")
             for item in line_list[1:]:
                 clas.add_timecard(float(item))
+    print("Processed timecards.")
 
 def process_receipts():
     """
     Reads in the receipts file, and adds each of the sales
     to the respective employee.
     """
+    print("Loading sales receipts from 'receipts.csv'...")
     with open('receipts.csv', 'r') as file:
         for line in file:
             line_list = line.strip().split(',')
             emp = find_employee_by_id(line_list[0])
             clas = emp.classification
+            print(f"Adding sales for {emp.full_name}...")
             for item in line_list[1:]:
                 clas.add_receipt(float(item))
-
-if __name__ == "__main__":
-    load_employees()
-    process_timecards()
-    process_receipts()
+    print("Processed sales receipts.")
