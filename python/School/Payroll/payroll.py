@@ -176,7 +176,7 @@ class Employee:
             file.write(pay_string + "\n")
     
     def __repr__(self):
-        return (f"{self.full_name}, {self.commissioned}")
+        return (f"{self.full_name}, {self.classification}")
 
 def load_employees():
     """
@@ -212,9 +212,21 @@ def process_timecards():
             clas = emp.classification
             for item in line_list[1:]:
                 clas.add_timecard(float(item))
-            print(f"Added hours for {emp.full_name}...")
-        print("Processed timecards...")
+
+def process_receipts():
+    """
+    Reads in the receipts file, and adds each of the sales
+    to the respective employee.
+    """
+    with open('receipts.csv', 'r') as file:
+        for line in file:
+            line_list = line.strip().split(',')
+            emp = find_employee_by_id(line_list[0])
+            clas = emp.classification
+            for item in line_list[1:]:
+                clas.add_receipt(float(item))
 
 if __name__ == "__main__":
     load_employees()
     process_timecards()
+    process_receipts()
