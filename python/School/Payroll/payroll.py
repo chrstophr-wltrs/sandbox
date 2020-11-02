@@ -1,3 +1,5 @@
+PAY_LOGFILE = "paylog.txt"
+
 class Classification:
     def __init__(self):
         pass
@@ -31,7 +33,7 @@ class Hourly(Classification):
         """
         unpaid_hours_worked = sum(self.timecards)
         self.timecards = []
-        pay = round((self.hourly_rate * unpaid_hours_worked), 2)
+        pay = self.hourly_rate * unpaid_hours_worked
         return pay
 
 class Salaried(Classification):
@@ -47,7 +49,7 @@ class Salaried(Classification):
         Salaried employee's are paid 1/24th
         of their salary each pay period.
         """
-        pay = round((self.salary / 24), 2)
+        pay = self.salary / 24
         return pay
 
 class Commissioned(Salaried):
@@ -92,7 +94,7 @@ class Commissioned(Salaried):
         self.receipts = []
         commission = unpaid_sales * self.commission_rate
         salary_pay = self.salary / 24
-        pay = round((salary_pay + commission), 2)
+        pay = salary_pay + commission
         return pay
 
 class Employee:
@@ -108,12 +110,15 @@ class Employee:
         self.emp_id = emp_id
         self.first_name = first_name
         self.last_name = last_name
+        self.full_name = first_name + last_name
         self.address = address
         self.city = city
+        self.state = state
         self.zipcode = zipcode
+        self.full_address = (f"{address} {city}, {state} {zipcode}").title()
         self.salary = salary
         self.commission = commission
-        self.hourly = hourly        
+        self.hourly = hourly
         if classification in [1, '1']:
             self.classification = Salaried(self.salary)
         elif classification in [2, '2']:
@@ -123,11 +128,39 @@ class Employee:
         else:
             self.classification = Classification()
     
-    def make_hourly(self, rate=float):
+    def make_hourly(self, rate = float):
         """
         Changes an employee's classification to hourly,
         and sets their hourly rate.
         """   
         self.classification = Hourly(rate)
+        print(f"{self.full_name} is now an hourly employee, making ${rate}/hr.")
     
-    def 
+    def make_salaried(self, salary = float):
+        """
+        Changes an employee's classification to salaried,
+        and sets their yearly salary.
+        """
+        self.classification = Salaried(salary)
+        print(f"{self.full_name} is now a salaried employee, making ${salary} a year.")
+
+    def make_commissioned(self, salary = float, commission = float, receipts = []):
+        """
+        Changes an employee's classification to commissioned,
+        sets their yearly salary, commission rate, and adds any
+        receipts they might have.
+        """
+        self.classification = Commissioned(salary, commission, receipts)
+        print(f"{self.full_name} is now a commissioend employee, making ${salary} a year, as well as earning {commission}% of sales.")
+    
+    def issue_payment(self):
+        """
+        Calculates and issues payment using the compute_pay() method,
+        from the employee's classification.
+        """
+        pay = round(self.classification.compute_pay(), 2)
+        pay_string = (f"Mailing {pay} to {self.full_name} at {self.full_address}...")
+        print(pay_string)
+        with open(PAY_LOGFILE, 'w') as file:
+            file.write(pay_string + "\n")
+
