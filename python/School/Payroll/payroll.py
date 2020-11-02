@@ -1,5 +1,7 @@
 PAY_LOGFILE = "paylog.txt"
 
+all_employees = {}
+
 class Classification:
     def __init__(self):
         pass
@@ -164,3 +166,21 @@ class Employee:
         with open(PAY_LOGFILE, 'w') as file:
             file.write(pay_string + "\n")
 
+def load_employees():
+    """
+    Opens 'employees.csv' and reads each line into
+    an Employee object, then stores the object in the
+    all_employees dictionary, with a key based on the
+    employee ID.
+    """
+    with open('employees.csv', 'r') as file:
+        for line in file:
+            line_list = line.strip().split(',')
+            if line_list[0] == 'id':
+                continue
+            current_obj = Employee(line_list[0], line_list[1], line_list[2], line_list[3], line_list[4], line_list[5], line_list[6], line_list[7], float(line_list[8]), float(line_list[9]), float(line_list[10]))
+            all_employees[line_list[0]] = current_obj
+    print("Loaded all employees from 'employees.csv'...")
+ 
+if __name__ == "__main__":
+    load_employees()
