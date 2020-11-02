@@ -40,4 +40,4 @@ Commissioned:
 - receipts: list of floats
 + add_receipt(rec: float, uses receipts)
 + remove_receipt(choiceIndex: int, manipulates receipts)
-+ compute_pay(uses salaray, receipts, and commission_rate)
++ compute_pay(uses salary, receipts, and commission_rate)
