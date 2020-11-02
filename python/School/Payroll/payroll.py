@@ -173,7 +173,7 @@ class Employee:
         pay = round(self.classification.compute_pay(), 2)
         pay_string = (f"Mailing {pay} to {self.full_name} at {self.full_address}...")
         print(pay_string)
-        with open(PAY_LOGFILE, 'w') as file:
+        with open(PAY_LOGFILE, 'a') as file:
             file.write(pay_string + "\n")
     
     def __repr__(self):
