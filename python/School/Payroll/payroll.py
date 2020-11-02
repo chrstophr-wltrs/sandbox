@@ -1,6 +1,6 @@
 PAY_LOGFILE = "paylog.txt"
 
-all_employees = {}
+employees = {}
 
 class Classification:
     def __init__(self):
@@ -182,7 +182,7 @@ def load_employees():
     """
     Opens 'employees.csv' and reads each line into
     an Employee object, then stores the object in the
-    all_employees dictionary, with a key based on the
+    employees dictionary, with a key based on the
     employee ID.
     """
     with open('employees.csv', 'r') as file:
@@ -191,14 +191,14 @@ def load_employees():
             if line_list[0] == 'id':
                 continue
             current_obj = Employee(line_list[0], line_list[1], line_list[2], line_list[3], line_list[4], line_list[5], line_list[6], line_list[7], float(line_list[8]), float(line_list[9]), float(line_list[10]))
-            all_employees[line_list[0]] = current_obj
+            employees[line_list[0]] = current_obj
     print("Loaded all employees from 'employees.csv'...")
 
 def find_employee_by_id(id = str):
     """
     Looks up the employee from the dictionary, given the id string.
     """
-    return all_employees[id]
+    return employees[id]
 
 def process_timecards():
     """
