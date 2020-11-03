@@ -15,6 +15,25 @@ class Classification:
         """
         pass
 
+    @staticmethod
+    def parse_clas(self, class_id, sal = 0.0, comm = 0.0, hr = 0.0):
+        """
+        Returns Hourly, Salaried, or Commissioned depending on whether class_id = 1, 2, or 3
+
+        Parameters:
+            class_id (int/str): 1 = Salaried, 2 = Commissioned, 3 = Hourly
+            sal (float/int): The employee's salary, if Salaried of Commissioned
+            comm (float/int): The employee's commission rate, if Commissioned
+            hr (float/int): The employee's hourly pay, if Hourly
+        """
+        if class_id in [1, '1']:
+            return Salaried(sal)
+        elif class_id in [2, '2']:
+            return Commissioned(sal, comm)
+        elif class_id in [3, '3']:
+            return Hourly(hr)
+        return Classification()
+
 class Hourly(Classification):
     """
     The employee is paid hourly, using timecards and an hourly rate.
@@ -150,7 +169,7 @@ class Employee:
         hourly (float)[optional]: The employee's hourly pay rate, if they're an hourly employee.
     """
 
-    def __init__(self, *, emp_id, first_name, last_name, address, city, state, zipcode, classification, salary = 0.0, commission = 0.0, hourly = 0.0):
+    def __init__(self, *, emp_id, first_name, last_name, address, city, state, zipcode, clas, salary = 0.0, commission = 0.0, hourly = 0.0):
         """
         Constructs the Employee object. Parameter labels are REQUIRED.
         Also constructs full_name and full_address
@@ -167,14 +186,7 @@ class Employee:
         self.salary = salary
         self.commission = commission
         self.hourly = hourly
-        if classification in [1, '1']:
-            self.classification = Salaried(self.salary)
-        elif classification in [2, '2']:
-            self.classification = Commissioned(self.salary, self.commission)
-        elif classification in [3, '3']:
-            self.classification = Hourly(self.hourly)
-        else:
-            self.classification = Classification()
+        self.classification = Classification.parse_clas(clas, salary, commission, hourly)
     
     def make_hourly(self, rate):
         """
@@ -232,7 +244,7 @@ def load_employees():
             line_list = line.strip().split(',')
             if line_list[0] == 'id':
                 continue
-            current_obj = Employee(emp_id = line_list[0], first_name = line_list[1], last_name = line_list[2], address = line_list[3], city = line_list[4], state = line_list[5], zipcode = line_list[6], classification = int(line_list[7]), salary = float(line_list[8]), commission = float(line_list[9]), hourly = float(line_list[10]))
+            current_obj = Employee(emp_id = line_list[0], first_name = line_list[1], last_name = line_list[2], address = line_list[3], city = line_list[4], state = line_list[5], zipcode = line_list[6], clas = int(line_list[7]), salary = float(line_list[8]), commission = float(line_list[9]), hourly = float(line_list[10]))
             employee_dict[line_list[0]] = current_obj
             employees.append(current_obj)
     print("Loaded all employees from 'employees.csv'")
