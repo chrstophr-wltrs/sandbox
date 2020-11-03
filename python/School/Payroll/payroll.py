@@ -16,7 +16,7 @@ class Classification:
         pass
 
     @staticmethod
-    def parse_clas(self, class_id, sal = 0.0, comm = 0.0, hr = 0.0):
+    def parse_clas(class_id, sal = 0.0, comm = 0.0, hr = 0.0):
         """
         Returns Hourly, Salaried, or Commissioned depending on whether class_id = 1, 2, or 3
 
