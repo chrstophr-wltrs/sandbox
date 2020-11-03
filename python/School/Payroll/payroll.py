@@ -19,11 +19,11 @@ class Hourly(Classification):
     The employee is paid hourly, using timecards and an hourly rate.
     """
     
-    def __init__(self, hourly_rate = float, timecards = []):
+    def __init__(self, hourly_rate, timecards = []):
         self.hourly_rate = hourly_rate
         self.timecards = timecards
     
-    def add_timecard(self, hours = float):
+    def add_timecard(self, hours):
         """
         Adds a day's work to the employee's timecard.
         """
@@ -47,7 +47,7 @@ class Salaried(Classification):
     The employee is paid based on salary.
     """
 
-    def __init__(self, salary = float):
+    def __init__(self, salary):
         self.salary = salary
 
     def compute_pay(self):
@@ -66,7 +66,7 @@ class Commissioned(Salaried):
     Employee is commissioned, and is therefore paid based
     both on their salary, and a commission of their sales.
     """
-    def __init__(self, salary = float, commission_rate = float, receipts = []):
+    def __init__(self, salary, commission_rate, receipts = []):
         """
         Employee has salary, commission rate, and
         receipts (list of floats), which is a record of their sales.
@@ -85,7 +85,7 @@ class Commissioned(Salaried):
         """
         self.receipts.append(sale)
     
-    def remove_receipt(self, index = int):
+    def remove_receipt(self, index):
         """
         Removes a sale from self.receipts at the
         specified index. index must always be an int.
@@ -114,7 +114,7 @@ class Employee:
     An employee, contains all the contact information, and methods
     to change classification as well as issue payment.
     """
-    def __init__(self, emp_id = str, first_name = str, last_name = str, address = str, city = str, state = str, zipcode = str, classification = int, salary = float, commission = float, hourly = float):
+    def __init__(self, emp_id, first_name, last_name, address, city, state, zipcode, classification, salary, commission, hourly):
         """
         All values should be strings, except for classification (int)
         and salary, commission, and hourly, which should be floats.
@@ -140,7 +140,7 @@ class Employee:
         else:
             self.classification = Classification()
     
-    def make_hourly(self, rate = float):
+    def make_hourly(self, rate):
         """
         Changes an employee's classification to hourly,
         and sets their hourly rate.
@@ -148,7 +148,7 @@ class Employee:
         self.classification = Hourly(rate)
         print(f"{self.full_name} is now an hourly employee, making ${rate}/hr.")
     
-    def make_salaried(self, salary = float):
+    def make_salaried(self, salary):
         """
         Changes an employee's classification to salaried,
         and sets their yearly salary.
@@ -156,7 +156,7 @@ class Employee:
         self.classification = Salaried(salary)
         print(f"{self.full_name} is now a salaried employee, making ${salary} a year.")
 
-    def make_commissioned(self, salary = float, commission = float, receipts = []):
+    def make_commissioned(self, salary, commission, receipts = []):
         """
         Changes an employee's classification to commissioned,
         sets their yearly salary, commission rate, and adds any
@@ -197,7 +197,7 @@ def load_employees():
             employees.append(current_obj)
     print("Loaded all employees from 'employees.csv'")
 
-def find_employee_by_id(id = str):
+def find_employee_by_id(id):
     """
     Looks up the employee from the dictionary, given the id string.
     """
