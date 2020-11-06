@@ -61,7 +61,7 @@ class Hourly(Classification):
         unpaid_hours_worked = sum(self.timecards)
         self.timecards = []
         pay = self.hourly_rate * unpaid_hours_worked
-        return pay
+        return round(pay, 2)
     
     def __repr__(self):
         return "Hourly"
@@ -80,7 +80,7 @@ class Salaried(Classification):
     def compute_pay(self):
         """Salaried employee's are paid 1/24th of their salary each pay period."""
         pay = self.salary / 24
-        return pay
+        return round(pay, 2)
     
     def __repr__(self):
         return "Salaried"
@@ -144,7 +144,7 @@ class Commissioned(Salaried):
         commission = unpaid_sales * self.commission_rate
         salary_pay = super().compute_pay()
         pay = salary_pay + commission
-        return pay
+        return round(pay, 2)
     
     def __repr__(self):
         return "Commissioned"
@@ -222,7 +222,7 @@ class Employee:
     
     def issue_payment(self):
         """Calculates and issues payment using the compute_pay() method, from the employee's classification object."""
-        pay = round(self.classification.compute_pay(), 2)
+        pay = self.classification.compute_pay()
         pay_string = (f"Mailing {pay} to {self.full_name} at {self.full_address}...")
         print(pay_string)
         with open(PAY_LOGFILE, 'a') as file:
