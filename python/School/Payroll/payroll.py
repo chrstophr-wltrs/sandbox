@@ -169,7 +169,7 @@ class Employee:
         hourly (float)[optional]: The employee's hourly pay rate, if they're an hourly employee.
     """
 
-    def __init__(self, *, emp_id, first_name, last_name, address, city, state, zipcode, clas, salary = 0.0, commission = 0.0, hourly = 0.0):
+    def __init__(self, emp_id, first_name, last_name, address, city, state, zipcode, clas = 1, salary = 0.0, commission = 0.0, hourly = 0.0):
         """
         Constructs the Employee object. Parameter labels are REQUIRED.
         Also constructs full_name and full_address
