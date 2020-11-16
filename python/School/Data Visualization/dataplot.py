@@ -48,7 +48,15 @@ class DataReader:
         print(f"Data imported; smoothing data...")
         for i in range(len(self.raw_data)):
             if (i > 2) and (i < (len(self.raw_data) - 3)):
-                current_data_point = (self.raw_data[i - 3] + (2 * self.raw_data[i - 2]) + (3 * self.raw_data[i - 1]) + (3 * self.raw_data[i]) + (3 * self.raw_data[i + 1]) + (2 * self.raw_data[i + 2]) + self.raw_data[i + 3]) // 15
+                current_data_point = (
+                    (self.raw_data[i - 3] + 
+                    (2 * self.raw_data[i - 2]) + 
+                    (3 * self.raw_data[i - 1]) + 
+                    (3 * self.raw_data[i]) + 
+                    (3 * self.raw_data[i + 1]) + 
+                    (2 * self.raw_data[i + 2]) + 
+                    self.raw_data[i + 3]) // 15
+                )
             else:
                 current_data_point = self.raw_data[i]
             self.smooth_data.append(current_data_point)
