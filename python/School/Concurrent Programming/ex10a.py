@@ -29,8 +29,8 @@ class FlagSnatcher:
     
     def download_flags(self, img_suffix = "-lgflag.gif"):
         """
-        Downloads the flag files from CIA website using flag_url, the flag code, and img_suffix.
-        
+        Downloads the flag files from CIA website using flag_url, the flag code, and img_suffix, and increments the 
+
         Parameters:
             img_suffix (str): the text appended after the flag code to form the full URL, leading to the flag image file (def = "-lgflag.gif")
         """
@@ -39,8 +39,8 @@ class FlagSnatcher:
         for code in self.chosen_flags:
             full_url = (f"{self.url_base}{code}{img_suffix}")
             print(f"Downloading {code.upper()} flag...")
-            downloaded_flag = subprocess.check_output(f"curl -o {code}.gif {full_url}", shell=True, stderr=open('NUL'))
-            flag_bytes = len(downloaded_flag)
+            subprocess.check_output(f"curl -o {code}.gif {full_url}", shell = True, stderr = open('NUL'))
+            flag_bytes = len(subprocess.check_output(f"curl {full_url}", shell=True, stderr=open('NUL')))
             print(f"Successfully saved {code.upper()} flag ({flag_bytes} bytes) to {code}.gif")
             loaded_bytes += flag_bytes
         print("Successfully downloaded all flags!")
