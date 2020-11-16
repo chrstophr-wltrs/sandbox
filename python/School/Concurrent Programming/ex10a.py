@@ -29,7 +29,7 @@ class FlagSnatcher:
     
     def download_flags(self, img_suffix = "-lgflag.gif"):
         """
-        Downloads the flag files from CIA website using flag_url, the flag code, and img_suffix, and increments the 
+        Downloads the flag files from CIA website using flag_url, the flag code, and img_suffix, and increments loaded_bytes for final output
 
         Parameters:
             img_suffix (str): the text appended after the flag code to form the full URL, leading to the flag image file (def = "-lgflag.gif")
