@@ -39,8 +39,12 @@ class FlagSnatcher:
         for code in self.chosen_flags:
             full_url = (f"{self.url_base}{code}{img_suffix}")
             print(f"Downloading {code.upper()} flag...")
-            subprocess.check_output(f"curl -o {code}.gif {full_url}", shell = True, stderr = open('NUL'))
-            flag_bytes = len(subprocess.check_output(f"curl {full_url}", shell=True, stderr=open('NUL')))
+            # subprocess.check_output(f"curl -o {code}.gif {full_url}", shell = True, stderr = open('NUL'))
+            # flag_bytes = len(subprocess.check_output(f"curl {full_url}", shell = True, stderr = open('NUL')))
+            flag = subprocess.check_output(f"curl {full_url}", shell = True, stderr = open('NUL'))
+            flag_bytes = len(flag)
+            with open(f"{code}.gif", 'wb') as file:
+                file.write(flag)
             print(f"Successfully saved {code.upper()} flag ({flag_bytes} bytes) to {code}.gif")
             loaded_bytes += flag_bytes
         print("Successfully downloaded all flags!")
