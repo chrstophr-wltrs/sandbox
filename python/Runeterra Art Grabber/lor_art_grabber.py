@@ -83,9 +83,6 @@ class ImageSnatcher:
             img.close()
             os.remove(path)
             print(f"{name} was a spell, and has been deleted!")
-        else:
-            # print(f"{path}: {img.width} x {img.height}")
-            pass
     
     def scrub_spells(self):
         """Deletes all downloaded spells from the subfolder."""
