@@ -70,13 +70,35 @@ class ImageSnatcher:
         print("Successfully downloaded all images!")
     
     def delete_square(self, name):
-        """Deletes an image if its height and width match."""
+        """
+        Deletes an image if its height and width match.
+        Note: This function assumes that the image is in the associated sub_folder from __init__
+        
+        Parameters:
+            name(str): the filename, including extension (ex. "image.png")
+        """
+        path = (f"{self.subfolder}{name}")
+        img = Image.open(path)
+        if img.width == img.height:
+            img.close()
+            os.remove(path)
+            print(f"{name} was a spell, and has been deleted!")
+        else:
+            # print(f"{path}: {img.width} x {img.height}")
+            pass
+    
+    def scrub_spells(self):
+        """Deletes all downloaded spells from the subfolder."""
+        print("Beginning deletion of all spells...")
+        with concurrent.futures.ThreadPoolExecutor() as executor:
+            executor.map(self.delete_square, os.listdir(self.subfolder))
+        print("All spells succesfully deleted!")
 
 
 def main():
     thingie = ImageSnatcher()
     # thingie.download_all_cards()
-    print(os.listdir("set_2"))
+    thingie.scrub_spells()
 
 if __name__ == "__main__":
     main()
