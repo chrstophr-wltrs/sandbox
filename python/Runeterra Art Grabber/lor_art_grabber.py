@@ -25,11 +25,13 @@ class ImageSnatcher:
         self.url_base = (f"{img_front}{card_set}/en_us/img/card/game/{self.card_set:02}")
         print(f"Created image snatcher!")
         self.all_codes = []
-        if os.path.isdir(f'set_{card_set}') == False:
+        self.subfolder = (f"set_{card_set}/")
+        if os.path.isdir(self.subfolder) == False:
             os.mkdir(f'set_{card_set}')
             print(f"Created sub-directory '/set_{card_set}' for image output!")
         
     def test_region(self, region = "BW"):
+        """Tests all the possible numbers in a region."""
         number = 1
         while True:
             if self.test_suffixes(f"{region}{number:03}") == 0 and number > 5:
@@ -37,6 +39,14 @@ class ImageSnatcher:
             number += 1
 
     def test_suffixes(self, code = "BW001"):
+        """
+        Tests all of the suffixes for a given number, including the plain name. 
+
+        Parameters:
+            code (str): 2-letter region + 3-digit number
+
+        Returns 0 if plain name image could not be found
+        """
         suffix = 0
         while True:
             if suffix == 0:
@@ -47,7 +57,7 @@ class ImageSnatcher:
             if my_card.ok == False:
                 print(f"Couldn't find {card_code}, moving on...")
                 return suffix
-            with open(f"set_{self.card_set}/{card_code}.png", "wb") as file:
+            with open(f"{self.subfolder}{card_code}.png", "wb") as file:
                 file.write(my_card.content)
             print(f"Found {card_code}!")
             suffix += 1
@@ -58,10 +68,15 @@ class ImageSnatcher:
         with concurrent.futures.ThreadPoolExecutor() as executor:
             executor.map(self.test_region, region_list)
         print("Successfully downloaded all images!")
+    
+    def delete_square(self, name):
+        """Deletes an image if its height and width match."""
+
 
 def main():
     thingie = ImageSnatcher()
-    thingie.download_all_cards()
+    # thingie.download_all_cards()
+    print(os.listdir("set_2"))
 
 if __name__ == "__main__":
     main()
