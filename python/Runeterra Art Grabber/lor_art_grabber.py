@@ -14,16 +14,23 @@ T2 = "T" + suffix_num
 
 Pseudocode:
 
-For each region in region_list
-    number starts at 1
-        card_code = card_set + region + number
-        check if card exists at url
-            if card does exist, append it to card list, suffix = 1
-            if card doesn't exist and number > 5, go to next region
-            card_code = card_set + region + number + "T" + suffix
-            check if card exists with suffix
-                if card w/ suffix does exist, append to card list, go to next suffix
-                if card w/ suffix doesn't exist, go to next number
+Search for BW001
+Card found
+Search for BW001T1
+Card found
+Search for BW001T2
+Card not found
+Search for BW002
+Card not found
+Search for DE001
+Card found
+Search for DE001T1
+Not found
+Search for DE002
+Not found
+Search for FR001
+Not found
+Search for IO001
 """
 
 
@@ -62,32 +69,36 @@ class ImageSnatcher:
             file.write(flag.content)
         print(f"Successfully saved {code.upper()} flag ({flag_bytes} bytes) to {code}.gif")
     
+    def test_region(self, region = "BW"):
+        number = 1
+        while True:
+            if self.test_suffixes(f"{region}{number:03}") == 0 and number > 5:
+                return
+            number += 1
+
+    def test_suffixes(self, code = "BW001"):
+        suffix = 0
+        while True:
+            if suffix == 0:
+                card_code = code
+            else:
+                card_code = (f"{code}T{suffix}")
+            my_card = rq.get(f"{self.url_base}{card_code}-full.webp")
+            if my_card.ok == False:
+                return suffix
+            with open(f"/set_{self.card_set}/{card_code}.png", "wb") as file:
+                file.write(my_card.content)
+            suffix += 1
+    
     def download_cards(self):
         """
         Finds all valid card combinations for this set
 
         Returns valid_cards list
         """
-        test_list = [True, False, True, True, True, False, False, True, True, True, False]
-        sub_list = 
-        index = -1
         for region in region_list:
-            number = 1
-            while index < (len(test_list) - 1):
-                card_code = (f"{region}{number:03}")
-                index += 1
-                if test_list[index] == True:
-                    print(f"{card_code}: True")
-                    number += 1
-                else:
-                    print(f"{card_code}: False")
-                    break
+            self.test_region(region)
                         
-
-
-            
-
-    
     def download_all_flags(self):
         """Downloads all image files from target website using image_url, and the image code"""
         print("Beginning download of all images...")
