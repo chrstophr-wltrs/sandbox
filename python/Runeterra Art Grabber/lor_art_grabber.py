@@ -57,7 +57,7 @@ class ImageSnatcher:
             if my_card.ok == False:
                 print(f"Couldn't find {card_code}, moving on...")
                 return suffix
-            with open(f"{self.subfolder}{card_code}.png", "wb") as file:
+            with open(f"{self.subfolder}{self.card_set}{card_code}.png", "wb") as file:
                 file.write(my_card.content)
             print(f"Found {card_code}!")
             suffix += 1
@@ -93,8 +93,8 @@ class ImageSnatcher:
 
 
 def main():
-    thingie = ImageSnatcher()
-    # thingie.download_all_cards()
+    thingie = ImageSnatcher(card_set = 3)
+    thingie.download_all_cards()
     thingie.scrub_spells()
 
 if __name__ == "__main__":
