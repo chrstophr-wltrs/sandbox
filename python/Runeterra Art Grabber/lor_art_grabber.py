@@ -33,15 +33,8 @@ class ImageSnatcher:
     def test_region(self, region = "BW"):
         """Tests all the possible numbers in a region."""
         number = 1
-        region_blanks = 0
-        while True:
-            if region_blanks > 6:
-                print(f"Finished cards for {region}!")
-                return
-            elif self.test_suffixes(f"{region}{number:03}") == 0:
-                region_blanks+=1
-            else:
-                region_blanks = 0
+        while number < 1000:
+            self.test_suffixes(f"{region}{number:03}")
             number += 1
 
     def test_suffixes(self, code = "BW001"):
