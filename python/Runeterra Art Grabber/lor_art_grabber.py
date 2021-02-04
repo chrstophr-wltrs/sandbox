@@ -36,6 +36,7 @@ class ImageSnatcher:
         while number < 1000:
             self.test_suffixes(f"{region}{number:03}")
             number += 1
+        return
 
     def test_suffixes(self, code = "BW001"):
         """
