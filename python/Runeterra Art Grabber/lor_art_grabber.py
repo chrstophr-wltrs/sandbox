@@ -33,7 +33,7 @@ class ImageSnatcher:
     def test_region(self, region = "BW"):
         """Tests all the possible numbers in a region."""
         number = 1
-        while number < 1000:
+        while number < 500:
             self.test_suffixes(f"{region}{number:03}")
             number += 1
         return
@@ -55,11 +55,10 @@ class ImageSnatcher:
                 card_code = (f"{code}T{suffix}")
             my_card = rq.get(f"{self.url_base}{card_code}-full.webp")
             if my_card.ok == False:
-                print(f"Couldn't find {card_code}, moving to next card code...")
                 return suffix
-            with open(f"{self.subfolder}{self.card_set}{card_code}.png", "wb") as file:
+            with open(f"{self.subfolder}{self.card_set:02}{card_code}.png", "wb") as file:
                 file.write(my_card.content)
-            print(f"Found {card_code}!")
+            print(f"Found {self.card_set:02}{card_code}!")
             suffix += 1
                         
     def download_all_cards(self):
@@ -96,6 +95,12 @@ def main():
     thingie = ImageSnatcher(card_set = 1)
     thingie.download_all_cards()
     thingie.scrub_spells()
+    thingie2 = ImageSnatcher(card_set = 2)
+    thingie2.download_all_cards()
+    thingie2.scrub_spells()
+    thingie3 = ImageSnatcher(card_set = 3)
+    thingie3.download_all_cards()
+    thingie3.scrub_spells()
 
 if __name__ == "__main__":
     main()
