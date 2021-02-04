@@ -7,7 +7,7 @@ import time
 """
 Example URL = https://cdn-lor.mobalytics.gg/production/images/set2/en_us/img/card/game/02BW022T2-full.webp
 """
-
+# https://cdn-lor.mobalytics.gg/production/images/set3/en_us/img/card/game/03MT217-full.webp
 
 region_list = ['BW', 'DE', 'FR', 'IO', 'MT', 'NX', 'PZ', 'SI']
 
@@ -20,7 +20,7 @@ class ImageSnatcher:
      """
 
     def __init__(self, img_front  = 'https://cdn-lor.mobalytics.gg/production/images/set', card_set = 2):
-        """Reads in the file of flag codes, and chooses 10 random codes for download purposes."""
+        """Establishes the card set, URL, and the subfolder where the images will be saved."""
         self.card_set = card_set
         self.url_base = (f"{img_front}{card_set}/en_us/img/card/game/{self.card_set:02}")
         print(f"Created image snatcher!")
@@ -33,9 +33,15 @@ class ImageSnatcher:
     def test_region(self, region = "BW"):
         """Tests all the possible numbers in a region."""
         number = 1
+        region_blanks = 0
         while True:
-            if self.test_suffixes(f"{region}{number:03}") == 0 and number > 5:
+            if region_blanks > 6:
+                print(f"Finished cards for {region}!")
                 return
+            elif self.test_suffixes(f"{region}{number:03}") == 0:
+                region_blanks+=1
+            else:
+                region_blanks = 0
             number += 1
 
     def test_suffixes(self, code = "BW001"):
@@ -55,7 +61,7 @@ class ImageSnatcher:
                 card_code = (f"{code}T{suffix}")
             my_card = rq.get(f"{self.url_base}{card_code}-full.webp")
             if my_card.ok == False:
-                print(f"Couldn't find {card_code}, moving on...")
+                print(f"Couldn't find {card_code}, moving to next card code...")
                 return suffix
             with open(f"{self.subfolder}{self.card_set}{card_code}.png", "wb") as file:
                 file.write(my_card.content)
@@ -93,7 +99,7 @@ class ImageSnatcher:
 
 
 def main():
-    thingie = ImageSnatcher(card_set = 3)
+    thingie = ImageSnatcher(card_set = 1)
     thingie.download_all_cards()
     thingie.scrub_spells()
 
