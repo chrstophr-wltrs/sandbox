@@ -72,7 +72,7 @@ def time_test(lyst: list, search_func: Callable):
         search_func (function): the function that is being tested
     """
     minimum = ["Minimum", lyst[0]]
-    medium = ["Median", lyst[len(list) // 2]]
+    medium = ["Median", lyst[len(lyst) // 2]]
     maximum = ["Maximum", lyst[-1]]
     missing = ["Missing", -1]
     parameters_list = [minimum, medium, maximum, missing]
