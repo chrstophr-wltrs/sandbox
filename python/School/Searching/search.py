@@ -60,7 +60,7 @@ def jump_search(lyst: list, target: int):
         elif lyst[search_point] < target:
             search_point += jump
         else:
-            return linear_search(lyst[search_point - jump:search_point], target)
+            break
     return linear_search(lyst[search_point - jump:], target)
 
 def time_test(lyst: list, search_func: Callable):
@@ -72,7 +72,7 @@ def time_test(lyst: list, search_func: Callable):
         search_func (function): the function that is being tested
     """
     minimum = ["Minimum", lyst[0]]
-    medium = ["Median", lyst[500000]]
+    medium = ["Median", lyst[len(list) // 2]]
     maximum = ["Maximum", lyst[-1]]
     missing = ["Missing", -1]
     parameters_list = [minimum, medium, maximum, missing]
@@ -88,15 +88,17 @@ def time_test(lyst: list, search_func: Callable):
 def main():
     """Main function, does the tests, prints out how well each sort does."""
     print("Generating list for search testing...")
-    search_list = sample(range(1000000000), 100000000)
+    gen_start = perf_counter()
+    search_list = sample(range(100000000), 50000000)
+    print(f"List generated in {perf_counter() - gen_start:.2f} seconds, n = {len(search_list):,}")
     print("Sorting the search list...")
+    sort_start = perf_counter()
     search_list.sort()
-    print("List is sorted! n = 100,000,000")
+    print(f"Sorted list in {perf_counter() - sort_start:.2f} seconds!")
     print("Beginning testing of search functions...")
     time_test(search_list, linear_search)
     time_test(search_list, binary_search)
-    time_test(search_list, jump_search)
-
+    time_test(search_list, jump_search) 
 
 if __name__ == "__main__":
     main()
