@@ -1,16 +1,16 @@
-def selection_sort():
+def selection_sort(lyst: list):
     pass
 
-def insertion_sort():
+def insertion_sort(lyst: list):
     pass
 
-def mergesort():
+def mergesort(lyst: list):
     pass
 
-def quicksort():
+def quicksort(lyst: list):
     pass
 
-def is_sorted():
+def is_sorted(lyst: list):
     pass
 
 def main():
