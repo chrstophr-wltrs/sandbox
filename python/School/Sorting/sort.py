@@ -73,10 +73,38 @@ def is_sorted(lyst: list):
 
 def main():
     """Main function, does the tests, prints out how well each sort does."""
-    print("Generating list for search testing...")
+    
+    def time_test(lyst: tuple, sort_func: Callable):
+        """
+        Helper function for main, tests the sort speed of a function
+        
+        Parameters
+            lyst (tuple): a large list of elements, unsorted
+            sort_func (function): the function that is being tested
+        """
+        test_list = list(lyst)
+        print(f"Beginning test for {sort_func.__name__} function...")
+        start_time = perf_counter()
+        sorted_list = sort_func(test_list)
+        stop_time = perf_counter()
+        if is_sorted(sorted_list) == True:
+            sort_result = "sorted"
+        else:
+            sort_result = "not sorted"
+        print(f"Time for {sort_func.__name__} to sort: {stop_time - start_time:.7f} seconds ({sort_result}!)")
+        return sorted_list
+    
+    # Generate list of random integers for sort testing
+    print("Generating list for sort testing...")
     gen_start = perf_counter()
-    messy_list = sample(range(100000), 50000)
-    print(f"List generated in {perf_counter() - gen_start:.2f} seconds, n = {len(messy_list):,}")
+    messy_tuple = tuple(sample(range(100000), 50000))
+    print(f"List generated in {perf_counter() - gen_start:.2f} seconds, n = {len(messy_tuple):,}")
+    
+    sort_methods = (quicksort)
+    
+    # Test each of the sort algorithms
+    for func in sort_methods:
+        time_test(func, messy_tuple)
 
 if __name__ == "__main__":
     main()
