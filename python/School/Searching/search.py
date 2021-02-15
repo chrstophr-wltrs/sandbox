@@ -68,7 +68,7 @@ def time_test(lyst: list, search_func: Callable):
     Performs the timing tests for the search function in question
     
     Parameters
-        lyst (list): a list of large elements, from which will be extracted the test conditions
+        lyst (list): a large list of elements, from which will be extracted the test conditions
         search_func (function): the function that is being tested
     """
     minimum = ["Minimum", lyst[0]]
