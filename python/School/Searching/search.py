@@ -86,7 +86,7 @@ def time_test(lyst: list, search_func: Callable):
 
 
 def main():
-    """Main function, does the tests, prints out how well each sort does."""
+    """Main function, does the tests, prints out how well each search does."""
     print("Generating list for search testing...")
     gen_start = perf_counter()
     search_list = sample(range(100000000), 50000000)
