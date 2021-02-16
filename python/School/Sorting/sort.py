@@ -32,7 +32,7 @@ def insertion_sort(lyst: list[int]):
     Sorts the list using insertion sort
 
     Parameters:
-        lyst (list): a list of sorted integers
+        lyst (list): a list of unsorted integers
 
     returns the sorted list
     """
@@ -45,7 +45,59 @@ def insertion_sort(lyst: list[int]):
     return lyst
 
 def mergesort(lyst: list[int]):
-    pass
+    """
+    Sorts the list using merge sort
+
+    Parameters:
+        lyst (list): a list of unsorted integers
+    
+    returns the sorted list
+    """
+    def merge(a: list[int], b: list[int]):
+        """
+        Helper function for mergesort
+        
+        Parameters:
+            a (list): a list of integers
+            b (list): a list of integers
+
+        returns c, a sorted list of integers
+        """
+        c = []
+        
+        # Repeat until one or both of the parent lists are empty
+        while (len(a) > 0) and (len(b) > 0):
+            if a[0] > b[0]:
+                c.append(b[0])
+                b.pop(0)
+            else:
+                c.append(a[0])
+                a.pop(0)
+        
+        # Check a for any extra elements
+        while len(a) > 0:
+            c.append(a[0])
+            a.pop(0)
+        
+        # Check b for any extra elements
+        while len(b) > 0: 
+            c.append(b[0])
+            b.pop(0)
+        
+        return c
+
+    if len(lyst) == 1:
+        return lyst
+    
+    midpoint = len(lyst) // 2
+
+    first_half = lyst[0:midpoint]
+    second_half = lyst[midpoint:]
+
+    first_half = mergesort(first_half)
+    second_half = mergesort(second_half)
+
+    return merge(first_half, second_half)
 
 def quicksort(lyst: list[int], left: int = 0, right: int = None):
     """
@@ -126,19 +178,24 @@ def main():
         print(f"Time for {sort_func.__name__} to sort: {stop_time - start_time:.4f} seconds ({sort_result}!)")
         return sorted_list
     
-    # Generate list of random integers for sort testing
-    print("Generating list for sort testing...")
-    gen_start = perf_counter()
-    messy_tuple = tuple(sample(range(50000), 25000))
-    print(f"List generated in {perf_counter() - gen_start:.2f} seconds, n = {len(messy_tuple):,}")
+    def test_allgorithms():
+        """Helper function for main, times all of the sort functions"""
+        n = 15000
+        # Generate list of random integers for sort testing
+        print("Generating list for sort testing...")
+        gen_start = perf_counter()
+        messy_tuple = tuple(sample(range(n * 2), n))
+        print(f"List generated in {perf_counter() - gen_start:.2f} seconds, n = {n:,}")
 
-    sort_methods = (quicksort, selection_sort, insertion_sort, sorted)
+        sort_methods = (quicksort, selection_sort, insertion_sort, mergesort, sorted)
+
+        # Test each of the sort algorithms
+        for func in sort_methods:
+            time_test(messy_tuple, func)
     
-    mini_list = [3, 7, -5, 4, 18, -9, 13]
-
-    # Test each of the sort algorithms
-    for func in sort_methods:
-        time_test(messy_tuple, func)
+    test_allgorithms()
+    
+        
 
 if __name__ == "__main__":
     main()
