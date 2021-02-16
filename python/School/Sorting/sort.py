@@ -27,10 +27,24 @@ def selection_sort(lyst: list[int], left: int = -1):
     return(lyst)
 
 
-def insertion_sort(lyst: list):
-    pass
+def insertion_sort(lyst: list[int]):
+    """
+    Sorts the list using insertion sort
 
-def mergesort(lyst: list):
+    Parameters:
+        lyst (list): a list of sorted integers
+
+    returns the sorted list
+    """
+    for i in range(1, len(lyst)):
+        index = i
+        while (index > 0) and lyst[index - 1] > lyst[index]:
+            lyst[index - 1], lyst[index] = lyst[index], lyst[index - 1]
+            index -= 1
+    
+    return lyst
+
+def mergesort(lyst: list[int]):
     pass
 
 def quicksort(lyst: list[int], left: int = 0, right: int = None):
@@ -47,7 +61,7 @@ def quicksort(lyst: list[int], left: int = 0, right: int = None):
     returns the sorted list 
     """
     
-    def quick_minisort(arr: list, l: int, r: int):
+    def quick_minisort(arr: list[int], l: int, r: int):
         """
         Helper function for quicksort(), does the actual movement of values
 
@@ -82,7 +96,7 @@ def quicksort(lyst: list[int], left: int = 0, right: int = None):
     
     return lyst
 
-def is_sorted(lyst: list):
+def is_sorted(lyst: list[int]):
     """returns True if the list is sorted, returns False if list is not sorted."""
     for i in range(1, len(lyst)):
         if lyst[i - 1] > lyst[i]:
@@ -92,7 +106,7 @@ def is_sorted(lyst: list):
 def main():
     """Main function, does the tests, prints out how well each sort does."""
     
-    def time_test(test_tup: tuple, sort_func: Callable):
+    def time_test(test_tup: tuple[int], sort_func: Callable):
         """
         Helper function for main, tests the sort speed of a function
         
@@ -118,7 +132,7 @@ def main():
     messy_tuple = tuple(sample(range(50000), 25000))
     print(f"List generated in {perf_counter() - gen_start:.2f} seconds, n = {len(messy_tuple):,}")
 
-    sort_methods = (quicksort, selection_sort)
+    sort_methods = (quicksort, selection_sort, insertion_sort, sorted)
     
     mini_list = [3, 7, -5, 4, 18, -9, 13]
 
