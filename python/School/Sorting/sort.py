@@ -175,7 +175,7 @@ def main():
             sort_result = "sorted"
         else:
             sort_result = "not sorted"
-        print(f"Time for {sort_func.__name__} to sort: {stop_time - start_time:.4f} seconds ({sort_result}!)")
+        print(f"Completion time for {sort_func.__name__}: {stop_time - start_time:.4f} seconds")
         return sorted_list
     
     def test_allgorithms():
@@ -187,7 +187,7 @@ def main():
         messy_tuple = tuple(sample(range(n * 2), n))
         print(f"List generated in {perf_counter() - gen_start:.2f} seconds, n = {n:,}")
 
-        sort_methods = (quicksort, selection_sort, insertion_sort, mergesort, sorted)
+        sort_methods = (insertion_sort, selection_sort, mergesort, quicksort, sorted)
 
         # Test each of the sort algorithms
         for func in sort_methods:
@@ -195,7 +195,5 @@ def main():
     
     test_allgorithms()
     
-        
-
 if __name__ == "__main__":
     main()
