@@ -14,11 +14,7 @@ def selection_sort(lyst: list[int], left: int = -1):
         lyst (list): a list of integers
         left (int): the leftmost index of the boundary of the portion of the list that's being sorted (default = -1)
     """
-    while True: 
-        # We've sorted the entire list, time to break the loop
-        if left == len(lyst) - 1:
-            break
-        
+    while left < len(lyst) - 1: 
         # Increment to the next left boundary
         left += 1
         
