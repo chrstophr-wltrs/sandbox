@@ -13,19 +13,39 @@ class Courselist:
         pass
 
     def insert(self, course_to_insert: Course = None):
-        """insert the specified course_to_insert in Course Number ascending order"""
+        """
+        insert the specified Course in Course number ascending order
+        
+        Parameters:
+            course_to_insert(Course): the Course object you want to insert into the linked list
+        """
         pass
 
     def remove(self, number: int): 
-        """remove the first occurrence of the specified Course"""
+        """
+        remove the first occurrence of the specified Course
+        
+        Parameters:
+            number(int): the course number for the Course you want to remove
+        """
         pass
 
     def remove_all(self, number: int):
-        """removes ALL occurrences of the specified Course"""
+        """
+        removes ALL occurrences of the specified Course
+        
+        Parameters:
+            number(int): the course number for the Course you want to remove
+        """
         pass
 
     def find(self, number: int):
-        """find the first occurrance of the specified course in the list or return -1"""
+        """
+        find the first occurrance of the specified course in the list or return -1
+        
+        Parameters:
+            number(int): the course number for the Course you want to find
+        """
         pass
 
     def size(self):
