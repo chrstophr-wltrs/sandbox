@@ -1,4 +1,5 @@
-
+from course import Course
+from courselist import Courselist
 
 def main():
     pass
