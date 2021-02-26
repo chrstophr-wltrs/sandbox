@@ -74,7 +74,13 @@ class Courselist:
         Parameters:
             number(int): the course number for the Course you want to remove
         """
-        pass
+        crnt = self.head
+        while crnt.next != None:
+            if crnt.number == number:
+                return crnt
+            else:
+                crnt = crnt.next
+        return -1
 
     def size(self):
         """return the number of items in the list"""
