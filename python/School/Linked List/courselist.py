@@ -44,7 +44,7 @@ class Courselist:
         find the first occurrance of the specified course in the list or return -1
         
         Parameters:
-            number(int): the course number for the Course you want to find
+            number(int): the course number for the Course you want to remove
         """
         pass
 
