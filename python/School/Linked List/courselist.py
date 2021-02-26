@@ -47,7 +47,11 @@ class Courselist:
 
     def __str__(self):
         """returns a string with each Course’s data on a separate line"""
-        pass
+        list_str = f"Current List: ({self.size()})"
+        current = self.head.next
+        while current.next != None:
+            list_str += f"\n{current.__str__}"
+        return list_str
 
     def __iter__(self):
         pass
