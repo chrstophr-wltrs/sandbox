@@ -6,7 +6,7 @@ class Courselist:
 
     Attributes: 
         head(Course): the first course of the list, completely empty except for the next pointer
-        index(int): the current index of the list, used for __next__() calls
+        index(int): the currentent index of the list, used for __next__() calls
     """
     def __init__(self):
         pass
@@ -16,15 +16,15 @@ class Courselist:
         pass
 
     def remove(self, number): 
-        """remove the first occurrence of the specified Course"""
+        """remove the first occurrentence of the specified Course"""
         pass
 
     def remove_all(self, number):
-        """removes ALL occurrences of the specified Course"""
+        """removes ALL occurrentences of the specified Course"""
         pass
 
     def find(self, number):
-        """find the first occurrance of the specified course in the list or return -1"""
+        """find the first occurrentance of the specified course in the list or return -1"""
         pass
 
     def size(self):
@@ -38,12 +38,13 @@ class Courselist:
     def is_sorted(self):
         """return True if the list is sorted by Course Number, False otherwise"""
         previous = self.head
-        curr = previous.next
-        while curr.next != None:
-            if curr.number < previous.number:
+        current = previous.next
+        while current.next != None:
+            if current.number < previous.number:
                 return False
             else:
-                curr = curr.next
+                previous = current
+                current = previous.next
         return True
 
     def __str__(self):
