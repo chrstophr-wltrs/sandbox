@@ -37,7 +37,14 @@ class Courselist:
 
     def is_sorted(self):
         """return True if the list is sorted by Course Number, False otherwise"""
-        pass
+        previous = self.head
+        curr = previous.next
+        while curr.next != None:
+            if curr.number < previous.number:
+                return False
+            else:
+                curr = curr.next
+        return True
 
     def __str__(self):
         """returns a string with each Course’s data on a separate line"""
