@@ -6,9 +6,11 @@ class Courselist:
 
     Attributes: 
         head(Course): the first course of the list, completely empty except for the next pointer
-        index(int): the currentent index of the list, used for __next__() calls
+        current(Course): the currentent index of the list, used for __next__() calls
     """
     def __init__(self):
+        self.head = Course()
+        self.current = self.head
         pass
 
     def insert(self, Course):
@@ -37,20 +39,20 @@ class Courselist:
 
     def is_sorted(self):
         """return True if the list is sorted by Course Number, False otherwise"""
-        current = self.head.next
-        while current.next != None:
-            if current.number < current.prev.number:
+        curr = self.head.next
+        while curr.next != None:
+            if curr.number < curr.prev.number:
                 return False
             else:
-                current = current.next
+                curr = curr.next
         return True
 
     def __str__(self):
         """returns a string with each Course’s data on a separate line"""
         list_str = f"Current List: ({self.size()})"
-        current = self.head.next
-        while current.next != None:
-            list_str += f"\n{current.__str__}"
+        curr = self.head.next
+        while curr.next != None:
+            list_str += f"\n{curr.__str__()}"
         return list_str
 
     def __iter__(self):
