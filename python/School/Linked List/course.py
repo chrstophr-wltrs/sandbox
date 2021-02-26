@@ -9,6 +9,8 @@ class Course:
         name(str): the course name, ex: "Web Programming"
         credit_hr(float): the credit hours the course contributes to a degree or certification
         grade(float): the grade the student has received in the course
+        next(Course): the next course in the linked list
+        prev(Course): the previous course in the linked list
     """
 
     def __init__(self, number:int = 0, name:str = "", credit_hr:float = 1, grade:float = 0.0):
@@ -17,6 +19,7 @@ class Course:
         self.credit_hr = credit_hr
         self.grade = grade
         self.next = None
+        self.prev = None
 
     def number(self):
         """retrieve Course Number as an integer"""
