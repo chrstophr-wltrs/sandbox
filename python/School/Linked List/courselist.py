@@ -4,13 +4,14 @@ class Courselist:
     """
     Linked list representing all of the courses for 1 student at a university
 
+    NOTE: All uses of 'crnt' represent the current node being iterated upon.
+
     Attributes: 
         head(Course): the first course of the list, completely empty except for the next pointer
         n(Course): the current index of the list, used for __next__() calls
     """
     def __init__(self):
         self.head = Course()
-        pass
 
     def insert(self, course_to_insert: Course = None):
         """
@@ -19,7 +20,20 @@ class Courselist:
         Parameters:
             course_to_insert(Course): the Course object you want to insert into the linked list
         """
-        pass
+        crnt = self.head
+        course_no = course_to_insert.number
+        while crnt.next != None:
+            if (course_no >= crnt.number) and (course_no < crnt.next.number):
+                course_to_insert.next = crnt.next
+                course_to_insert.prev = crnt
+                crnt.next = course_to_insert
+                crnt.next.prev = course_to_insert
+                return course_to_insert
+            else:
+                crnt = crnt.next
+        crnt.next = course_to_insert
+        course_to_insert.prev = crnt
+        return course_to_insert
 
     def remove(self, number: int): 
         """
@@ -50,11 +64,11 @@ class Courselist:
 
     def size(self):
         """return the number of items in the list"""
-        curr = self.head
+        crnt = self.head
         size = 0
-        while curr.next != None:
+        while crnt.next != None:
             size += 1
-            curr = curr.next
+            crnt = crnt.next
         return size
 
     def calculate_gpa(self):
@@ -63,20 +77,20 @@ class Courselist:
 
     def is_sorted(self):
         """return True if the list is sorted by Course Number, False otherwise"""
-        curr = self.head.next
-        while curr.next != None:
-            if curr.number < curr.prev.number:
+        crnt = self.head.next
+        while crnt.next != None:
+            if crnt.number < crnt.prev.number:
                 return False
             else:
-                curr = curr.next
+                crnt = crnt.next
         return True
 
     def __str__(self):
         """returns a string with each Course’s data on a separate line"""
         list_str = f"Current List: ({self.size()})"
-        curr = self.head.next
-        while curr.next != None:
-            list_str += f"\n{curr.__str__()}"
+        crnt = self.head.next
+        while crnt.next != None:
+            list_str += f"\n{crnt.__str__()}"
         return list_str
 
     def __iter__(self):
