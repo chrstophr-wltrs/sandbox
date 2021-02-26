@@ -1,5 +1,7 @@
-class Courselist:
+from course import Course
 
+class Courselist:
+    
     def __init__(self):
         pass
 
@@ -21,4 +23,22 @@ class Courselist:
 
     def size(self):
         """return the number of items in the list"""
+        pass
+
+    def calculate_gpa(self):
+        """return the GPA using all courses in the list"""
+        pass
+
+    def is_sorted(self):
+        """return True if the list is sorted by Course Number, False otherwise"""
+        pass
+
+    def __str__(self):
+        """returns a string with each Course’s data on a separate line"""
+        pass
+
+    def __iter__(self):
+        pass
+
+    def __next__(self):
         pass
