@@ -6,27 +6,26 @@ class Courselist:
 
     Attributes: 
         head(Course): the first course of the list, completely empty except for the next pointer
-        current(Course): the currentent index of the list, used for __next__() calls
+        n(Course): the current index of the list, used for __next__() calls
     """
     def __init__(self):
         self.head = Course()
-        self.current = self.head
         pass
 
-    def insert(self, Course):
-        """insert the specified Course in Course Number ascending order"""
+    def insert(self, course_to_insert: Course = None):
+        """insert the specified course_to_insert in Course Number ascending order"""
         pass
 
-    def remove(self, number): 
-        """remove the first occurrentence of the specified Course"""
+    def remove(self, number: int): 
+        """remove the first occurrence of the specified Course"""
         pass
 
-    def remove_all(self, number):
-        """removes ALL occurrentences of the specified Course"""
+    def remove_all(self, number: int):
+        """removes ALL occurrences of the specified Course"""
         pass
 
-    def find(self, number):
-        """find the first occurrentance of the specified course in the list or return -1"""
+    def find(self, number: int):
+        """find the first occurrance of the specified course in the list or return -1"""
         pass
 
     def size(self):
@@ -61,7 +60,12 @@ class Courselist:
         return list_str
 
     def __iter__(self):
-        pass
+        self.n = self.head
+        return self
 
     def __next__(self):
-        pass
+        if self.n.next == None:
+            raise StopIteration
+        else:
+            self.n = self.n.next
+            return self.n.prev
