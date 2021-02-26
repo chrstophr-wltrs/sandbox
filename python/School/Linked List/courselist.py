@@ -1,7 +1,13 @@
 from course import Course
 
 class Courselist:
-    
+    """
+    Linked list representing all of the courses for 1 student at a university
+
+    Attributes: 
+        head(Course): the first course of the list, completely empty except for the next pointer
+        index(int): the current index of the list, used for __next__() calls
+    """
     def __init__(self):
         pass
 
