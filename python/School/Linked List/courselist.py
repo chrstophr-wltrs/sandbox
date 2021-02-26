@@ -42,7 +42,15 @@ class Courselist:
         Parameters:
             number(int): the course number for the Course you want to remove
         """
-        pass
+        crnt = self.head
+        while crnt.next != None:
+            if crnt.number == number:
+                crnt.next.prev = crnt.prev
+                crnt.prev.next = crnt.next
+                return
+            else:
+                crnt = crnt.next
+        return -1
 
     def remove_all(self, number: int):
         """
