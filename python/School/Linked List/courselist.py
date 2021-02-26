@@ -31,7 +31,12 @@ class Courselist:
 
     def size(self):
         """return the number of items in the list"""
-        pass
+        curr = self.head
+        size = 0
+        while curr.next != None:
+            size += 1
+            curr = curr.next
+        return size
 
     def calculate_gpa(self):
         """return the GPA using all courses in the list"""
