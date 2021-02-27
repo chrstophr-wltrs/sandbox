@@ -28,12 +28,12 @@ class Courselist:
                 course_to_insert.prev = crnt
                 crnt.next = course_to_insert
                 crnt.next.prev = course_to_insert
-                return course_to_insert
+                return self
             else:
                 crnt = crnt.next
         crnt.next = course_to_insert
         course_to_insert.prev = crnt
-        return course_to_insert
+        return self
 
     def remove(self, number: int): 
         """
@@ -93,7 +93,12 @@ class Courselist:
 
     def calculate_gpa(self):
         """return the GPA using all courses in the list"""
-        pass
+        sum = 0
+        crnt = self.head
+        while crnt.next != None:
+            sum += crnt.grade
+            crnt = crnt.next
+        return sum / self.size()
 
     def is_sorted(self):
         """return True if the list is sorted by Course Number, False otherwise"""
