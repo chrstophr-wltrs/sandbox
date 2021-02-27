@@ -85,6 +85,8 @@ class CourseList:
 
     def size(self):
         """return the number of items in the list"""
+        if self.head == None:
+            return 0
         crnt = self.head
         size = 0
         while crnt.next != None:
