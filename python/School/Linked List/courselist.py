@@ -128,7 +128,7 @@ class CourseList:
         while crnt is not None:
             list_str += f"\n{crnt.__str__()}"
             crnt = crnt.next
-        list_str += f"Cumulative GPA: {self.calculate_gpa():.3f}"
+        list_str += f"\nCumulative GPA: {self.calculate_gpa():.3f}"
         return list_str
 
     def __iter__(self):
