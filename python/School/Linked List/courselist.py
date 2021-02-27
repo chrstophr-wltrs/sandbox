@@ -113,7 +113,7 @@ class CourseList:
         """returns a string with each Course’s data on a separate line"""
         list_str = f"Current List: ({self.size()})"
         crnt = self.head.next
-        while crnt.next != None:
+        while crnt != None:
             list_str += f"\n{crnt.__str__()}"
             crnt = crnt.next
         return list_str
