@@ -19,6 +19,8 @@ class CourseList:
         Parameters:
             course_to_insert(Course): the Course object you want to insert into the linked list
         """
+        if self.head == None:
+            self.head = Course()
         crnt = self.head
         course_no = course_to_insert.number()
         while crnt.next != None:
