@@ -22,11 +22,11 @@ class CourseList:
         Parameters:
             course_to_insert(Course): the Course object you want to insert into the linked list
         """
-        if self.head == None:
+        if self.head is None:
             self.head = Course()
         crnt = self.head
         course_no = course_to_insert.number()
-        while crnt.next != None:
+        while crnt.next is not None:
             if (course_no >= crnt.number()) and (course_no < crnt.next.number()):
                 course_to_insert.next = crnt.next
                 course_to_insert.prev = crnt
@@ -46,7 +46,7 @@ class CourseList:
             number(int): the course number for the Course you want to remove
         """
         crnt = self.head
-        while crnt.next != None:
+        while crnt.next is not None:
             if crnt.number() == number:
                 old_next = crnt.next
                 old_prev = crnt.prev
@@ -64,7 +64,7 @@ class CourseList:
             number(int): the course number for the Course you want to remove
         """
         crnt = self.head
-        while crnt.next != None:
+        while crnt.next is not None:
             if crnt.number() == number:
                 crnt.next.prev = crnt.prev
                 crnt.prev.next = crnt.next
@@ -79,7 +79,7 @@ class CourseList:
             number(int): the course number for the Course you want to remove
         """
         crnt = self.head
-        while crnt.next != None:
+        while crnt.next is not None:
             if crnt.number() == number:
                 return crnt
             crnt = crnt.next
@@ -87,23 +87,23 @@ class CourseList:
 
     def size(self):
         """return the number of items in the list"""
-        if self.head == None:
+        if self.head is None:
             return 0
         crnt = self.head
         size = 0
-        while crnt.next != None:
+        while crnt.next is not None:
             size += 1
             crnt = crnt.next
         return size
 
     def calculate_gpa(self):
         """return the GPA using all courses in the list"""
-        if self.head == None:
+        if self.head is None:
             return 0.0
         total_points = 0
         hrs = 0
         crnt = self.head
-        while crnt != None:
+        while crnt is not None:
             points = crnt.credit_hr() * crnt.grade()
             total_points += points
             hrs += crnt.credit_hr()
@@ -112,10 +112,10 @@ class CourseList:
 
     def is_sorted(self):
         """return True if the list is sorted by Course Number, False otherwise"""
-        if self.head == None:
+        if self.head is None:
             return True
         crnt = self.head.next
-        while crnt.next != None:
+        while crnt.next is not None:
             if crnt.number() < crnt.prev.number():
                 return False
             crnt = crnt.next
@@ -125,7 +125,7 @@ class CourseList:
         """returns a string with each Course’s data on a separate line"""
         list_str = f"Current List: ({self.size()})"
         crnt = self.head.next
-        while crnt != None:
+        while crnt is not None:
             list_str += f"\n{crnt.__str__()}"
             crnt = crnt.next
         return list_str
@@ -135,7 +135,7 @@ class CourseList:
         return self
 
     def __next__(self):
-        if self.n.next == None:
+        if self.n.next is None:
             raise StopIteration
         self.n = self.n.next
         return self.n.prev
