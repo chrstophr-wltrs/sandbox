@@ -8,7 +8,6 @@ class Courselist:
 
     Attributes: 
         head(Course): the first course of the list, completely empty except for the next pointer
-        n(Course): the current index of the list, used for __next__() calls
     """
     def __init__(self):
         self.head = Course()
