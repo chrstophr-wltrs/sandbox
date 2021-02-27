@@ -62,4 +62,4 @@ class Course:
 
     def __str__(self):
         """returns a string representing a single Course"""
-        return f"cs{self.number()} {self.name()} Grade:{self.grade():.1f} Credit Hours: {self.credit_hr():.1f}\n"
+        return f"cs{self.number()} {self.name()} Grade:{self.grade():.1f} Credit Hours: {self.credit_hr():.1f}"
