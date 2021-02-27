@@ -46,8 +46,10 @@ class CourseList:
         crnt = self.head
         while crnt.next != None:
             if crnt.number() == number:
-                crnt.next.prev = crnt.prev
-                crnt.prev.next = crnt.next
+                old_next = crnt.next
+                old_prev = crnt.prev
+                old_prev.next = old_next
+                old_next.prev = old_prev
                 break
             else:
                 crnt = crnt.next
