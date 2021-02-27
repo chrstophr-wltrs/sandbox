@@ -115,6 +115,7 @@ class CourseList:
         crnt = self.head.next
         while crnt.next != None:
             list_str += f"\n{crnt.__str__()}"
+            crnt = crnt.next
         return list_str
 
     def __iter__(self):
