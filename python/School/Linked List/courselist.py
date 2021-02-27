@@ -20,9 +20,9 @@ class CourseList:
             course_to_insert(Course): the Course object you want to insert into the linked list
         """
         crnt = self.head
-        course_no = course_to_insert.number
+        course_no = course_to_insert.number()
         while crnt.next != None:
-            if (course_no >= crnt.number) and (course_no < crnt.next.number):
+            if (course_no >= crnt.number()) and (course_no < crnt.next.number()):
                 course_to_insert.next = crnt.next
                 course_to_insert.prev = crnt
                 crnt.next = course_to_insert
@@ -43,7 +43,7 @@ class CourseList:
         """
         crnt = self.head
         while crnt.next != None:
-            if crnt.number == number:
+            if crnt.number() == number:
                 crnt.next.prev = crnt.prev
                 crnt.prev.next = crnt.next
                 break
@@ -60,7 +60,7 @@ class CourseList:
         """
         crnt = self.head
         while crnt.next != None:
-            if crnt.number == number:
+            if crnt.number() == number:
                 crnt.next.prev = crnt.prev
                 crnt.prev.next = crnt.next
             crnt = crnt.next
@@ -75,7 +75,7 @@ class CourseList:
         """
         crnt = self.head
         while crnt.next != None:
-            if crnt.number == number:
+            if crnt.number() == number:
                 return crnt
             else:
                 crnt = crnt.next
@@ -95,7 +95,7 @@ class CourseList:
         sum = 0
         crnt = self.head
         while crnt.next != None:
-            sum += crnt.grade
+            sum += crnt.grade()
             crnt = crnt.next
         return sum / self.size()
 
