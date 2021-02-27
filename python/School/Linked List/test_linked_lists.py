@@ -123,6 +123,8 @@ def test_code_quality():
     (pylint_stdout, pylint_stderr) = lint.py_run('course.py', return_std=True)
     expected = 8.5
     actual = pylint_stdout.getvalue()
+    # x = re.findall('[0-9]+', actual)[0]
+    # x = float(x)    
     x = re.findall('at [0-9].[0-9]+', actual)[0]
     x = float(x.split()[-1])
     assert x >= expected
@@ -130,6 +132,8 @@ def test_code_quality():
     (pylint_stdout, pylint_stderr) = lint.py_run('courselist.py', return_std=True)
     expected = 8.5
     actual = pylint_stdout.getvalue()
+    # x = re.findall('[0-9]+', actual)[0]
+    # x = float(x)
     x = re.findall('at [0-9].[0-9]+', actual)[0]
     x = float(x.split()[-1])
     assert x >= expected
