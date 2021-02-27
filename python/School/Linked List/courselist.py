@@ -96,6 +96,8 @@ class CourseList:
 
     def calculate_gpa(self):
         """return the GPA using all courses in the list"""
+        if self.head == None:
+            return 0.0
         sum = 0
         crnt = self.head
         while crnt.next != None:
@@ -105,6 +107,8 @@ class CourseList:
 
     def is_sorted(self):
         """return True if the list is sorted by Course Number, False otherwise"""
+        if self.head == None:
+            return True
         crnt = self.head.next
         while crnt.next != None:
             if crnt.number() < crnt.prev.number():
