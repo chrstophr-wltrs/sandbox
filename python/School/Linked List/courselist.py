@@ -101,11 +101,13 @@ class CourseList:
         if self.head == None:
             return 0.0
         sum = 0
+        hrs = 0
         crnt = self.head
         while crnt.next != None:
             sum += crnt.grade()
+            hrs += crnt.credit_hr()
             crnt = crnt.next
-        return sum / self.size()
+        return sum / hrs
 
     def is_sorted(self):
         """return True if the list is sorted by Course Number, False otherwise"""
