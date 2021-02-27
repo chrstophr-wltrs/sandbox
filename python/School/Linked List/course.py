@@ -13,7 +13,7 @@ class Course:
         prev(Course): the previous course in the linked list
     """
 
-    def __init__(self, number:int = 0, name:str = "", credit_hr:float = 1, grade:float = 0.0):
+    def __init__(self, number:int = 0, name:str = "", credit_hr:float = 0.0, grade:float = 0.0):
         self.number = int(number)
         self.name = str(name)
         self.credit_hr = float(credit_hr)
