@@ -100,14 +100,15 @@ class CourseList:
         """return the GPA using all courses in the list"""
         if self.head == None:
             return 0.0
-        sum = 0
+        total_points = 0
         hrs = 0
         crnt = self.head
-        while crnt.next != None:
-            sum += crnt.grade()
+        while crnt != None:
+            points = crnt.credit_hr() * crnt.grade()
+            total_points += points
             hrs += crnt.credit_hr()
             crnt = crnt.next
-        return sum / hrs
+        return total_points / hrs
 
     def is_sorted(self):
         """return True if the list is sorted by Course Number, False otherwise"""
