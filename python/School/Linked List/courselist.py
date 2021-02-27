@@ -27,8 +27,8 @@ class CourseList:
             if (course_no >= crnt.number()) and (course_no < crnt.next.number()):
                 course_to_insert.next = crnt.next
                 course_to_insert.prev = crnt
-                crnt.next = course_to_insert
                 crnt.next.prev = course_to_insert
+                crnt.next = course_to_insert
                 return self
             else:
                 crnt = crnt.next
