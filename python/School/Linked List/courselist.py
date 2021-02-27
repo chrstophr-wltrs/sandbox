@@ -1,6 +1,6 @@
 from course import Course
 
-class Courselist:
+class CourseList:
     """
     Linked list representing all of the courses for 1 student at a university
 
