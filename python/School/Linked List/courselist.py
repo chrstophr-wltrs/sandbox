@@ -1,21 +1,23 @@
 from course import Course
 
+
 class CourseList:
     """
     Linked list representing all of the courses for 1 student at a university
 
     NOTE: All uses of 'crnt' represent the current node being iterated upon.
 
-    Attributes: 
+    Attributes:
         head(Course): the first course of the list, completely empty except for the next pointer
     """
+
     def __init__(self):
         self.head = None
 
     def insert(self, course_to_insert: Course = None):
         """
         insert the specified Course in Course number ascending order
-        
+
         Parameters:
             course_to_insert(Course): the Course object you want to insert into the linked list
         """
@@ -36,10 +38,10 @@ class CourseList:
         course_to_insert.prev = crnt
         return self
 
-    def remove(self, number: int): 
+    def remove(self, number: int):
         """
         remove the first occurrence of the specified Course
-        
+
         Parameters:
             number(int): the course number for the Course you want to remove
         """
@@ -58,7 +60,7 @@ class CourseList:
     def remove_all(self, number: int):
         """
         removes ALL occurrences of the specified Course
-        
+
         Parameters:
             number(int): the course number for the Course you want to remove
         """
@@ -73,7 +75,7 @@ class CourseList:
     def find(self, number: int):
         """
         find the first occurrance of the specified course in the list or return -1
-        
+
         Parameters:
             number(int): the course number for the Course you want to remove
         """

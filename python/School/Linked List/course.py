@@ -5,7 +5,7 @@ class Course:
     Represents a computer science course at Some Univeristy
 
     Attributes:
-        data(dict): 
+        data(dict):
             number(int): the course number, ex: 2300
             name(str): the course name, ex: "Web Programming"
             credit_hr(float): the credit hours the course contributes to a degree or certification
@@ -14,9 +14,15 @@ class Course:
         prev(Course): the previous course in the linked list
     """
 
-    def __init__(self, number:int = 0, name:str = "", credit_hr:float = 0.0, grade:float = 0.0):
+    def __init__(
+        self,
+        number: int = 0,
+        name: str = "",
+        credit_hr: float = 0.0,
+        grade: float = 0.0,
+    ):
         """
-        Attributes: 
+        Attributes:
             number(int): the course number, ex: 2300
             name(str): the course name, ex: "Web Programming"
             credit_hr(float): the credit hours the course contributes to a degree or certification
@@ -26,11 +32,16 @@ class Course:
             "number": int(number),
             "name": name,
             "credit_hr": float(credit_hr),
-            "grade": float(grade)
+            "grade": float(grade),
         }
         self.next = None
         self.prev = None
-        if (self.data["number"] < 0) or (type(self.data["name"]) != str) or (self.data["credit_hr"] < 0) or (self.data["grade"] < 0):
+        if (
+            (self.data["number"] < 0)
+            or (type(self.data["name"]) != str)
+            or (self.data["credit_hr"] < 0)
+            or (self.data["grade"] < 0)
+        ):
             raise ValueError
 
     def number(self):
@@ -51,4 +62,4 @@ class Course:
 
     def __str__(self):
         """returns a string representing a single Course"""
-        return f"cs{self.number()} {self.name()} Grade:{self.grade():.1f} Credit Hours: {self.credit_hr():.1f}"
+        return f"cs{self.number()} {self.name()} Grade:{self.grade():.1f} Credit Hours: {self.credit_hr():.1f}\n"
