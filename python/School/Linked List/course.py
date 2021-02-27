@@ -15,7 +15,10 @@ class Course:
 
     def __init__(self, number:int = 0, name:str = "", credit_hr:float = 0.0, grade:float = 0.0):
         self.num = int(number)
-        self.title = str(name)
+        if name != None:
+            self.title = str(name)
+        else:
+            raise ValueError
         self.credits = float(credit_hr)
         self.score = float(grade)
         self.next = None
