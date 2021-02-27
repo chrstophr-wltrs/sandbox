@@ -10,7 +10,7 @@ class CourseList:
         head(Course): the first course of the list, completely empty except for the next pointer
     """
     def __init__(self):
-        self.head = Course()
+        self.head = None
 
     def insert(self, course_to_insert: Course = None):
         """
@@ -105,7 +105,7 @@ class CourseList:
         """return True if the list is sorted by Course Number, False otherwise"""
         crnt = self.head.next
         while crnt.next != None:
-            if crnt.number < crnt.prev.number:
+            if crnt.number() < crnt.prev.number():
                 return False
             else:
                 crnt = crnt.next
