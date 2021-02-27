@@ -38,7 +38,7 @@ class Course:
         self.prev = None
         if (
             (self.data["number"] < 0)
-            or (type(self.data["name"]) != str)
+            or (not isinstance(self.data["name"], str))
             or (self.data["credit_hr"] < 0)
             or (self.data["grade"] < 0)
         ):

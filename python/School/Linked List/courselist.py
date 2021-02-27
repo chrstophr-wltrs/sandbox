@@ -13,6 +13,7 @@ class CourseList:
 
     def __init__(self):
         self.head = None
+        self.n = None
 
     def insert(self, course_to_insert: Course = None):
         """
@@ -32,8 +33,7 @@ class CourseList:
                 crnt.next.prev = course_to_insert
                 crnt.next = course_to_insert
                 return self
-            else:
-                crnt = crnt.next
+            crnt = crnt.next
         crnt.next = course_to_insert
         course_to_insert.prev = crnt
         return self
@@ -53,8 +53,7 @@ class CourseList:
                 old_prev.next = old_next
                 old_next.prev = old_prev
                 break
-            else:
-                crnt = crnt.next
+            crnt = crnt.next
         return self
 
     def remove_all(self, number: int):
@@ -83,8 +82,7 @@ class CourseList:
         while crnt.next != None:
             if crnt.number() == number:
                 return crnt
-            else:
-                crnt = crnt.next
+            crnt = crnt.next
         return -1
 
     def size(self):
@@ -120,8 +118,7 @@ class CourseList:
         while crnt.next != None:
             if crnt.number() < crnt.prev.number():
                 return False
-            else:
-                crnt = crnt.next
+            crnt = crnt.next
         return True
 
     def __str__(self):
@@ -140,6 +137,5 @@ class CourseList:
     def __next__(self):
         if self.n.next == None:
             raise StopIteration
-        else:
-            self.n = self.n.next
-            return self.n.prev
+        self.n = self.n.next
+        return self.n.prev
