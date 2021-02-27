@@ -14,10 +14,10 @@ class Course:
     """
 
     def __init__(self, number:int = 0, name:str = "", credit_hr:float = 1, grade:float = 0.0):
-        self.number = number
-        self.name = name
-        self.credit_hr = credit_hr
-        self.grade = grade
+        self.number = int(number)
+        self.name = str(name)
+        self.credit_hr = float(credit_hr)
+        self.grade = float(grade)
         self.next = None
         self.prev = None
 
