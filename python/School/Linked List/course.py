@@ -20,7 +20,7 @@ class Course:
         self.score = float(grade)
         self.next = None
         self.prev = None
-        if (self.num <= 0) or (type(self.title) != str) or (self.credits <= 0) or (self.score <= 0):
+        if (self.num < 0) or (type(self.title) != str) or (self.credits < 0) or (self.score < 0):
             raise ValueError
 
     def number(self):
