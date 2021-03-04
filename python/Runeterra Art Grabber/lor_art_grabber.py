@@ -6,10 +6,12 @@ import time
 
 """
 Example URL = https://cdn-lor.mobalytics.gg/production/images/set2/en_us/img/card/game/02BW022T2-full.webp
+
+https://cdn-lor.mobalytics.gg/production/images/set4/en_us/img/card/game/04DE008T1-full.webp
 """
 # https://cdn-lor.mobalytics.gg/production/images/set3/en_us/img/card/game/03MT217-full.webp
 
-region_list = ['BW', 'DE', 'FR', 'IO', 'MT', 'NX', 'PZ', 'SI']
+region_list = ['BW', 'DE', 'FR', 'IO', 'MT', 'NX', 'PZ', 'SH', 'SI']
 
 class ImageSnatcher:
     """
@@ -33,7 +35,7 @@ class ImageSnatcher:
     def test_region(self, region = "BW"):
         """Tests all the possible numbers in a region."""
         number = 1
-        while number < 500:
+        while number < 100:
             self.test_suffixes(f"{region}{number:03}")
             number += 1
         return
@@ -92,15 +94,9 @@ class ImageSnatcher:
 
 
 def main():
-    thingie = ImageSnatcher(card_set = 1)
+    thingie = ImageSnatcher(card_set = 4)
     thingie.download_all_cards()
     thingie.scrub_spells()
-    thingie2 = ImageSnatcher(card_set = 2)
-    thingie2.download_all_cards()
-    thingie2.scrub_spells()
-    thingie3 = ImageSnatcher(card_set = 3)
-    thingie3.download_all_cards()
-    thingie3.scrub_spells()
 
 if __name__ == "__main__":
     main()
