@@ -58,8 +58,9 @@ class ImageSnatcher:
             my_card = rq.get(f"{self.url_base}{card_code}-full.webp")
             if my_card.ok == False:
                 return suffix
-            with open(f"{self.subfolder}{self.card_set:02}{card_code}.png", "wb") as file:
-                file.write(my_card.content)
+            if not os.path.isfile(f"{self.subfolder}{self.card_set:02}{card_code}.png"):
+                with open(f"{self.subfolder}{self.card_set:02}{card_code}.png", "wb") as file:
+                    file.write(my_card.content)
             print(f"Found {self.card_set:02}{card_code}!")
             suffix += 1
                         
