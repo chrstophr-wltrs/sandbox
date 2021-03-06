@@ -71,7 +71,7 @@ Important Variables:
 """
 
 def main():
-    sixmorevodka = RuneterraImageScraper("https://sixmorevodka.com/work/legends-of-runeterra/","SIXMOREVODKA",'img[id^="sbimage"]',84,"https://img2.storyblok.com/3000x0/filters:quality(90):format(png)/f/84907/","2160x1080","[a-z, \-]+.jpg",-4)
+    sixmorevodka = RuneterraImageScraper("https://sixmorevodka.com/work/legends-of-runeterra/","SIXMOREVODKA",'img[id^="sbimage"]',84,"https://img2.storyblok.com/filters:quality(100):format(png)/f/84907/","2160x1080","[a-z, \-]+.jpg",-4)
     sixmorevodka.collect_image_names()
 
 if __name__ == "__main__":
