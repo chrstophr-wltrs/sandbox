@@ -16,29 +16,31 @@ class RuneterraImageScraper:
         ident_regex(str): the regex string that selects the desired images
         pics_list(list[str]): the unique portion of the URL's that point to the desired images
         base_URL(str): the base URL, onto which is appended the image resolution and suffix
-        save_size(str): "####x####" defines the image resolution for the download
         full_URL(str): constructed from base_URL, save_size, and the saved string
-        filename_regex(str): the RegEx used to isolate the name of the file
+        file_regex(str): the RegEx used to isolate the name of the file
         endex_chop(-int): the negative index, used to chop the extension (if so desired)
-        save_name(str): the index pointing to the save file, constructed from dir, filename_regex, and endex_chop
+        save_name(str): the index pointing to the save file, constructed from dir, file_regex, and endex_chop
     """
 
-    def __init__(self, source:str, dir:str, ident_regex:str, base_URL:str, save_size:str, filename_regex:str, endex_chop:int):
+    def __init__(self, source:str, dir:str, ident_regex:str, base_URL:str, save_size:str, file_regex:str, endex_chop:int):
         """
         source(str): the source website of the artist
         dir(str): the sub-folder in which all art will be saved
         ident_regex(str): the regex string that selects the desired images
         base_URL(str): the base URL, onto which is appended the image resolution and suffix
         save_size(str): "####x####" defines the image resolution for the download
-        filename_regex(str): the RegEx used to isolate the name of the file
+        file_regex(str): the RegEx used to isolate the name of the file
         endex_chop(-int): the negative index, used to chop the extension (if undesired)
         """
         self.source = source
         self.dir = dir
         self.ident_regex = ident_regex
         self.base_URL = re.sub(r"[0-9]+x[0-9]+", save_size, base_URL)
-        self.filename_regex = filename_regex
+        self.file_regex = file_regex
         self.endex_chop = endex_chop
+        if not os.path.isdir(self.dir):
+            os.mkdir(self.dir)
+            print(f"Created sub-directory '{dir}' for image output!")
 
     def collect_image_names(self):
         """Collects the desired image URL's from the source webpage."""
@@ -49,6 +51,25 @@ class RuneterraImageScraper:
         prettySoup = soup.prettify().replace("\\u002F", "/")
         self.pic_strings = re.findall(self.ident_regex, prettySoup)
         print(f"Found all image strings!")
+    
+    def download_image(self, image_string:str):
+        """
+        Downloads and saves the target image
+        
+        Attributes:
+            image_string(str): the string pointing to the image
+        """
+        full_URL = f"{self.base_URL}{image_string}"
+        file_name = re.find(self.file_regex, image_string)[1:self.endex_chop] + ".png"
+        page = rq.get(full_URL)
+        save_path = f"{self.dir}/{file_name}"
+        if not os.path.isfile(save_path):
+            with open(save_path, "wb") as file:
+                file.write(page.content)
+            print(f"{file_name} saved!")
+        else:
+            print(f"Already had {file_name}!")
+
 
 """
 Important Variables: 
