@@ -4,6 +4,7 @@ import concurrent.futures
 from PIL import Image
 import time
 from bs4 import BeautifulSoup
+import re
 
 class RuneterraImageScraper:
     """
@@ -12,8 +13,7 @@ class RuneterraImageScraper:
     Attributes:
         source(str): the source website of the artist
         dir(str): the sub-folder in which all art will be saved
-        identifier(str): the CSS identifier that selects the desired images
-        index_chop(int): the string index before which all the target URL's are identical
+        identifier(str): the regex string that selects the desired images
         pics_list(list[str]): the unique portion of the URL's that point to the desired images
         base_URL(str): the base URL, onto which is appended the image resolution and suffix
         save_size(str): "####x####" defines the image resolution for the download
@@ -23,12 +23,11 @@ class RuneterraImageScraper:
         save_name(str): the index pointing to the save file, constructed from dir, filename_regex, and endex_chop
     """
 
-    def __init__(self, source:str, dir:str, identifier:str, index_chop:int, base_URL:str, save_size:str, filename_regex:str, endex_chop:int):
+    def __init__(self, source:str, dir:str, identifier:str, base_URL:str, save_size:str, filename_regex:str, endex_chop:int):
         """
         source(str): the source website of the artist
         dir(str): the sub-folder in which all art will be saved
-        identifier(str): the CSS identifier that selects the desired images
-        index_chop(int): the string index before which all the target URL's are identical
+        identifier(str): the regex string that selects the desired images
         base_URL(str): the base URL, onto which is appended the image resolution and suffix
         save_size(str): "####x####" defines the image resolution for the download
         filename_regex(str): the RegEx used to isolate the name of the file
@@ -37,19 +36,19 @@ class RuneterraImageScraper:
         self.source = source
         self.dir = dir
         self.identifier = identifier
-        self.index_chop = index_chop
-        self.base_URL = base_URL
-        self.save_size = save_size
+        self.base_URL = re.sub("[0-9]+x[0-9]+", save_size, base_URL)
         self.filename_regex = filename_regex
         self.endex_chop = endex_chop
 
     def collect_image_names(self):
         """Collects the desired image URL's from the source webpage."""
-        self.pics_list = []
+        print(f"Scraping {self.dir} website for image names...")
         page = rq.get(self.source)
-        soup = BeautifulSoup(page.content, 'html.parser')
-        pics = soup.select(self.identifier)[0]
-        print(pics)
+        soup = BeautifulSoup(page.content, "lxml")
+        # Replace any problematic string fragments
+        prettySoup = soup.prettify().replace("\\u002F", "/")
+        self.pic_strings = re.findall(self.identifier, prettySoup)
+        print(f"Found all image strings!")
 
 """
 Important Variables: 
@@ -64,14 +63,14 @@ Important Variables:
         Filename: "self-improvement-golem.jpg"
     Filename Regex: "[a-z, \-]+.jpg"
     Endex Chop: -4
-    Base URL: "https://img2.storyblok.com/3000x0/filters:quality(90):format(png)/f/84907/"
+    Base URL: "https://img2.storyblok.com/3000x0/filters:quality(100):format(png)/f/84907/"
     Save Size: "2160x1080"
     full_url: "{Base URL}{Save Size}{Endstring}"
     Save Name: "{Folder Name}/{Filename[:{Endex Chop}].png"
 """
 
 def main():
-    sixmorevodka = RuneterraImageScraper("https://sixmorevodka.com/work/legends-of-runeterra/","SIXMOREVODKA",'img[id^="sbimage"]',84,"https://img2.storyblok.com/filters:quality(100):format(png)/f/84907/","2160x1080","[a-z, \-]+.jpg",-4)
+    sixmorevodka = RuneterraImageScraper("https://sixmorevodka.com/work/legends-of-runeterra/","SIXMOREVODKA",'[0-9]+x[0-9]+\/[a-z, 0-9]+\/[0-9, a-z, -]+.jpg',84,"https://img2.storyblok.com/filters:quality(100):format(png)/f/84907/","2160x1080","[0-9, a-z, -]+.jpg",-4)
     sixmorevodka.collect_image_names()
 
 if __name__ == "__main__":
