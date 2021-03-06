@@ -41,6 +41,7 @@ class RuneterraImageScraper:
         if not os.path.isdir(self.dir):
             os.mkdir(self.dir)
             print(f"Created sub-directory '{dir}' for image output!")
+        self.collect_image_names(self)
 
     def collect_image_names(self):
         """Collects the desired image URL's from the source webpage."""
@@ -69,7 +70,13 @@ class RuneterraImageScraper:
             print(f"{file_name} saved!")
         else:
             print(f"Already had {file_name}!")
-
+    
+    def download_all_images(self):
+        """Begins the concurrent download of all images"""
+        print("Beginning download of all images...")
+        with concurrent.futures.ThreadPoolExecutor() as executor:
+            executor.map(self.download_image, self.pic_strings)
+        print("Successfully downloaded all images!")
 
 """
 Important Variables: 
