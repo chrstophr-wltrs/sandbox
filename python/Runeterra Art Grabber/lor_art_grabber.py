@@ -63,17 +63,16 @@ class RuneterraImageScraper:
         for i in imperfect_list:
             duple_flag = False
             try:
-                imp_name = re.findall(fileReg, i)[0]
-            except:
                 imp_name = re.findall(fileRegPng, i)[0]
-                print(f"found {imp_name}")
+            except:
+                imp_name = re.findall(fileReg, i)[0]
             imp_w = int(re.findall(widReg, i)[0])
             imp_h = int(re.findall(hetReg, i)[0])
             for j in self.pic_list:
                 try:
-                    pic_name = re.findall(fileReg, j)[0]
-                except:
                     pic_name = re.findall(fileRegPng, j)[0]
+                except:
+                    pic_name = re.findall(fileReg, j)[0]
                 if imp_name == pic_name:
                     up_for_grabs = self.pic_list.index(j)
                     pic_w = int(re.findall(widReg, j)[0])
@@ -85,7 +84,7 @@ class RuneterraImageScraper:
                     else:
                         self.pic_list[up_for_grabs] = j
             if (not duple_flag) and (imp_w == (imp_h * 2)):
-                self.pic_list.append(i)        
+                self.pic_list.append(i)
         print("Successfully found all image names!")
     
     def download_image(self, image_string:str):
