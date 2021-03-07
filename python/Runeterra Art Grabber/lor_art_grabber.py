@@ -52,26 +52,39 @@ class RuneterraImageScraper:
         # Replace any problematic string fragments
         prettySoup = soup.prettify().replace("\\u002F", "/")
         imperfect_list = re.findall(self.ident_regex, prettySoup)
-        
+        png_list = re.findall(r'[0-9]+x[0-9]+\/[a-z0-9]+\/[a-z0-9\-]+.png', prettySoup)
+        imperfect_list += png_list
         # Go through the list, and filter out any duplicates, keep whichever one has the largest dimensions
         self.pic_list = []
         fileReg = r"[a-z0-9\-]+.jpg"
-        sizeReg = r'(\d+)x'
+        fileRegPng = r"[a-z0-9\-]+.png"
+        widReg = r'(\d+)x'
+        hetReg = r'x(\d+)'
         for i in imperfect_list:
-            imp_name = re.findall(fileReg, i)[0]
             duple_flag = False
+            try:
+                imp_name = re.findall(fileReg, i)[0]
+            except:
+                imp_name = re.findall(fileRegPng, i)[0]
+                print(f"found {imp_name}")
+            imp_w = int(re.findall(widReg, i)[0])
+            imp_h = int(re.findall(hetReg, i)[0])
             for j in self.pic_list:
-                pic_name = re.findall(fileReg, j)[0]
+                try:
+                    pic_name = re.findall(fileReg, j)[0]
+                except:
+                    pic_name = re.findall(fileRegPng, j)[0]
                 if imp_name == pic_name:
                     up_for_grabs = self.pic_list.index(j)
-                    imp_size = int(re.findall(sizeReg, i)[0])
-                    pic_size = int(re.findall(sizeReg, j)[0])
+                    pic_w = int(re.findall(widReg, j)[0])
+                    pic_h = int(re.findall(hetReg, j)[0])
                     duple_flag = True
-                    if imp_size > pic_size:
-                        self.pic_list[up_for_grabs] = i
+                    if (imp_w > pic_w) or (imp_h > pic_h):
+                        if imp_w == (imp_h * 2):
+                            self.pic_list[up_for_grabs] = i
                     else:
                         self.pic_list[up_for_grabs] = j
-            if not duple_flag:
+            if (not duple_flag) and (imp_w == (imp_h * 2)):
                 self.pic_list.append(i)        
         print("Successfully found all image names!")
     
@@ -84,14 +97,12 @@ class RuneterraImageScraper:
         """
         full_URL = f"{self.base_URL}{image_string}"
         file_name = re.findall(self.file_regex, image_string)[0][:self.endex_chop] + ".png"
-        page = rq.get(full_URL)
         save_path = f"{self.dir}/{file_name}"
         if not os.path.isfile(save_path):
+            page = rq.get(full_URL)
             with open(save_path, "wb") as file:
                 file.write(page.content)
             print(f"{file_name} saved!")
-        else:
-            print(f"Already had {file_name}!")
     
     def download_all_images(self):
         """Begins the concurrent download of all images"""
@@ -121,7 +132,7 @@ Important Variables:
 
 def main():
     sixmorevodka = RuneterraImageScraper("https://sixmorevodka.com/work/legends-of-runeterra/","SIXMOREVODKA",r'[0-9]+x[0-9]+\/[a-z0-9]+\/[a-z0-9\-]+.jpg',"https://img2.storyblok.com/0000x0000/filters:quality(100):format(png)/f/84907/","2160x1080",r"[a-z0-9\-]+.jpg",-4)
-    sixmorevodka.download_all_images()
+    # sixmorevodka.download_all_images()
     
 if __name__ == "__main__":
     main()
