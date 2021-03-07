@@ -1,8 +1,6 @@
 import os
 import requests as rq
 import concurrent.futures
-from PIL import Image
-import time
 from bs4 import BeautifulSoup
 import re
 
