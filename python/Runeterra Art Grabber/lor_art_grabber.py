@@ -97,7 +97,7 @@ class RuneterraImageScraper:
         """Begins the concurrent download of all images"""
         print("Beginning download of all images...")
         with concurrent.futures.ThreadPoolExecutor() as executor:
-            executor.map(self.download_image, self.pic_strings[:5])
+            executor.map(self.download_image, self.pic_list)
         print("Successfully downloaded all images!")
 
 """
@@ -121,6 +121,7 @@ Important Variables:
 
 def main():
     sixmorevodka = RuneterraImageScraper("https://sixmorevodka.com/work/legends-of-runeterra/","SIXMOREVODKA",r'[0-9]+x[0-9]+\/[a-z0-9]+\/[a-z0-9\-]+.jpg',"https://img2.storyblok.com/0000x0000/filters:quality(100):format(png)/f/84907/","2160x1080",r"[a-z0-9\-]+.jpg",-4)
+    sixmorevodka.download_all_images()
     
 if __name__ == "__main__":
     main()
