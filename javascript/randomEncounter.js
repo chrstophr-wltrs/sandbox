@@ -5,7 +5,6 @@ window.addEventListener("DOMContentLoaded", domLoaded);
 function domLoaded() {
     let distance = document.querySelector('#distance')
     let waitTime = document.querySelector('#waitTime')
-    let guide = document.querySelector('#guide')
     distance.addEventListener("input", () => waitTime.value = "")
     waitTime.addEventListener("input", () => distance.value = "")
 }
