@@ -16,45 +16,63 @@
     </head>
 	<script src="randomEncounter.js"></script>
 	<body>
-		<h1 class="text">Random Encounters</h1>
-        <form>
-            <label class="text" for="guide">Competent Guide: </label>
-                <input type="checkbox" id="guide" name="guide">
-                <br>
-            <label class="text" for="time">Time of Day: </label>
-                <select id="time" name="time">
-                    <option value="day" selected>Day</option>
-                    <option value="night">Night</option>
-                </select>
-                <br>
-            <label class="text" for="distance">Distance to Travel (mi): </label>
-                <input type="number" id="distance" name="distance" min=0 max=50>
-                <br>
-            <label class="text" for="pace">Travel Pace: </label>
-                <select id="pace" name="pace">
-                    <option value="slow">Slow</option>
-                    <option value="normal" selected>Normal</option>
-                    <option value="fast">Fast</option>
-                </select>
-                <br>
-            <div class="text" id="paceRules"></div>
-            <br>
-            <label class="text" for="waitTime">Time to Wait (hrs): </label>
-                <input type="number" id="waitTime" name="waitTime" min=0 max=24>
-                <br>
-            <label class="text" for="globalEncounters">Global Encounters: </label>
-            <label class="text" for="willOWisp">Encountered Will O' Wisp: </label>    
-                <input type="checkbox" id="willOWisp" name="willOWisp">
-            <label class="text" for="skelly">Killed Skeletal Rider: </label>    
-                <input type="checkbox" id="skelly" name="skelly">
-            <br>
-            <button type="button" id="calcEncounters" name="calcEncounters" value="calcEncounters">Calculate Random Encounters</button>
-        </form>
-        <textarea id="travelLog" name="travelLog" disabled>
-        </textarea>
-        <div id="encounterName"></div>
-        <div id="perception"></div>
-        <div id="description"></div>
-        <div id="rules"></div>
+		<div id="settings">
+            <h1 class="text">Random Encounters</h1>
+            <form>
+                <div id="guideBox">
+                    <label class="text" for="guide">Competent Guide: </label>
+                    <input type="checkbox" id="guide" name="guide">
+                </div>
+                <div id="timeBox">    
+                    <label class="text" for="time">Time of Day: </label>
+                    <select id="time" name="time">
+                        <option value="day" selected>Day</option>
+                        <option value="night">Night</option>
+                    </select>
+                </div>
+                <div id="distanceBox">
+                    <label class="text" for="distance">Distance to Travel (mi): </label>
+                    <input type="number" id="distance" name="distance" min=0 max=50>
+                </div>
+                <div id="paceBox">
+                    <label class="text" for="pace">Travel Pace: </label>
+                    <select id="pace" name="pace">
+                        <option value="slow">Slow</option>
+                        <option value="normal" selected>Normal</option>
+                        <option value="fast">Fast</option>
+                    </select>
+                </div>
+                <div id="paceRulesBox">
+
+                </div>
+                <div id="waitBox">
+                    <label class="text" for="waitTime">Time to Wait (hrs): </label>
+                    <input type="number" id="waitTime" name="waitTime" min=0 max=24>
+                </div>
+                <div id="globalBox">
+                    <h3 class="text" for="globalEncounters">Global Encounters: </h3>
+                    <label class="text" for="willOWisp">Encountered Will O' Wisp: </label>    
+                    <input type="checkbox" id="willOWisp" name="willOWisp">
+                    <label class="text" for="skelly">Killed Skeletal Rider: </label>    
+                    <input type="checkbox" id="skelly" name="skelly">
+                </div>
+                <button type="button" id="calcEncounters" name="calcEncounters" value="calcEncounters">Calculate Random Encounters</button>
+            </form>
+        </div>
+        <textarea id="travelLog" name="travelLog" disabled></textarea>
+        <div id="detailsBox">
+            <div id="encounterName">
+
+            </div>
+            <div id="perception">
+
+            </div>
+            <div id="description">
+
+            </div>
+            <div id="rules">
+
+            </div>
+        </div>
 	</body>
 </html>
