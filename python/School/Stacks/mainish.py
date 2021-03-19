@@ -49,7 +49,7 @@ def eval_postfix(expr):
             except:
                 raise SyntaxError(f"expression {expr} contains invalid characters")
         
-        return working_stack.pop()
+    return working_stack.pop()
             
             
 
@@ -141,7 +141,7 @@ def main():
     pass
 
 def scratch():
-    print(in2post(None))
+    print(eval_postfix("5 7 +"))
 
 if __name__ == "__main__":
     scratch()
