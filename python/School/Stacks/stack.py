@@ -46,7 +46,7 @@ class Stack:
         I could just use the list.pop() method, but that feels like cheating because it's so easy
         """
         if self.size() <= 0:
-            raise IndexError("The stack is empty!")
+            raise IndexError("stack is empty")
         item = self.our_stack[-1]
         self.our_stack = self.our_stack[0:-1]
         return item
@@ -57,7 +57,7 @@ class Stack:
         Raise an IndexError if the stack is empty
         """
         if self.size() <= 0:
-            raise IndexError("The stack is empty!")
+            raise IndexError("stack is empty")
         return self.our_stack[-1]
 
     def size(self):
