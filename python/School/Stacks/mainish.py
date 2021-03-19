@@ -48,6 +48,8 @@ def eval_postfix(expr):
                 working_stack.push(float(char))
             except:
                 raise SyntaxError(f"expression {expr} contains invalid characters")
+        
+        return working_stack.pop()
             
             
 
