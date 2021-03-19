@@ -18,35 +18,47 @@ class Stack:
     """
 
     def __init__(self):
-        pass
+        self.our_stack = [] 
 
     def push(self, item):
         """
-        push(item): push an item onto the stack. Size increases by 1
+        push(item): push an item onto the stack
+        Size increases by 1
         
         Parameters:
-            item(any): item to be pushed onto the top of the stack
+            item(str OR float): item to be pushed onto the top of the stack
         """
-        pass
+        try:
+            self.our_stack.append(float(item))
+        except:
+            self.our_stack.append(item)
 
     def pop(self):
         """
         remove the top item from the stack and return it
         Raise an IndexError if the stack is empty
+        
+        I could just use the list.pop() method, but that feels like cheating because it's so easy
         """
-        pass
+        if self.size() <= 0:
+            raise IndexError("The stack is empty!")
+        item = self.our_stack[-1]
+        self.our_stack = self.our_stack[0:-1]
+        return item
 
     def top(self):
         """
         return the item on top of the stack without removing it
         Raise an IndexError if the stack is empty
         """
-        pass
+        if self.size() <= 0:
+            raise IndexError("The stack is empty!")
+        return self.our_stack[-1]
 
     def size(self):
         """return the number of items on the stack"""
-        pass
+        return len(self.our_stack)
 
     def clear(self):
         """empty the stack"""
-        pass
+        self.our_stack = []
