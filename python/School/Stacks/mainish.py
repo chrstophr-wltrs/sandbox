@@ -1,8 +1,6 @@
-from _pytest.compat import num_mock_patch_args
 from stack import Stack
 
 ALL_OPERATORS = {"+": 0, "-": 0, "/": 1, "*": 1, "^": 2}
-
 
 def eval_postfix(expr):
     """
@@ -18,29 +16,29 @@ def eval_postfix(expr):
     4. there should be one element on the stack, which is the result
         Return this
     """
-    if type(expr) != str:
+    if not isinstance(expr, str):
         raise ValueError("expression must be a string")
     working_stack = Stack()
     tight_expr = expr.replace(" ", "")
     for char in tight_expr:
         if char in ALL_OPERATORS:
-            sum = 0.0
+            working_sum = 0.0
             try:
                 op_b = working_stack.pop()
                 op_a = working_stack.pop()
             except IndexError:
                 raise SyntaxError(f"expression {expr} is invalid")
             if char == "^":
-                sum += op_a ^ op_b
+                working_sum += op_a ^ op_b
             elif char == "/":
-                sum += op_a / op_b
+                working_sum += op_a / op_b
             elif char == "*":
-                sum += op_a * op_b
+                working_sum += op_a * op_b
             elif char == "-":
-                sum += op_a - op_b
+                working_sum += op_a - op_b
             elif char == "+":
-                sum += op_a + op_b
-            working_stack.push(sum)
+                working_sum += op_a + op_b
+            working_stack.push(working_sum)
         else:
             try:
                 working_stack.push(float(char))
@@ -48,7 +46,6 @@ def eval_postfix(expr):
                 raise SyntaxError(f"expression {expr} contains invalid characters")
 
     return working_stack.pop()
-
 
 def in2post(expr: str):
     """
@@ -60,7 +57,8 @@ def in2post(expr: str):
         else if the next input is an operator:
             while (stack is not empty AND
                 stack's top is not left parenthesis AND
-                stack's top is an operation with equal or higher precedence than the next input symbol):
+                stack's top is an operation with equal or
+                  higher precedence than the next input symbol):
                     Print the stack's top
                     Pop the stack's top
             Push the next operation symbol onto the stack
@@ -74,7 +72,7 @@ def in2post(expr: str):
     4.  Print and pop any remaining operations on the stack
             There should be no remaining left parentheses
     """
-    if type(expr) != str:
+    if not isinstance(expr, str):
         raise ValueError("expression must be a string")
     if expr.count("(") != expr.count(")"):
         raise SyntaxError(f"expression {expr} is not valid")
@@ -91,7 +89,7 @@ def in2post(expr: str):
             ):
                 postfix += f" {parens_and_ops.pop()}"
             parens_and_ops.push(char)
-        elif (type(char) == float) or (type(char) == int):
+        elif isinstance(char, (float, int)):
             postfix += f" {char}"
         elif char == ")":
             postfix += f" {parens_and_ops.pop()}"
@@ -115,14 +113,14 @@ def in2post(expr: str):
             postfix += f" {symbol}"
     return postfix
 
-
 def main():
     """ "
     1.open file data.txt
     2.read an infix expression from the file
     3.display the infix expression
     4.call function in2post(expr) which you write
-        in2post() takes an infix expression as an input and returns an equivalent postfix expression as a string
+        in2post() takes an infix expression as an input and
+          returns an equivalent postfix expression as a string
         If the expression is not valid, raise a SyntaxError
         If the parameter expr is not a string, raise a ValueError
     5.display the postfix expression
@@ -139,7 +137,6 @@ def main():
             print(f"answer: {eval_postfix(postfix)}")
             print("\n")
 
-
 def scratch():
     def lint_check(file: str):
         from pylint.lint import Run
@@ -147,8 +144,7 @@ def scratch():
         results = Run([file], exit=False)
         print(results)
 
-    lint_check("mainish.py")
-
+    lint_check("main.py")
 
 if __name__ == "__main__":
     scratch()
