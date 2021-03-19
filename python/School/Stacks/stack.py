@@ -1,3 +1,10 @@
+"""
+A class for the Stack object
+
+NOTE FOR INSTRUCTOR:
+I implemented this just using built in Python lists, I don't know if we were suppose to implement this some other way, but that's how things are for now.
+"""
+
 class Stack:
     """
     Stack objects, to hold data
