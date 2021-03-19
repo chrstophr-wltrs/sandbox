@@ -342,7 +342,7 @@ const dayEncounters = {
     10: repeatEncounters.hiddenBundle,
     11: {
         name: "Ravens",
-        range: [1, 4],
+        range: '1d4',
         get init() {
             if (Math.random() < .5) {
                 this.description = "Your presence in this dreary land has not gone unnoticed. A raven follows you for several minutes while keeping a respectful distance."
