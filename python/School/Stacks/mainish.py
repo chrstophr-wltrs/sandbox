@@ -15,9 +15,9 @@ def eval_postfix(expr):
         Return this
     """
 
-def in2post(expr):
+def in2post(expr: str):
     """
-    1. initialize stack to hold operation symbols and parenthesis
+    1.  initialize stack to hold operation symbols and parenthesis
     2.  if the next input is a left parenthesis:
             Read the left parenthesis and push it onto the stack   
         else if the next input is a number or operand:
@@ -28,17 +28,50 @@ def in2post(expr):
                 stack's top is an operation with equal or higher precedence than the next input symbol):            
                     Print the stack's top
                     Pop the stack's top
-                    Push the next operation symbol onto the stack
+            Push the next operation symbol onto the stack
         else:
             Read and discard the next input symbol (should be a right parenthesis)
             Print the top operation and pop it
             while stack's top is not a left parenthesis:
                 Print next symbol on stack and pop stack
             Pop and discard the last left parenthesis
-    3. Goto #2 while there is more of the expression to read
-    4. Print and pop any remaining operations on the stack
-        There should be no remaining left parentheses
+    3.  Goto #2 while there is more of the expression to read
+    4.  Print and pop any remaining operations on the stack
+            There should be no remaining left parentheses
     """
+    if type(expr) != str:
+        raise ValueError("The expression must be a string!")
+    ALL_OPERATORS = {"+": 0, "-": 0, "/": 1, "*": 1, "^": 2}
+    parens_and_ops = Stack()
+    postfix = " "
+    for char in expr:
+        if char == "(":
+            parens_and_ops.push(char)
+        elif char in ALL_OPERATORS:
+            while ((parens_and_ops.size() > 0) and
+                    (parens_and_ops.top() != "(") and
+                    (ALL_OPERATORS[parens_and_ops.top] >= ALL_OPERATORS[char])):
+                postfix += f" {parens_and_ops.pop()}"
+            parens_and_ops.push(char)
+        elif (type(char) == float) or (type(char) == int):
+            postfix += f" {char}"
+        elif char == ")":
+            postfix += f" {parens_and_ops.pop()}"
+            while ((parens_and_ops.size() > 0) and
+                    (parens_and_ops.top() != "(")):
+                    postfix += f" {parens_and_ops.pop()}"
+            parens_and_ops.pop()
+    while parens_and_ops.size() > 0:
+        symbol = parens_and_ops.pop()
+        if symbol in ALL_OPERATORS:
+            postfix += f" {symbol}"
+    return postfix
+
+
+def lint_check():
+    from pylint.lint import Run
+    results = Run(['stack.py'], exit=False)
+    print(results)
 
 def main():
     """"
@@ -58,8 +91,7 @@ def main():
     pass
 
 def scratch():
-    some_list = [1, 2, 3, 4]
-    print(some_list[:-1])
+    print(float(6))
 
 if __name__ == "__main__":
     scratch()
