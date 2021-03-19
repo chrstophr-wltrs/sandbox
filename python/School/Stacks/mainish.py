@@ -1,5 +1,7 @@
+from _pytest.compat import num_mock_patch_args
 from stack import Stack
-import pytest
+
+ALL_OPERATORS = {"+": 0, "-": 0, "/": 1, "*": 1, "^": 2}
 
 def eval_postfix(expr):
     """
@@ -15,6 +17,39 @@ def eval_postfix(expr):
     4. there should be one element on the stack, which is the result 
         Return this
     """
+    working_stack = Stack()
+    tight_expr = expr.replace(" ", "")
+    for char in tight_expr:
+        if char in ALL_OPERATORS:
+            sum = 0.0
+            if char == "^":
+                op_b = working_stack.pop()
+                op_a = working_stack.pop()
+                sum += op_a ^ op_b
+            elif char == "/":
+                op_b = working_stack.pop()
+                op_a = working_stack.pop()
+                sum += op_a / op_b
+            elif char == "*":
+                op_b = working_stack.pop()
+                op_a = working_stack.pop()
+                sum += op_a * op_b
+            elif char == "-":
+                op_b = working_stack.pop()
+                op_a = working_stack.pop()
+                sum += op_a - op_b
+            elif char == "+":
+                op_b = working_stack.pop()
+                op_a = working_stack.pop()
+                sum += op_a + op_b
+            working_stack.push(sum)
+        else:
+            try:
+                working_stack.push(float(char))
+            except:
+                raise SyntaxError(f"expression {expr} contains invalid characters")
+            
+            
 
 def in2post(expr: str):
     """
@@ -44,7 +79,6 @@ def in2post(expr: str):
         raise ValueError("expression must be a string")
     if expr.count("(") != expr.count(")"):
         raise SyntaxError(f"expression {expr} is not valid")
-    ALL_OPERATORS = {"+": 0, "-": 0, "/": 1, "*": 1, "^": 2}
     parens_and_ops = Stack()
     postfix = ""
     for char in expr:
