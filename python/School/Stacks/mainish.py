@@ -1,4 +1,5 @@
 from stack import Stack
+import pytest
 
 def eval_postfix(expr):
     """
@@ -40,17 +41,19 @@ def in2post(expr: str):
             There should be no remaining left parentheses
     """
     if type(expr) != str:
-        raise ValueError("The expression must be a string!")
+        raise ValueError("expression must be a string")
+    if expr.count("(") != expr.count(")"):
+        raise SyntaxError(f"expression {expr} is not valid")
     ALL_OPERATORS = {"+": 0, "-": 0, "/": 1, "*": 1, "^": 2}
     parens_and_ops = Stack()
-    postfix = " "
+    postfix = ""
     for char in expr:
         if char == "(":
             parens_and_ops.push(char)
         elif char in ALL_OPERATORS:
             while ((parens_and_ops.size() > 0) and
                     (parens_and_ops.top() != "(") and
-                    (ALL_OPERATORS[parens_and_ops.top] >= ALL_OPERATORS[char])):
+                    (ALL_OPERATORS[parens_and_ops.top()] >= ALL_OPERATORS[char])):
                 postfix += f" {parens_and_ops.pop()}"
             parens_and_ops.push(char)
         elif (type(char) == float) or (type(char) == int):
@@ -61,6 +64,17 @@ def in2post(expr: str):
                     (parens_and_ops.top() != "(")):
                     postfix += f" {parens_and_ops.pop()}"
             parens_and_ops.pop()
+        else:
+            operand = ""
+            try:
+                operand = int(char)
+                postfix += f" {operand}"
+            except:
+                try:
+                    operand = float(char)
+                    postfix += f" {operand}"
+                except:
+                    pass
     while parens_and_ops.size() > 0:
         symbol = parens_and_ops.pop()
         if symbol in ALL_OPERATORS:
@@ -91,7 +105,7 @@ def main():
     pass
 
 def scratch():
-    print(float(6))
+    print(in2post(None))
 
 if __name__ == "__main__":
     scratch()
