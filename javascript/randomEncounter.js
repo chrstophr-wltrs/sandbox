@@ -81,8 +81,8 @@ const defaultRules = {
         }
     },
     "guideRules": {
-        "noGuideRange": [2, 20],
-        "guideRange": [2, 12]
+        "noGuideRange": '1d20',
+        "guideRange": '1d12'
     },
     "encounterChances": {
         "roadChance": 18,
@@ -92,6 +92,16 @@ const defaultRules = {
 }
 
 const repeatEncounters = {
+    bloodPine: {
+        name: "Blood Pine",
+        travelOnly: true,
+        perception: 13,
+        description: "One of the nearby pine trees shudders suddenly. You notice dark red sap dripping from its bark and needles, and a root covered in spikes slithers through the brush towards you.",
+        rules: "",
+        get init() {
+            this.snippet = `a ${this.name}`
+        }
+    },
     huntingTrap: {
         name: "Hunting Trap",
         travelOnly: true,
@@ -195,7 +205,7 @@ const repeatEncounters = {
                     this.rules = "The corpse looks like one of the characters (determined randomly) but has been stripped of armor, weapons, and valuables. If moved, its flesh melts away until only the skeleton remains."
                     break
             }
-            this.snippet = `${roll(this.range)} ${this.name}`
+            this.snippet = `a ${this.name}`
         }
     },
     skeletalRider: {
@@ -204,16 +214,6 @@ const repeatEncounters = {
         rules: "The human skeleton and warhorse skeleton are all that remain of a rider and mount, both of whom perished trying to escape through the fog that surrounds Barovia. They are doomed to ride through the valley in search of another way out, without hope of salvation. The skeletons ignore the characters unless attacked.<br>If both the rider and its mount are destroyed, this encounter can’t occur again. The destruction of one skeleton doesn’t prevent future encounters with the other.",
         get init() {
             this.snippet = `the ${this.name}`
-        }
-    },
-    trinket: {
-        name: "Trinket",
-        description: "You find something on the ground.",
-        travelOnly: true,
-        get init() {
-            let trinket = trinketArray[Math.floor(Math.random() * trinketArray.length)]
-            this.rules = `A random character finds a lost trinket: ${trinket}`
-            this.snippet = `${this.name}: ${trinket}`
         }
     },
     direWolves: {
@@ -292,6 +292,7 @@ const repeatEncounters = {
 }
 
 const dayEncounters = {
+    1: repeatEncounters.bloodPine,
     2: {
         name: "Barovian Commoners",
         range: '3d6',
@@ -379,6 +380,7 @@ const dayEncounters = {
 }
 
 const nightEncounters = {
+    1: repeatEncounters.bloodPine,
     2: {
         name: "Ghost",
         description: "A baleful apparition appears before you, its hollow eyes dark with anger.",
