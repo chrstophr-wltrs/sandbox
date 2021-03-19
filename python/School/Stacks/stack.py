@@ -5,6 +5,7 @@ NOTE FOR INSTRUCTOR:
 I implemented this just using built in Python lists, I don't know if we were suppose to implement this some other way, but that's how things are for now.
 """
 
+
 class Stack:
     """
     Stack objects, to hold data
@@ -18,13 +19,13 @@ class Stack:
     """
 
     def __init__(self):
-        self.our_stack = [] 
+        self.our_stack = []
 
     def push(self, item):
         """
         push(item): push an item onto the stack
         Size increases by 1
-        
+
         Parameters:
             item(str OR float): item to be pushed onto the top of the stack
         """
@@ -37,7 +38,7 @@ class Stack:
         """
         remove the top item from the stack and return it
         Raise an IndexError if the stack is empty
-        
+
         I could just use the list.pop() method, but that feels like cheating because it's so easy
         """
         if self.size() <= 0:
