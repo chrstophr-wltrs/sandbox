@@ -131,11 +131,12 @@ def main():
     """
     with open("data.txt", "r") as file:
         for line in file:
-            print(f"infix: {line}")
+            single_line = line.replace("\n","")
+            print(f"infix: {single_line}")
             postfix = in2post(line)
             print(f"postfix:{postfix}")
             print(f"answer: {eval_postfix(postfix)}")
-            print("\n")
+            print("")
 
 def scratch():
     def lint_check(file: str):
@@ -147,4 +148,4 @@ def scratch():
     lint_check("main.py")
 
 if __name__ == "__main__":
-    scratch()
+    main()
