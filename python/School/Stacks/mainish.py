@@ -17,6 +17,8 @@ def eval_postfix(expr):
     4. there should be one element on the stack, which is the result 
         Return this
     """
+    if type(expr) != str:
+        raise ValueError("expression must be a string")
     working_stack = Stack()
     tight_expr = expr.replace(" ", "")
     for char in tight_expr:
@@ -136,7 +138,7 @@ def main():
     pass
 
 def scratch():
-    print(eval_postfix(" 7 9 * 7 + 5 6 * - 3 + 4 -+"))
+    print(eval_postfix(None))
 
 if __name__ == "__main__":
     scratch()
