@@ -25,7 +25,7 @@ def eval_postfix(expr):
             try:
                 op_b = working_stack.pop()
                 op_a = working_stack.pop()
-            except:
+            except IndexError:
                 raise SyntaxError(f"expression {expr} is invalid")     
             if char == "^":
                 sum += op_a ^ op_b
