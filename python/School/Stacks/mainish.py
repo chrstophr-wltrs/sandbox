@@ -22,25 +22,20 @@ def eval_postfix(expr):
     for char in tight_expr:
         if char in ALL_OPERATORS:
             sum = 0.0
-            if char == "^":
+            try:
                 op_b = working_stack.pop()
                 op_a = working_stack.pop()
+            except:
+                raise SyntaxError(f"expression {expr} is invalid")     
+            if char == "^":
                 sum += op_a ^ op_b
             elif char == "/":
-                op_b = working_stack.pop()
-                op_a = working_stack.pop()
                 sum += op_a / op_b
-            elif char == "*":
-                op_b = working_stack.pop()
-                op_a = working_stack.pop()
+            elif char == "*":                
                 sum += op_a * op_b
-            elif char == "-":
-                op_b = working_stack.pop()
-                op_a = working_stack.pop()
+            elif char == "-":             
                 sum += op_a - op_b
             elif char == "+":
-                op_b = working_stack.pop()
-                op_a = working_stack.pop()
                 sum += op_a + op_b
             working_stack.push(sum)
         else:
@@ -141,7 +136,7 @@ def main():
     pass
 
 def scratch():
-    print(eval_postfix("5 7 +"))
+    print(eval_postfix(" 7 9 * 7 + 5 6 * - 3 + 4 -+"))
 
 if __name__ == "__main__":
     scratch()
