@@ -2,7 +2,9 @@
 A class for the Stack object
 
 NOTE FOR INSTRUCTOR:
-I implemented this just using built in Python lists, I don't know if we were suppose to implement this some other way, but that's how things are for now.
+I implemented this just using built in Python lists,
+I don't know if we were suppose to implement this some other way,
+but that's how things are for now.
 """
 
 
@@ -12,8 +14,10 @@ class Stack:
 
     Methods:
         push(item): push an item onto the stack. Size increases by 1
-        pop(): remove the top item from the stack and return it. Raise an IndexError if the stack is empty
-        top(): return the item on top of the stack without removing it. Raise an IndexError if the stack is empty
+        pop(): remove the top item from the stack and return it
+            Raise an IndexError if the stack is empty
+        top(): return the item on top of the stack without removing it
+            Raise an IndexError if the stack is empty
         size(): return the number of items on the stack
         clear(): empty the stack
     """
@@ -27,7 +31,7 @@ class Stack:
         Size increases by 1
 
         Parameters:
-            item(str OR float): item to be pushed onto the top of the stack
+            item(str/float): item to be pushed onto the top of the stack
         """
         try:
             self.our_stack.append(float(item))
