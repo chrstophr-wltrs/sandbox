@@ -4,68 +4,141 @@
         <title>Random Encounters</title>
         <style>
             body {
-                background-color: rgb(49, 49, 49);
+                background-color: rgb(100, 100, 100);
             }
             .text {
                 color: white;
+                font-family: Arial, Helvetica, sans-serif
             }
-            #paceRules {
+            /* #paceRules {
                 display: none;
+            } */
+            .bigBox {
+                display: flex;
+                background-color: rgb(90, 90, 90);
+                width: 95%;
+                max-width: 407px;
+                padding: 8px;
+                margin: 8px;
+                flex-direction: column;
+            }
+            .miniBox {
+                background-color: rgb(60, 60, 60);
+                padding: 5px;
+                margin: 3px;
+                align-self: flex-start;
+            }
+            .spanBox {
+                background-color: rgb(60, 60, 60);
+                padding: 5px;
+                margin: 3px;                
+            }
+            .row {
+                display: flex;
+                flex-direction: row;
+                justify-content: flex-start;
+            }
+            h1, h2, p, h3, ul {
+                margin: 3px;
+            }
+            #startRow, #buttonRow {
+                justify-content: space-evenly;
+            }
+            #travelLog {
+                margin: 5px;
+                height: 100px;
+            }
+            #calcEncounters {
+                width: 60%;
+                margin: 8px;
+                padding: 10px 6px;
+                border: none;
+                text-align: center;
+                background-color: rgb(60, 60, 60);
+                color: rgb(235, 53, 53);
+                font-size: 16px;
+                transition-duration: 0.2s;
+            }
+            #calcEncounters:hover {
+                background-color: rgb(235, 53, 53);
+                color:rgb(40, 40, 40)
             }
         </style>
     </head>
 	<script src="randomEncounter.js"></script>
 	<body>
         <div id="parametersBox" class="bigBox">
-            <h1 class="text">Random Encounters</h1>
-            <div id="guideBox" class="miniBox">
-                <label class="text" for="guide">Competent Guide: </label>
-                <input type="checkbox" id="guide" name="guide">
+            <div class="row" id="titleRow">    
+                <div id="title" class="miniBox">
+                    <h1 class="text">Random Encounters</h1>
+                </div>
             </div>
-            <div id="timeBox" class="miniBox">
-                <label class="text" for="time">Time of Day: </label>
-                <select id="time" name="time">
-                    <option value="day" selected>Day</option>
-                    <option value="night">Night</option>
-                </select>
+            <div class="row" id="startRow">
+                <div id="guideBox" class="miniBox">
+                    <label class="text" for="guide">Competent Guide: </label>
+                    <input type="checkbox" id="guide" name="guide">
+                </div>
+                <div id="timeBox" class="miniBox">
+                    <label class="text" for="time">Time of Day: </label>
+                    <select id="time" name="time">
+                        <option value="day" selected>Day</option>
+                        <option value="night">Night</option>
+                    </select>
+                </div>
             </div>
-            <div id="travelBox" class="miniBox">
-                <label class="text" for="distance">Distance to Travel (mi): </label>
-                <input type="number" id="distance" name="distance" min=0 max=50>
-                <label class="text" for="pace">Travel Pace: </label>
-                <select id="pace" name="pace">
-                    <option value="slow">Slow</option>
-                    <option value="normal" selected>Normal</option>
-                    <option value="fast">Fast</option>
-                </select>
-                <aside id="paceRules"></aside>
+            <div class="row" id="travelRow">
+                <div id="DistanceBox" class="spanBox">
+                    <label class="text" for="distance">Distance to Travel (mi): </label>
+                    <input type="number" id="distance" name="distance" min=0 max=50>
+                </div>
+                <div id="paceBox" class="spanBox">
+                    <label class="text" for="pace">Travel Pace: </label>
+                    <select id="pace" name="pace">
+                        <option value="slow">Slow</option>
+                        <option value="normal" selected>Normal</option>
+                        <option value="fast">Fast</option>
+                    </select>
+                </div>
             </div>
-            <div id="waitBox" class="miniBox">
-                <label class="text" for="waitTime">Time to Wait (hrs): </label>
-                <input type="number" id="waitTime" name="waitTime" min=0 max=24>
+            <div id="paceRulesBox" class="spanBox">
+                <ul class="text" id="paceRules">
+                    <li>Miles per Hour: 4</li>
+                    <li>Miles per Day: 30</li>
+                    <li>-5 to Perception and Survival Checks</li>
+                </ul>
             </div>
-            <div id="globalBox" class="miniBox">
-                <p class="text prominent">Global Encounters:</p>
-                <label class="text" for="willOWisp">Encountered Will O' Wisp: </label>    
-                <input type="checkbox" id="willOWisp" name="willOWisp">
-                <label class="text" for="skelly">Killed Skeletal Rider: </label>    
-                <input type="checkbox" id="skelly" name="skelly">
+            <div class="row" id="waitRow">
+                <div id="waitBox" class="miniBox">
+                    <label class="text" for="waitTime">Time to Wait (hrs): </label>
+                    <input type="number" id="waitTime" name="waitTime" min=0 max=24>
+                </div>
             </div>
-            <button type="button" id="calcEncounters" name="calcEncounters">Calculate Random Encounters</button>
+            <div class="row" id="globalRow">
+                <div id="globalBox" class="miniBox">
+                    <h3 class="text" id="globalHead">Global Encounters:</h3>
+                    <label class="text" for="willOWisp">Encountered Will O' Wisp: </label>    
+                    <input type="checkbox" id="willOWisp" name="willOWisp">
+                    <label class="text" for="skelly">Killed Skeletal Rider: </label>    
+                    <input type="checkbox" id="skelly" name="skelly">
+                </div>
+            </div>
+            <div class="row" id="buttonRow">
+                <button type="button" id="calcEncounters" name="calcEncounters">Calculate Random Encounters</button>
+            </div>
             <textarea id="travelLog" name="travelLog" disabled></textarea>
         </div>
         <div id="detailsBox" class="bigBox">
-            <div id="titleBox" class="miniBox">
-
+            <div id="titleBox" class="miniBox text">
+                <h2>Encounter Name</h2>
             </div>
-            <div id="perceptionBox" class="miniBox">
-
+            <div id="perceptionBox" class="miniBox text">
+                Perception: -
             </div>
             <div id="descriptionBox" class="miniBox">
-
+                <aside>Some Flavor Text</aside>
             </div>
-            <div id="rulesBox" class="miniBox">
-
+            <div id="rulesBox" class="text spanBox">
+                Rules that the players don't get to know about.
             </div>
         </div>
 	</body>
