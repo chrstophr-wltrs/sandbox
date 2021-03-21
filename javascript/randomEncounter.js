@@ -63,32 +63,32 @@ const advantage = function(mod = 0) {
 }
 
 const defaultRules = {
-    "paceRules":{
-        "fast": {
-            "milesPerHour": 4,
-            "milesPerDay": 30,
-            "bonus": "-5 to Perception and Survival checks"
+    paceRules:{
+        fast: {
+            milesPerHour: 4,
+            milesPerDay: 30,
+            bonus: "-5 to Perception and Survival checks"
         },
-        "normal": {
-            "milesPerHour": 3,
-            "milesPerDay": 24,
-            "bonus": "-"
+        normal: {
+            milesPerHour: 3,
+            milesPerDay: 24,
+            bonus: "-"
         },
-        "slow": {
-            "milesPerHour": 2,
-            "milesPerDay": 18,
-            "bonus": "Can use stealth"
+        slow: {
+            milesPerHour: 2,
+            milesPerDay: 18,
+            bonus: "Can use stealth"
         }
     },
-    "guideRules": {
-        "noGuideRange": '1d20',
-        "guideRange": '1d12'
+    guideRules: {
+        noGuideRange: '1d20',
+        guideRange: '1d12'
     },
-    "encounterChances": {
-        "roadChance": 18,
-        "wildChance": 15
+    encounterChances: {
+        roadChance: 18,
+        wildChance: 15
     },
-    "maxEncounters": 2,
+    maxEncounters: 2,
 }
 
 const repeatEncounters = {
@@ -346,7 +346,7 @@ const dayEncounters = {
         get init() {
             if (Math.random() < .5) {
                 this.description = "Your presence in this dreary land has not gone unnoticed. A raven follows you for several minutes while keeping a respectful distance."
-                this.rules = "The raven doesn’t caw or try to communicate with the characters. If they leave it alone, read:<aside class=description>More ravens begin to take an interest in you. Before long, their numbers swell, and soon hundreds of them are watching you.</aside>The ravens fly away if attacked. If they are left alone, they watch over the party, remaining with the characters until they reach Castle Ravenloft or a settlement. If the characters have a random encounter with hostile creatures, the raven swarms aid the characters by attacking and distracting their enemies."
+                this.rules = "The raven doesn’t caw or try to communicate with the characters. If they leave it alone, read:<aside class=readAloud>More ravens begin to take an interest in you. Before long, their numbers swell, and soon hundreds of them are watching you.</aside>The ravens fly away if attacked. If they are left alone, they watch over the party, remaining with the characters until they reach Castle Ravenloft or a settlement. If the characters have a random encounter with hostile creatures, the raven swarms aid the characters by attacking and distracting their enemies."
                 this.number = roll(this.range)
                 this.snippet = `${this.number} Swarms of Ravens`
             }
@@ -453,7 +453,7 @@ const nightEncounters = {
         name: "Will O' Wisp",
         description: "Several hundred yards away, through the fog, you see a flickering torchlight.",
         get init() {
-            this.rules = `This random encounter occurs only once. If it comes up again, treat the result as no encounter.<br>If the characters follow the flickering light, read:<aside class=description>The torchlight flutters as it moves away from you, but you never lose sight of it. You make your way quickly yet cautiously through the fog until you come upon the shell of a ruined tower. The upper floors of the structure have collapsed, leaving heaps of rubble and shattered timber around the tower’s base. The feeble light moves through an open doorway on the ground floor, then flickers and goes out.</aside>The light is a will-o’-wisp that enters the ruined tower and becomes invisible, hoping to lure the characters inside to their doom.<br>The floor of the tower is made of packed earth. Its interior is desecrated ground. Against the inside wall of the tower, across from the open doorway, is a closed, empty wooden chest.<br>If the characters disturb the chest, ${roll('3d6')} zombies erupt from the earthen floor and attack. Once the zombies appear, the will-o’-wisp becomes visible and joins the fray.<br><strong>Desecrated Ground:</strong> a detect evil and good spell cast within range reveals the presence of desecrated ground, and undead standing on desecrated ground have advantage on all saving throws. A vial of holy water purifies a 10-foot-square area of desecrated ground when sprinkled on it, and a hallow spell purifies desecrated ground within its area.`
+            this.rules = `This random encounter occurs only once. If it comes up again, treat the result as no encounter.<br>If the characters follow the flickering light, read:<aside class=readAloud>The torchlight flutters as it moves away from you, but you never lose sight of it. You make your way quickly yet cautiously through the fog until you come upon the shell of a ruined tower. The upper floors of the structure have collapsed, leaving heaps of rubble and shattered timber around the tower’s base. The feeble light moves through an open doorway on the ground floor, then flickers and goes out.</aside>The light is a will-o’-wisp that enters the ruined tower and becomes invisible, hoping to lure the characters inside to their doom.<br>The floor of the tower is made of packed earth. Its interior is desecrated ground. Against the inside wall of the tower, across from the open doorway, is a closed, empty wooden chest.<br>If the characters disturb the chest, ${roll('3d6')} zombies erupt from the earthen floor and attack. Once the zombies appear, the will-o’-wisp becomes visible and joins the fray.<br><strong>Desecrated Ground:</strong> a detect evil and good spell cast within range reveals the presence of desecrated ground, and undead standing on desecrated ground have advantage on all saving throws. A vial of holy water purifies a 10-foot-square area of desecrated ground when sprinkled on it, and a hallow spell purifies desecrated ground within its area.`
             this.snippet = "The Will O' Wisp"
         }
     },
