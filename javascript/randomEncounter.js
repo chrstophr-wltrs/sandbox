@@ -5,8 +5,20 @@ window.addEventListener("DOMContentLoaded", domLoaded);
 function domLoaded() {
     let distance = document.querySelector('#distance')
     let waitTime = document.querySelector('#waitTime')
+    let paceDropdown = document.querySelector('#pace')
     distance.addEventListener("input", () => waitTime.value = "")
     waitTime.addEventListener("input", () => distance.value = "")
+    paceDropdown.addEventListener("input", updatePaceRules)
+    console.log("The DOM has been loaded")
+}
+
+const updatePaceRules = function() {
+    let paceRules = document.querySelector("#paceRules")
+    let paceDropdown = document.querySelector('#pace')
+    pace = defaultRules.paceRules[paceDropdown.value]
+    paceRules.innerHTML =  `<li>Miles per Hour: ${pace.milesPerHour}</li>
+                            <li>Miles per Day: ${pace.milesPerDay}</li>
+                            <li>${pace.bonus}</li>`
 }
 
 const oldRoll = function(rangeArray = [1, 20]) {
