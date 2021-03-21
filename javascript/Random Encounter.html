@@ -4,6 +4,7 @@
         <title>Random Encounters</title>
         <style>
             :root {
+                --gray0: rgb(15, 15, 15);
                 --gray1: rgb(46, 46, 46);
                 --gray2: rgb(54, 54, 54);
                 --gray3: rgb(64, 64, 64);
@@ -59,11 +60,22 @@
             }
             #calcEncounters:hover {
                 background-color: var(--darkRed);
-                color: var(--gray1)
+                color: var(--gray1);
+                font-weight: bold;
             }
             #travelLog {
                 margin: 4px;
                 height: 100px;
+            }
+            .readAloud {
+                background-color: var(--cream);
+                color: var(--gray0);
+                display: block;
+                margin: 10px 4px;
+                padding: 10px 20px;
+                font-style: italic;
+                border-left: 6px solid var(--niceRed);
+                font-size: 15px;
             }
         </style>
     </head>
@@ -136,7 +148,7 @@
                 Perception: -
             </div>
             <div id="descriptionBox" class="miniBox">
-                <aside>Some Flavor Text</aside>
+                <aside class="readAloud">Some Flavor Text</aside>
             </div>
             <div id="rulesBox" class="text miniBox">
                 Rules that the players don't get to know about.
