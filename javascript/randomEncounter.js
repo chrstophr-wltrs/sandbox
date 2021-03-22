@@ -20,13 +20,16 @@ function calculateEncounters() {
     // Find the important values and fields that will be changed
     let currentPace = defaultRules.paceRules[paceDropdown.value]
     let travelFlag = !(distance.value == "")
-    let guideFlag = document.querySelector("#guide").checked
+    let whichEncounterRoll = document.querySelector("#guide").checked ? defaultRules.guideRules.guideRoll : defaultRules.guideRules.noGuideRoll
+    let encounterChance = document.querySelector("#guide").value == "road" ? defaultRules.encounterChances.roadChance : defaultRules.encounterChances.wildChance
     let wispFlag = document.querySelector("#willOWisp").checked
     let riderFlag = document.querySelector("#skelly").checked
     let timeOfDay = document.querySelector("#time").value
     let encounterHours = travelFlag ? parseFloat(distance.value) > currentPace.milesPerDay ? currentPace.milesPerDay / currentPace.milesPerHour : parseFloat(distance.value) / currentPace.milesPerHour : parseFloat(waitTime.value)
     for (chunk = encounterHours; chunk < 0; chunk -= .5) {
-        let encounterRoll = guideFlag ? 
+        if ((roll('1d20') >= encounterChance) && (recentEncounters < maxEncounters)) {
+            let encounter = document.querySelector("#time").value == "day" ? dayEncounters[roll(whichEncounterRoll)] : nightEncounters[roll(whichEncounterRoll)]
+        } 
     }
 }
 
@@ -120,8 +123,8 @@ const defaultRules = {
         }
     },
     guideRules: {
-        noGuideRange: '1d20',
-        guideRange: '1d12'
+        noGuideRoll: '1d20',
+        guideRoll: '1d12'
     },
     encounterChances: {
         roadChance: 18,
@@ -133,6 +136,7 @@ const defaultRules = {
 const repeatEncounters = {
     bloodPine: {
         name: "Blood Pine",
+        travelOnly: false,
         perception: 13,
         description: "One of the nearby pine trees shudders suddenly. You notice dark red sap dripping from its bark and needles, and a root covered in spikes slithers through the brush towards you.",
         rules: "",
@@ -248,6 +252,7 @@ const repeatEncounters = {
     },
     skeletalRider: {
         name: "Skeletal Rider",
+        travelOnly: false,
         description: "Through the mist comes a skeletal warhorse and rider, both clad in ruined chainmail. The skeletal rider holds up a rusted lantern that sheds no light.",
         rules: "The human skeleton and warhorse skeleton are all that remain of a rider and mount, both of whom perished trying to escape through the fog that surrounds Barovia. They are doomed to ride through the valley in search of another way out, without hope of salvation. The skeletons ignore the characters unless attacked.<br>If both the rider and its mount are destroyed, this encounter can’t occur again. The destruction of one skeleton doesn’t prevent future encounters with the other.",
         get init() {
@@ -256,6 +261,7 @@ const repeatEncounters = {
     },
     direWolves: {
         name: "Dire Wolves",
+        travelOnly: false,
         range: '1d6',
         description: "A snarling wolf the size of a grizzly bear steps out of the fog.",
         rules: "The area is lightly obscured by fog. If more than one dire wolf is present, the others aren’t far behind and can be seen as dark shadows in the fog. The dire wolves of Barovia are cruel, overgrown wolves and Strahd’s loyal servants. They can’t be charmed or frightened.",
@@ -266,6 +272,7 @@ const repeatEncounters = {
     },
     wolves: {
         name: "Wolves",
+        travelOnly: false,
         range: '3d6',
         description: "This land is home to many wolves, their howls at the moment too close for comfort.",
         get init() {
@@ -276,6 +283,7 @@ const repeatEncounters = {
     },
     berserkers: {
         name: "Berserkers",
+        travelOnly: false,
         range: '1d4',
         description: "You startle a wild-looking figure caked in gray mud and clutching a crude stone axe. Whether it’s a man or a woman, you can’t tell.",
         rules: "These wild mountain folk are covered head to toe in thick gray mud, which makes them hard to see in the fog and well hidden in the mountains they call home. While so camouflaged, they have advantage on Dexterity (Stealth) checks made to hide.<br>The berserkers shun civilized folk. They try to remain hidden and withdraw if they are spotted, attacking only if trapped or threatened.",
@@ -288,6 +296,7 @@ const repeatEncounters = {
     },
     twigBlights: {
         name: "Twig Blights",
+        travelOnly: false,
         range: '2d6',
         description: "A gaunt figure with wild hair and bare feet bounds toward you on all fours, wearing a tattered gown of stitched animal skins. You can’t tell whether it’s a man or a woman. It stops, sniffs the air, and laughs like a lunatic. The ground nearby is crawling with tiny twig monsters.",
         rules: "The Barovian wilderness is home to druids who worship Strahd because of his ability to control the weather and the beasts of Barovia. The druids are savage and violent, and each controls a host of twig blights, which fights until destroyed. If all the twig blights are destroyed or the druid loses more than half of its hit points, the druid flees, heading toward Yester Hill.",
@@ -298,6 +307,7 @@ const repeatEncounters = {
     },
     needleBlights: {
         name: "Needle Blights",
+        travelOnly: false,
         range: '2d4',
         description: "Hunched figures lurch through the mist, their gaunt bodies covered in needles.",
         get init() {
@@ -310,6 +320,7 @@ const repeatEncounters = {
     },
     scarecrows: {
         name: "Scarecrows",
+        travelOnly: false,
         range: '1d6',
         description: "A scarecrow lurches into view. Its sackcloth eyes and rictus are ripe with malevolence, and its gut is stuffed with dead ravens. It has long, rusted knives for claws.",
         rules: "If more than one scarecrow is present, the others are close by. If none of the characters perceived them, the scarecrows catch the party by surprise.<br>Baba Lysaga crafted these scarecrows to hunt down and kill ravens and were­ravens. The scarecrows are imbued with evil spirits and delight in murdering anyone they encounter.",
@@ -321,6 +332,7 @@ const repeatEncounters = {
     },
     revenant: {
         name: "Revenant",
+        travelOnly: false,
         description: "A figure walks alone with the stride and bearing of one who knows no fear. Clad in rusty armor, it clutches a gleaming longsword in its pale hand and looks ready for a fight.",
         rules: "From a distance, the revenant looks like a zombie and might be mistaken for such. A character within 30 feet of the revenant who succeeds on a DC 10 Wisdom (Insight) check can see the intelligence and hate in its sunken eyes. The revenant is clad in tattered chain mail that affords the same protection as leather armor.<br>The revenant was a knight of the Order of the Silver Dragon, which was annihilated defending the valley against Strahd’s armies more than four centuries ago. The revenant no longer remembers its name and wanders the land in search of Strahd’s wolves and other minions, slaying them on sight. If the characters attack it, the revenant assumes they are in league with Strahd and fights them until destroyed.<br>If the characters present themselves as enemies of Strahd, the revenant urges them to travel to Argynvostholt and convince Vladimir Horngaard, the leader of the Order of the Silver Dragon, to help them. The revenant would like nothing more than to kill Strahd, but it will not venture to Castle Ravenloft unless it receives orders to do so from Vladimir. If the characters ask the revenant to lead them to Horngaard in Argynvostholt, it does so while avoiding contact with Barovian settlements.",
         get init() {
@@ -333,6 +345,7 @@ const dayEncounters = {
     1: repeatEncounters.bloodPine,
     2: {
         name: "Barovian Commoners",
+        travelOnly: false,
         range: '3d6',
         description: "The sound of snapping twigs draws your attention to several dark shapes in the fog. They carry torches and pitchforks.",
         rules: "If the characters are moving quietly and not carrying light sources, they can try to hide from these Barovians, who carry pitchforks (+2 to hit) instead of clubs, dealing 3 (1d6) piercing damage on a hit.<br>Barovian commoners rarely leave their settlements. This group might be a family looking for a safer place to live, or an angry mob searching for the characters or heading toward Castle Ravenloft to confront Strahd.",
@@ -343,6 +356,7 @@ const dayEncounters = {
     },
     3: {
         name: "Barovian Scouts",
+        travelOnly: false,
         range: '1d6',
         description: "You see a dark figure crouched low and perfectly still, aiming a crossbow in your direction.",
         rules: "If more than one scout is present, the others are spread out over a 100-foot-square area.<br>These scouts are Barovian hunters or trappers searching for a missing villager or townsperson. Once they realize the characters aren’t out to kill them, they lower their weapons and request help in finding their missing person. If the characters decline, the scouts point them in the direction of the nearest settlement and depart without so much as a farewell. They wield light crossbows (+4 to hit, range 80/320 ft.) instead of longbows, dealing 6 (1d8 + 2) piercing damage on a hit.",
@@ -367,6 +381,7 @@ const dayEncounters = {
     },
     7: {
         name: "Vistani Bandits",
+        travelOnly: false,
         range: '1d4+1',
         description: "You catch a whiff of pipe smoke in the cold air and hear laughter through the fog.",
         get init() {
@@ -380,6 +395,7 @@ const dayEncounters = {
     10: repeatEncounters.hiddenBundle,
     11: {
         name: "Ravens",
+        travelOnly: false,
         range: '1d4',
         get init() {
             if (Math.random() < .5) {
@@ -403,6 +419,7 @@ const dayEncounters = {
     15: repeatEncounters.corpse,
     16: {
         name: "Werewolves (human form)",
+        travelOnly: false,
         range: '1d6',
         description: "A deep voice calls out, “Who goes there?” Through the chill mist you see a large man in drab clothing wearing a tattered gray cloak. He has shaggy, black hair and thick muttonchops. He leans heavily on a spear and has a small bundle of animal pelts slung over his shoulder.",
         rules: "Werewolves in human form pretend to be trappers. If more than one is present, the others are within whistling distance.<br>They try to befriend the characters to see if they are carrying silvered weapons. If the characters appear to have no such weapons, the werewolves assume hybrid form and attack. Otherwise, they part company with the characters and leave well enough alone.",
@@ -421,6 +438,7 @@ const nightEncounters = {
     1: repeatEncounters.bloodPine,
     2: {
         name: "Ghost",
+        travelOnly: false,
         description: "A baleful apparition appears before you, its hollow eyes dark with anger.",
         get init() {
             let person
@@ -442,6 +460,7 @@ const nightEncounters = {
     8: repeatEncounters.skeletalRider, 
     9: {
         name: "Swarms of Bats",
+        travelOnly: false,
         range: '1d8',
         description: "The stillness of the night is shattered by the shriek of bats and the flapping of tiny black wings.",
         rules: "These bats are the servants of Strahd. They attack the characters without provocation.",
@@ -457,6 +476,7 @@ const nightEncounters = {
     14: repeatEncounters.needleBlights, 
     15: {
         name: "Werewolves (wolf form)",
+        travelOnly: false,
         range: '1d6',
         description: "You hear the howl of a wolf some distance away.",
         get init () {
@@ -468,6 +488,7 @@ const nightEncounters = {
     },
     16: {
         name: "Zombies",
+        travelOnly: false,
         range: '3d6',
         description: "The ungodly stench of rotting flesh hangs in the air. Up ahead, the walking, moaning corpses of dead men and women lumber about.",
         get init() {
@@ -479,6 +500,7 @@ const nightEncounters = {
     17: repeatEncounters.scarecrows, 
     18: {
         name: "Strahd Zombies",
+        travelOnly: false,
         range: '1d8',
         description: "Not even the cloying fog can hide the stench of death that descends upon you. Something evil approaches, its footsteps betrayed by snapping twigs.",
         get init() {
@@ -489,6 +511,7 @@ const nightEncounters = {
     },
     19: {
         name: "Will O' Wisp",
+        travelOnly: false,
         description: "Several hundred yards away, through the fog, you see a flickering torchlight.",
         get init() {
             this.rules = `This random encounter occurs only once. If it comes up again, treat the result as no encounter.<br>If the characters follow the flickering light, read:<aside class=readAloud>The torchlight flutters as it moves away from you, but you never lose sight of it. You make your way quickly yet cautiously through the fog until you come upon the shell of a ruined tower. The upper floors of the structure have collapsed, leaving heaps of rubble and shattered timber around the tower’s base. The feeble light moves through an open doorway on the ground floor, then flickers and goes out.</aside>The light is a will-o’-wisp that enters the ruined tower and becomes invisible, hoping to lure the characters inside to their doom.<br>The floor of the tower is made of packed earth. Its interior is desecrated ground. Against the inside wall of the tower, across from the open doorway, is a closed, empty wooden chest.<br>If the characters disturb the chest, ${roll('3d6')} zombies erupt from the earthen floor and attack. Once the zombies appear, the will-o’-wisp becomes visible and joins the fray.<br><strong>Desecrated Ground:</strong> a detect evil and good spell cast within range reveals the presence of desecrated ground, and undead standing on desecrated ground have advantage on all saving throws. A vial of holy water purifies a 10-foot-square area of desecrated ground when sprinkled on it, and a hallow spell purifies desecrated ground within its area.`
