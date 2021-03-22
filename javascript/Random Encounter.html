@@ -21,11 +21,11 @@
             }
             .bigBox {
                 background-color: var(--gray3);
-                margin: 5px 0px;
-                padding: 4px;
+                margin: 5px 0px 10px;
+                padding: 5px;
                 display: flex;
                 flex-flow: column nowrap;
-                max-width: 600px;
+                max-width: 630px;
             }
             .miniBox {
                 background-color: var(--gray2);
@@ -45,7 +45,7 @@
                 justify-content: space-between;
                 align-items: stretch;
             }
-            #distanceBox, #paceBox, #skeleBox, #wispBox {
+            #skeleBox, #wispBox {
                 width: 50%
             }
             #calcEncounters {
@@ -116,6 +116,13 @@
                         <option value="slow">Slow</option>
                         <option value="normal" selected>Normal</option>
                         <option value="fast">Fast</option>
+                    </select>
+                </div>
+                <div id="terrainBox" class="miniBox">
+                    <label  for="terrain">Terrain: </label>
+                    <select id="terrain" name="terrain">
+                        <option value="road" selected>On/By Roads</option>
+                        <option value="wild">Wilderness</option>
                     </select>
                 </div>
             </div>
