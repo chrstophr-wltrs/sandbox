@@ -57,11 +57,11 @@
                 font-size: 16px;
                 transition-duration: .2s;
                 cursor: pointer;
+                font-weight: bold;
             }
             #calcEncounters:hover {
                 background-color: var(--darkRed);
                 color: var(--gray1);
-                font-weight: bold;
             }
             #travelLog {
                 margin: 4px;
@@ -77,9 +77,11 @@
                 border-left: 6px solid var(--niceRed);
                 font-size: 15px;
             }
+            .errorBorder {
+                border: 2px solid red;
+            }
         </style>
     </head>
-	<script src="randomEncounter.js"></script>
 	<body>
         <div id="parametersBox" class="bigBox">
             <div id="title" class="miniBox">
@@ -155,4 +157,5 @@
             </div>
         </div>
 	</body>
+    <script src="randomEncounter.js"></script>
 </html>
