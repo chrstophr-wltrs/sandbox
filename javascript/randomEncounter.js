@@ -2,23 +2,50 @@ const trinketArray = ["A picture you drew as a child of your imaginary friend", 
 
 window.addEventListener("DOMContentLoaded", domLoaded);
 
-function domLoaded() {
+let paceDropdown = document.querySelector('#pace')
+let recentEncounters = 0
+
+function domLoaded () {
     let distance = document.querySelector('#distance')
     let waitTime = document.querySelector('#waitTime')
-    let paceDropdown = document.querySelector('#pace')
+    let encounterButton = document.querySelector("#calcEncounters")
     distance.addEventListener("input", () => waitTime.value = "")
+    distance.addEventListener("input", checkForTravelExhaustion)
     waitTime.addEventListener("input", () => distance.value = "")
     paceDropdown.addEventListener("input", updatePaceRules)
-    console.log("The DOM has been loaded")
+    encounterButton.addEventListener("click", calculateEncounters)
 }
 
-const updatePaceRules = function() {
-    let paceRules = document.querySelector("#paceRules")
-    let paceDropdown = document.querySelector('#pace')
-    pace = defaultRules.paceRules[paceDropdown.value]
-    paceRules.innerHTML =  `<li>Miles per Hour: ${pace.milesPerHour}</li>
-                            <li>Miles per Day: ${pace.milesPerDay}</li>
-                            <li>${pace.bonus}</li>`
+function calculateEncounters() {
+    // Find the important values and fields that will be changed
+    let currentPace = defaultRules.paceRules[paceDropdown.value]
+    let travelFlag = !(distance.value == "")
+    let guideFlag = document.querySelector("#guide").checked
+    let wispFlag = document.querySelector("#willOWisp").checked
+    let riderFlag = document.querySelector("#skelly").checked
+    let timeOfDay = document.querySelector("#time").value
+    let encounterHours = travelFlag ? parseFloat(distance.value) > currentPace.milesPerDay ? currentPace.milesPerDay / currentPace.milesPerHour : parseFloat(distance.value) / currentPace.milesPerHour : parseFloat(waitTime.value)
+    for (chunk = encounterHours; chunk < 0; chunk -= .5) {
+        let encounterRoll = guideFlag ? 
+    }
+}
+
+function checkForTravelExhaustion() {
+    let pace = defaultRules.paceRules[paceDropdown.value]
+    if (distance.value > pace.milesPerDay) {
+        distance.classList.add("errorBorder")
+    }
+    else {
+        distance.classList.remove("errorBorder")
+    }
+}
+
+function updatePaceRules() {
+    let paceRulesField = document.querySelector("#paceRules")
+    let pace = defaultRules.paceRules[paceDropdown.value]
+    paceRulesField.innerHTML =  `<li>Miles per Hour: ${pace.milesPerHour}</li>
+                                 <li>Miles per Day: ${pace.milesPerDay}</li>
+                                 <li>${pace.bonus}</li>`
 }
 
 const oldRoll = function(rangeArray = [1, 20]) {
@@ -106,7 +133,6 @@ const defaultRules = {
 const repeatEncounters = {
     bloodPine: {
         name: "Blood Pine",
-        travelOnly: true,
         perception: 13,
         description: "One of the nearby pine trees shudders suddenly. You notice dark red sap dripping from its bark and needles, and a root covered in spikes slithers through the brush towards you.",
         rules: "",
