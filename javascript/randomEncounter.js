@@ -26,7 +26,7 @@ function calculateEncounters() {
     let travelLog = document.getElementById("travelLog")
     let milesTravelled
     // We know our parmeters, time to check for encounters
-    for (chunk = .5; chunk <= encounterHours; chunk += .5){
+    for (chunk = 1; chunk <= encounterHours; chunk += 1){
         // Roll to see if an encounter happens
         let encounterCheck = roll('1d20')
         if ((encounterCheck >= encounterChance) && (recentEncounters < (defaultRules.maxEncounters - 1))) {
