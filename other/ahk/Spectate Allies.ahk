@@ -10,11 +10,11 @@ i := 0
 XButton2::
 if (i >= (keyArray.Length)) {
     i := 0
-    releaseALLKeys()
+    releaseALLKeys(keyArray)
 } 
 else {
     i++
-    holdNextKey(i)
+    holdNextKey(i, keyArray)
 }
 Send {XButton2}
 Return
@@ -22,11 +22,11 @@ Return
 XButton1::
 if (i <= 1) {
     i := 0
-    releaseALLKeys()
+    releaseALLKeys(keyArray)
 } 
 else {
     i--
-    holdNextKey(i)
+    holdNextKey(i, keyArray)
 }
 Send {XButton1}
 Return
@@ -34,17 +34,17 @@ Return
 Space::
 if (i > 0) {
     i := 0
-    releaseALLKeys()
+    releaseALLKeys(keyArray)
 }
 Send {Space}
 Return
 
-holdNextKey(keyInd) {
+holdNextKey(keyInd, keyArray) {
     releaseKeys(keyInd)
     Send % "{" keyArray[keyInd] " down}"
 }
 
-releaseKeys(holdKeyInd){
+releaseKeys(holdKeyInd, keyArray){
     For k, fKey in keyArray {
         if (k != holdKeyInd) {
             Send % "{" fKey " up}"
@@ -53,7 +53,7 @@ releaseKeys(holdKeyInd){
     Return
 }
 
-releaseALLKeys(){
+releaseALLKeys(keyArray){
     For k, fKey in keyArray {
         Send % "{" fKey " up}"
     }
