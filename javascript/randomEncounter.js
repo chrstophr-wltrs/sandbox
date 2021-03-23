@@ -2,47 +2,62 @@ const trinketArray = ["A picture you drew as a child of your imaginary friend", 
 
 window.addEventListener("DOMContentLoaded", domLoaded);
 
-let paceDropdown = document.querySelector('#pace')
-let recentEncounters = 0
+// let paceDropdown = document.querySelector('#pace')
+// let glob.recentEncounters = 0
+
+const glob = {
+    get init() {
+        this.distance = document.querySelector('#distance')
+        this.waitTime = document.querySelector('#waitTime')
+        this.encounterButton = document.querySelector("#calcEncounters")
+        this.paceDropdown = document.querySelector('#pace')
+        this.recentEncounters = 0
+    }
+}
 
 function domLoaded () {
-    let distance = document.querySelector('#distance')
-    let waitTime = document.querySelector('#waitTime')
+    // let distance = document.querySelector('#distance')
+    // let waitTime = document.querySelector('#waitTime')
     let encounterButton = document.querySelector("#calcEncounters")
-    distance.addEventListener("input", () => waitTime.value = "")
-    distance.addEventListener("input", checkForTravelExhaustion)
-    waitTime.addEventListener("input", () => distance.value = "")
-    paceDropdown.addEventListener("input", updatePaceRules)
+    glob.init
+    updatePaceRules()
+    glob.distance.addEventListener("input", () => waitTime.value = "")
+    glob.distance.addEventListener("input", checkForTravelExhaustion)
+    glob.waitTime.addEventListener("input", () => glob.distance.value = "")
+    glob.paceDropdown.addEventListener("input", updatePaceRules)
     encounterButton.addEventListener("click", calculateEncounters)
 }
 
 function calculateEncounters() {
     // Find the important values and fields that will be changed
-    let currentPace = defaultRules.paceRules[paceDropdown.value]
-    let travelFlag = !(distance.value == "")
+    let currentPace = defaultRules.paceRules[glob.paceDropdown.value]
+    let travelFlag = glob.waitTime.value == ""
     let whichEncounterRoll = document.querySelector("#guide").checked ? defaultRules.guideRules.guideRoll : defaultRules.guideRules.noGuideRoll
     let encounterChance = document.querySelector("#terrain").value == "road" ? defaultRules.encounterChances.roadChance : defaultRules.encounterChances.wildChance
-    let encounterHours = travelFlag ? parseFloat(distance.value) > currentPace.milesPerDay ? Math.round(currentPace.milesPerDay / currentPace.milesPerHour) : Math.round(parseFloat(distance.value) / currentPace.milesPerHour) : parseFloat(waitTime.value)
+    let encounterHours = travelFlag ? parseFloat(glob.distance.value) > currentPace.milesPerDay ? Math.round(currentPace.milesPerDay / currentPace.milesPerHour) : Math.round(parseFloat(glob.distance.value) / currentPace.milesPerHour) : parseFloat(waitTime.value)
     let travelLog = document.getElementById("travelLog")
     let milesTravelled
-    // We know our parmeters, time to check for encounters
-    for (chunk = 1; chunk <= encounterHours; chunk += 1){
+    // We know our parameters, time to check for encounters
+    encounterInterval = 1.5
+    for (chunk = encounterInterval; chunk <= encounterHours; chunk += encounterInterval){
+        glob.recentEncounters += glob.recentEncounters <= 0 ? 0 : -1/(24 / encounterInterval)
         // Roll to see if an encounter happens
         let encounterCheck = roll('1d20')
-        if ((encounterCheck >= encounterChance) && (recentEncounters < (defaultRules.maxEncounters - 1))) {
+        console.log(`Rolled ${encounterCheck}`)
+        if ((encounterCheck >= encounterChance) && (glob.recentEncounters < (defaultRules.maxEncounters - 1))) {
             // An encounter MAYBE happens, now we just need to check the name against the one-time encounters and whether the encounter is travel-only
             let encounter = document.querySelector("#time").value == "day" ? dayEncounters[roll(whichEncounterRoll)]:nightEncounters[roll(whichEncounterRoll)]
             let nameCheck = encounter.name
             if (!((nameCheck == "Skeletal Rider") && (document.querySelector("#skelly").checked)) && // Encounter isn't Rider or the group hasn't already done rider
                 !((nameCheck == "Will O' Wisp") && (document.querySelector("#willOWisp").checked)) && // Encounter isn't Wisp or the group hasn't already done wisp
                 ((!(encounter.travelOnly)) || travelFlag)){ // Group is either travelling, or the encounter is not travel-only
-                    recentEncounters++
+                    glob.recentEncounters++
                     encounter.init
 
                     // Update travel log for new encounter
                     travelLog.innerHTML += travelLog.innerHTML == "" ? "" : "\n"
                     milesTravelled = Math.round(chunk * currentPace.milesPerHour)
-                    milesLeft = parseFloat(distance.value) - milesTravelled
+                    milesLeft = parseFloat(glob.distance.value) - milesTravelled
                     hoursLeft = parseFloat(waitTime.value) - chunk
                     travelLog.innerHTML += travelFlag ? `Group travels ${milesTravelled} miles, then...\n` : `Group waits ${chunk} hours, then...\n`
                     travelLog.innerHTML += `The players encounter ${encounter.snippet}\n`
@@ -50,7 +65,7 @@ function calculateEncounters() {
                     travelLog.scrollTop = travelLog.scrollHeight
                     
                     // Update the distance/wait fields based on the remaining distance/time
-                    distance.value = distance.value == "" ? "" : milesLeft
+                    glob.distance.value = glob.distance.value == "" ? "" : milesLeft
                     waitTime.value = waitTime.value == "" ? "" : hoursLeft
 
                     // Update the page HTML for new encounter
@@ -62,33 +77,34 @@ function calculateEncounters() {
                     perceptionField.innerHTML = encounter.perception == undefined ? "-" : encounter.perception
                     descriptionField.innerText = encounter.description
                     rulesField.innerHTML = `<p>${encounter.rules}</p>`
+                    console.log(`--------`)
                     return
             }
         }
-        recentEncounters += recentEncounters <= 0 ? 0 : -1/48
     }
     // No encounters occurred 
-    milesTravelled = parseFloat(distance.value) > currentPace.milesPerDay ? currentPace.milesPerDay : distance.value
+    milesTravelled = parseFloat(glob.distance.value) > currentPace.milesPerDay ? currentPace.milesPerDay : glob.distance.value
     travelLog.innerHTML += travelLog.innerHTML == "" ? "" : "\n"
     travelLog.innerHTML += travelFlag ? `Group travels ${milesTravelled} miles without incident` : `Group waits ${waitTime.value} hours without incident`
-    distance.value = parseFloat(distance.value) > currentPace.milesPerDay ? "" : parseFloat(distance.value) - milesTravelled
+    glob.distance.value = travelFlag ? parseFloat(glob.distance.value) > currentPace.milesPerDay ? parseFloat(glob.distance.value) - milesTravelled: "" : ""
     waitTime.value = ""
     travelLog.scrollTop = travelLog.scrollHeight
+    console.log(`--------`)
 }
 
 function checkForTravelExhaustion() {
-    let pace = defaultRules.paceRules[paceDropdown.value]
-    if (distance.value > pace.milesPerDay) {
-        distance.classList.add("errorBorder")
+    let pace = defaultRules.paceRules[glob.paceDropdown.value]
+    if (glob.distance.value > pace.milesPerDay) {
+        glob.distance.classList.add("errorBorder")
     }
     else {
-        distance.classList.remove("errorBorder")
+        glob.distance.classList.remove("errorBorder")
     }
 }
 
 function updatePaceRules() {
     let paceRulesField = document.querySelector("#paceRules")
-    let pace = defaultRules.paceRules[paceDropdown.value]
+    let pace = defaultRules.paceRules[glob.paceDropdown.value]
     paceRulesField.innerHTML =  `<li>Miles per Hour: ${pace.milesPerHour}</li>
                                  <li>Miles per Day: ${pace.milesPerDay}</li>
                                  <li>${pace.bonus}</li>`
@@ -151,17 +167,17 @@ const defaultRules = {
     paceRules:{
         fast: {
             milesPerHour: 4,
-            milesPerDay: 30,
+            milesPerDay: 32,
             bonus: "-5 to Perception and Survival checks"
         },
         normal: {
             milesPerHour: 3,
-            milesPerDay: 24,
+            milesPerDay: 27,
             bonus: "-"
         },
         slow: {
             milesPerHour: 2,
-            milesPerDay: 18,
+            milesPerDay: 20,
             bonus: "Can use stealth"
         }
     },
@@ -442,7 +458,7 @@ const dayEncounters = {
         get init() {
             if (Math.random() < .5) {
                 this.description = "Your presence in this dreary land has not gone unnoticed. A raven follows you for several minutes while keeping a respectful distance."
-                this.rules = "The raven doesn't caw or try to communicate with the characters. If they leave it alone, read:<aside class=readAloud>More ravens begin to take an interest in you. Before long, their numbers swell, and soon hundreds of them are watching you.</aside>The ravens fly away if attacked. If they are left alone, they watch over the party, remaining with the characters until they reach Castle Ravenloft or a settlement. If the characters have a random encounter with hostile creatures, the raven swarms aid the characters by attacking and distracting their enemies."
+                this.rules = "The raven doesn't caw or try to communicate with the characters. If they leave it alone, read:<aside class=readAloud>More ravens begin to take an interest in you. Before long, their numbers swell, and soon hundreds of them are watching you.</aside><p>The ravens fly away if attacked. If they are left alone, they watch over the party, remaining with the characters until they reach Castle Ravenloft or a settlement. If the characters have a random encounter with hostile creatures, the raven swarms aid the characters by attacking and distracting their enemies."
                 this.number = roll(this.range)
                 this.snippet = `${this.number} Swarms of Ravens`
             }
