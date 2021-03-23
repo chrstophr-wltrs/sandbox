@@ -37,8 +37,11 @@
                 margin: 4px;
                 padding: 3px 5px;
             }
-            h1, h2, h3, ul, p {
+            h1, h2, h3, ul {
                 margin: 3px 3px;
+            }
+            p {
+                margin: 3px 3px 8px;
             }
             .forceRow {
                 display: flex;
@@ -155,12 +158,12 @@
                 <h2 id="encounterName">Encounter Name</h2>
             </div>
             <div id="perceptionBox" class="miniBox">
-                <p>Perception: <span id="perceptionDC">-</span></p>
+                Perception: <span id="perceptionDC">-</span>
             </div>
             <div id="descriptionBox" class="miniBox">
-                <aside class="readAloud">Some Flavor Text</aside>
+                <aside class="readAloud" id="firstDescription">Some Flavor Text</aside>
             </div>
-            <div id="rulesBox" class="text miniBox">
+            <div id="rulesBox" class="miniBox">
                 Rules that the players don't get to know about.
             </div>
         </div>
