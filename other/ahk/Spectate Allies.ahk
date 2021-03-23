@@ -40,13 +40,13 @@ Send {Space}
 Return
 
 holdNextKey(keyInd) {
-    releaseKeys(keyArray[keyInd])
+    releaseKeys(keyInd)
     Send % "{" keyArray[keyInd] " down}"
 }
 
-releaseKeys(holdKey){
+releaseKeys(holdKeyInd){
     For k, fKey in keyArray {
-        if (fKey != holdKey) {
+        if (k != holdKeyInd) {
             Send % "{" fKey " up}"
         }
     }
