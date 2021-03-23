@@ -43,7 +43,6 @@ function calculateEncounters() {
         glob.recentEncounters += glob.recentEncounters <= 0 ? 0 : -1/(24 / encounterInterval)
         // Roll to see if an encounter happens
         let encounterCheck = roll('1d20')
-        console.log(`Rolled ${encounterCheck}`)
         if ((encounterCheck >= encounterChance) && (glob.recentEncounters < (defaultRules.maxEncounters - 1))) {
             // An encounter MAYBE happens, now we just need to check the name against the one-time encounters and whether the encounter is travel-only
             let encounter = document.querySelector("#time").value == "day" ? dayEncounters[roll(whichEncounterRoll)]:nightEncounters[roll(whichEncounterRoll)]
@@ -77,7 +76,6 @@ function calculateEncounters() {
                     perceptionField.innerHTML = encounter.perception == undefined ? "-" : encounter.perception
                     descriptionField.innerText = encounter.description
                     rulesField.innerHTML = `<p>${encounter.rules}</p>`
-                    console.log(`--------`)
                     return
             }
         }
@@ -89,7 +87,6 @@ function calculateEncounters() {
     glob.distance.value = travelFlag ? parseFloat(glob.distance.value) > currentPace.milesPerDay ? parseFloat(glob.distance.value) - milesTravelled: "" : ""
     waitTime.value = ""
     travelLog.scrollTop = travelLog.scrollHeight
-    console.log(`--------`)
 }
 
 function checkForTravelExhaustion() {
