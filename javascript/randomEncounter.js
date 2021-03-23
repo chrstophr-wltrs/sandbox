@@ -20,17 +20,94 @@ function calculateEncounters() {
     // Find the important values and fields that will be changed
     let currentPace = defaultRules.paceRules[paceDropdown.value]
     let travelFlag = !(distance.value == "")
-    let whichEncounterRoll = document.querySelector("#guide").checked ? defaultRules.guideRules.guideRoll : defaultRules.guideRules.noGuideRoll
-    let encounterChance = document.querySelector("#guide").value == "road" ? defaultRules.encounterChances.roadChance : defaultRules.encounterChances.wildChance
-    let wispFlag = document.querySelector("#willOWisp").checked
-    let riderFlag = document.querySelector("#skelly").checked
-    let timeOfDay = document.querySelector("#time").value
-    let encounterHours = travelFlag ? parseFloat(distance.value) > currentPace.milesPerDay ? currentPace.milesPerDay / currentPace.milesPerHour : parseFloat(distance.value) / currentPace.milesPerHour : parseFloat(waitTime.value)
-    for (chunk = encounterHours; chunk < 0; chunk -= .5) {
-        if ((roll('1d20') >= encounterChance) && (recentEncounters < maxEncounters)) {
-            let encounter = document.querySelector("#time").value == "day" ? dayEncounters[roll(whichEncounterRoll)] : nightEncounters[roll(whichEncounterRoll)]
-        } 
+    if (travelFlag) {
+        console.log(`The characters are travelling at a ${paceDropdown.value} pace`)
     }
+    else {
+        console.log(`The characters are not travelling`)
+    }
+    let encounterChance
+    if (document.querySelector("#terrain").value == "road") {
+        encounterChance = defaultRules.encounterChances.roadChance
+        console.log(`The characters are ${travelFlag ? "travelling" : "waiting"} by a road, encounters will occur on a roll of ${encounterChance} or higher`)
+    }
+    else {
+        encounterChance = defaultRules.encounterChances.wildChance
+        console.log(`The characters are ${travelFlag ? "travelling" : "waiting"} in the wilderness, encounters will occur on a roll of ${encounterChance} or higher`)
+    }
+    let whichEncounterRoll
+    if (document.querySelector("#guide").checked) {
+        whichEncounterRoll = defaultRules.guideRules.guideRoll
+        console.log(`The characters do have a guide, the encounter they face will be determined by a ${whichEncounterRoll}`)
+    }
+    else {
+        whichEncounterRoll = defaultRules.guideRules.noGuideRoll
+        console.log(`The characters do not have a guide, the encounter they face will be determined by a ${whichEncounterRoll}`)
+    }
+    // let whichEncounterRoll = document.querySelector("#guide").checked ? defaultRules.guideRules.guideRoll : defaultRules.guideRules.noGuideRoll
+    // let encounterChance = document.querySelector("#guide").value == "road" ? defaultRules.encounterChances.roadChance : defaultRules.encounterChances.wildChance
+    // let encounterHours = travelFlag ? parseFloat(distance.value) > currentPace.milesPerDay ? currentPace.milesPerDay / currentPace.milesPerHour : parseFloat(distance.value) / currentPace.milesPerHour : parseFloat(waitTime.value)
+    let encounterHours
+    if (travelFlag) {
+        if (parseFloat(distance.value) > currentPace.milesPerDay) {
+            encounterHours = currentPace.milesPerDay / currentPace.milesPerHour
+            console.log(`The characters intend to travel ${distance.value} miles, but this is farther than they would be able to travel in a normal travel day. They will instead travel ${currentPace.milesPerDay} miles, which will take ${encounterHours} hours`)
+        }
+        else {
+            encounterHours = parseFloat(distance.value) / currentPace.milesPerHour
+            console.log(`The characters intend to travel ${distance.value} miles, which will take ${encounterHours} hours`)
+        }
+    }
+    else {
+        encounterHours = parseFloat(waitTime.value)
+        console.log(`The characters will wait ${encounterHours} hours`)
+    }
+    console.log(`Beginning encounter checks...`)
+    for (chunk = 1; chunk < encounterHours; chunk++) {
+        console.log(`The characters ${travelFlag ? "travel" : "wait"} for 1 hour, with ${encounterHours - chunk} hours remaining`)
+        let doesEncounterHappenRoll = roll('1d20')
+        console.log(`Rolled a ${doesEncounterHappenRoll}`)
+        if (doesEncounterHappenRoll >= encounterChance) {
+            console.log(`${doesEncounterHappenRoll} >= ${encounterChance}`)
+            if (recentEncounters < defaultRules.maxEncounters) {
+                console.log(`Enough time has passed since their last encounter, so they are at risk of another encounter`)
+                let whichEncounterResult = roll(whichEncounterRoll)
+                console.log(`Rolled a ${whichEncounterResult} to determine which encounter the players face`)
+                let encounter
+                if (document.querySelector("#time").value == "day") {
+                    encounter = dayEncounters[whichEncounterResult]
+                    console.log(`It is currently day, so the characters might encounter ${encounter.name}`)
+                } 
+                else {
+                    encounter = nightEncounters[whichEncounterResult]
+                    console.log(`It is currently night, so the characters might encounter ${encounter.name}`)
+                }
+                if (((encounter.name == "Skeletal Rider") && document.querySelector("#skelly").checked) || ((encounter.name == "Will O' Wisp") && document.querySelector("#willOWisp").checked)) {
+                    console.log(`This is a one-time encounter that has already happened, so no encounter occurs`)
+                }
+                else {
+                    if (!(encounter.travelOnly)){
+                        console.log(`The encounter is not travel-only, so an encounter occurs!`)
+                        return
+                    }
+                    else if (travelFlag && encounter.travelOnly) {
+                        console.log(`The encounter is travel-only, but the characters are travelling, so an encounter occurs!`)
+                        return
+                    }
+                    else {
+                        console.log(`The encounter is travel-only, but the characters are waiting, so no encounter occurs`)
+                    }
+                }
+            }
+            else {
+                console.log(`The characters have had encounters recently, and so no encounter occurs`)
+            }
+        }
+        else {
+            console.log(`${doesEncounterHappenRoll} < ${encounterChance}, so no encounter occurs`)
+        }
+    }
+    console.log(`No encounter occured`)
 }
 
 function checkForTravelExhaustion() {
