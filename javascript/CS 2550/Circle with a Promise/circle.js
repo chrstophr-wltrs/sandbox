@@ -1,6 +1,8 @@
 /*
 The given web page displays a growing orange circle when the Show Circle button is clicked. Your goal is to show a text message inside the circle as show below, by creating callbacks for a Promise object.
 
+https://static-resources.zybooks.com/static/zyLab/promises_circle.png
+
 The circle.js file contains a click event handler showCircleClick() for the Show Circle button that calls showCircle() to display the orange circle.
 
 The showCircle() function returns a Promise object that may be fulfilled or rejected.
@@ -12,6 +14,8 @@ Modify the showCircleClick() to call showCircle() and handle the fulfilled or re
    If the promise is rejected, an error message is passed to the callback function. The error message should be displayed using alert().
 
 If your modifications are written correctly, you should see the "Ta da!" message appear one second after the Show Circle button is clicked. If you click Show Circle twice quickly, you should see the error message appear in the alert dialog box, as shown below.
+
+https://static-resources.zybooks.com/static/zyLab/promises_error.png
 */
 
 window.addEventListener("DOMContentLoaded", function () {
