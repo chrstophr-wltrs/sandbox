@@ -8,39 +8,48 @@ keyArray := ["F1", "F2", "F3", "F4", "F5"]
 i := 0
 
 XButton2::
+Send {XButton2}
 if (i >= (keyArray.Length)) {
     i := 0
     releaseALLKeys(keyArray)
+    Return
 } 
 else {
     i++
     holdNextKey(i, keyArray)
+    Return
 }
-Send {XButton2}
-Return
+
+
 
 XButton1::
+Send {XButton1}
 if (i <= 1) {
     i := 0
     releaseALLKeys(keyArray)
+    Return
 } 
 else {
     i--
     holdNextKey(i, keyArray)
+    Return
 }
-Send {XButton1}
+
 Return
 
 Space::
+Send {Space}
 if (i > 0) {
     i := 0
     releaseALLKeys(keyArray)
+    Return
 }
-Send {Space}
-Return
+else {
+    Return
+}
 
 holdNextKey(keyInd, keyArray) {
-    releaseKeys(keyInd)
+    releaseKeys(keyInd, keyArray)
     Send % "{" keyArray[keyInd] " down}"
 }
 
