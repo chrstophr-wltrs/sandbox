@@ -19,3 +19,43 @@ If there are no form validation errors,
    All test, email, and password <input> elements should use the default border of 1 pixel, solid, color #aaa
 
 */
+
+body {
+    color: black;
+}
+
+input {
+    border-radius: 4px;
+}
+
+.defaultBorder {
+    border-width: 1px;
+    border-style: solid;
+    border-color: #aaa;
+}
+
+.errorBorder {
+    border-width: 2px;
+    border-style: solid;
+    border-color: red;
+}
+
+.redText {
+    color: red;
+}
+
+.showMe {
+    display: block;
+}
+
+.hideMe {
+    display: none;
+}
+
+#formBox {
+    background-color: #EFEEEF;
+    border: none;
+    border-radius: 3px;
+    display: flex;
+    flex-flow: column nowrap;
+}
