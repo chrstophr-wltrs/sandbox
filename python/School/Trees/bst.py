@@ -64,7 +64,7 @@ class BST():
 
     def is_empty(self):
         """Return True if empty, False otherwise"""
-        return self.root == None
+        return self.root is None
 
     def size(self):
         """Return the number of items in the tree"""
@@ -89,7 +89,7 @@ class BST():
             removing(bool): determines whether we are removing the target node
         
         Result (When Removing):
-            -1: Child is found, is a left child of parent
+            -1: Child is found, is left child of parent
             1: Child is found, is right child of parent
             Return (parent node, result)
 
@@ -101,7 +101,7 @@ class BST():
         """
         # Used for recursive tree traversal
         # If parent hasn't been defined, then start at the root
-        if parent == None:
+        if parent is None:
             parent = self.root
         
         if removing:
@@ -116,7 +116,7 @@ class BST():
         else:
             if node.data < parent.data:
                 # Node might be a left child
-                if parent.left == None:
+                if parent.left is None:
                     # Node isn't in tree, is less than parent
                     return (parent, -1)
                 else:
@@ -124,7 +124,7 @@ class BST():
                     self.find_node(node, parent.left)
             elif node.data > parent.data:
                 # Node might be a right child
-                if parent.right == None:
+                if parent.right is None:
                     # Node isn't in tree, is greater than parent
                     return (parent, 1)
                 else:
@@ -141,7 +141,7 @@ class BST():
         node = self.Node(item)
 
         # When adding the first item
-        if self.root == None:
+        if self.root is None:
             self.root = node
         else:
             parent, result = self.find_node(node)
@@ -165,11 +165,41 @@ class BST():
         Parameters:
             item(any): the data for the node we're removing
         """
-        node = self.Node(item)
-        parent, result = self.find_node(node)
-        left_child, right_child = parent.left, parent.right
-        if result == 0:
-
+        def delete(node, data):
+            """Recursive deleting, helper method for remove()"""
+            if node is None:
+                return None
+            if data == node.data:
+                # Found node to delete
+                if node.left is None and node.right is None:
+                    # node has no children
+                    return None
+                if node.left is None:
+                    # node has right children
+                    return node.right
+                if node.right is None:
+                    # node has left children
+                    return node.left
+                
+                # node has 2 children
+                next_highest = node.right
+                # Find the next highest value in tree
+                while next_highest.left is not None:
+                    next_highest = next_highest.left
+                node.data = next_highest.data
+                node.right = delete(node.right, next_highest.data)
+                return node
+            # Continue searching for node
+            elif data < node.data:
+                node.left = delete(node.left, data)
+                return node
+            elif data > node.data:
+                node.right = delete(node.right, data)
+                return node
+            else:
+                raise ValueError(f"data to be removed ({data}) is neither <, ==, or > anything in tree")
+                
+        self.root = delete(self.root, item)
         return self
 
     def find(self, item):
