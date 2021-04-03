@@ -22,10 +22,23 @@ If there are no form validation errors,
 
 body {
     color: black;
+    font-family:Arial, Helvetica, sans-serif
 }
 
-input {
-    border-radius: 4px;
+label, input {
+    display: block;
+}
+
+h2 {
+    margin: 3px 5px 15px;
+}
+
+label {
+    margin: 4px;
+}
+
+ul {
+    margin: 24px 0px;
 }
 
 .defaultBorder {
@@ -52,10 +65,29 @@ input {
     display: none;
 }
 
+.field {
+    border-radius: 5px;
+    width: 95%;
+    height: 20px;
+    padding: 4px 8px 5px;
+    margin: auto;
+    margin-bottom: 15px
+}
+
 #formBox {
     background-color: #EFEEEF;
     border: none;
-    border-radius: 3px;
-    display: flex;
-    flex-flow: column nowrap;
+    border-radius: 4px;
+    max-width: 450px;
+    padding: 8px;
+}
+
+#submit {
+    width: 100%;
+    margin: 3px auto;
+    border: none;
+    color: white;
+    background-color: #2F98FF;
+    border-radius: 5px;
+    padding: 15px 0px;
 }
