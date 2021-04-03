@@ -65,7 +65,7 @@ ul {
     display: none;
 }
 
-input[type="text"], input[type="email"], input[type="password"]{
+.field{
     border-radius: 5px;
     width: 95%;
     height: 20px;
