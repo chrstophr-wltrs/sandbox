@@ -76,7 +76,7 @@ class BST():
 
     def add(self, item):
         """Add item to its proper place in the tree, Return the modified tree"""
-        pass
+        return self
 
     def remove(self, item):
         """
@@ -87,7 +87,7 @@ class BST():
             copy the information from the appropriate leaf node,
             then delete the leaf
         """
-        pass
+        return self
 
     def find(self, item):
         """Return the matched item; If item is not in the tree, raise a ValueError"""
@@ -115,4 +115,4 @@ class BST():
             3.split the list in left and right halves, excluding the middle value
             4.recursively rebuild the tree, using steps 2 and 3 until done.
         """
-        pass
+        return self
