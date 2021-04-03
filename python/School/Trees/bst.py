@@ -93,6 +93,10 @@ class BST():
         Special recursive helper method,
         assists the other tree-traversal methods
 
+        NOTE: method searchs for NODES, and while it may
+        check node data for comparisons, this method is
+        very different from find()
+
         Parameters:
             node(Node): the node we're searching for
             parent(Node): the parent node, used for recursion
