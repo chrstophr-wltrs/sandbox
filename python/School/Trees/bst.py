@@ -88,7 +88,7 @@ class BST():
             return item
 
 
-    def search(self, node, parent = None):
+    def find_node(self, node, parent = None):
         """
         Special recursive helper method,
         assists the other tree-traversal methods
@@ -120,7 +120,7 @@ class BST():
                     return (parent, -1)
                 else:
                     # Search for node in left subtree
-                    self.search(node, parent.left)
+                    self.find_node(node, parent.left)
             elif node.data > parent.data:
                 # Node might be a right child
                 if parent.right == None:
@@ -128,7 +128,7 @@ class BST():
                     return (parent, 1)
                 else:
                     # Search for node in right subtree
-                    self.search(node, parent.right)
+                    self.find_node(node, parent.right)
 
     def add(self, item):
         """
@@ -143,7 +143,7 @@ class BST():
         if self.root == None:
             self.root = node
         else:
-            parent, result = self.search(node)
+            parent, result = self.find_node(node)
             if result == -1:
                 parent.left = node
             elif result == 1:
@@ -175,7 +175,7 @@ class BST():
         """
         node = self.node_me(item)
         
-        parent, result = self.search(node)
+        parent, result = self.find_node(node)
 
         if result == 0:
             return parent.data
