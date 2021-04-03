@@ -61,6 +61,10 @@ ul {
     display: block;
 }
 
+.showLi {
+    display: list-item;
+}
+
 .hideMe {
     display: none;
 }
