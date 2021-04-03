@@ -128,9 +128,47 @@ class BST():
         """
         return self
 
-    def find(self, item):
-        """Return the matched item; If item is not in the tree, raise a ValueError"""
-        pass
+    def find(self, item, parent = None):
+        """
+        Return the matched item; If item is not in the tree, raise a ValueError
+        
+        Parameters:
+            item(any): the data for the node we're finding
+            parent(Node): the parent node, used for recursion
+        """
+        # Used for recursive tree traversal
+        if parent == None:
+            parent = self.root
+
+        # Convert item to a Node, if it isn't already
+        if not isinstance(item, self.Node):
+            node = self.Node(item)
+        else:
+            node = item
+
+        # The error to raise, if the item is not present
+        not_here = ValueError(f"Node {node.data} not present in tree")
+
+        # Begin searching for item
+        if node.data == parent.data:
+            return parent.data
+        else:
+            if node.data < parent.data:
+                # Node might be a left child
+                if parent.left == None:
+                    # Node isn't in tree
+                    raise not_here
+                else:
+                    # Search for node in left subtree
+                    self.find(node, parent.left)
+            elif node.data > parent.data:
+                # Node might be a right child
+                if parent.right == None:
+                    # Node isn't in tree
+                    raise not_here
+                else:
+                    # Search for node in right subtree
+                    self.find(node, parent.right)
 
     def inorder(self):
         """Return a list with the data items in order of inorder traversal"""
