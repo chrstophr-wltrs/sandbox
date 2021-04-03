@@ -61,7 +61,7 @@ class BST():
 
     def is_empty(self):
         """Return True if empty, False otherwise"""
-        pass
+        return self.root == None
 
     def size(self):
         """Return the number of items in the tree"""
