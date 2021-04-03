@@ -74,20 +74,6 @@ class BST():
         """Return the height of the tree, which is the length of the path from the root to its deepest leaf"""
         pass
     
-    def node_me(self, item):
-        """
-        Helper function, converts item to a node, returns the Node
-
-        Parameters:
-            item(any): the item being converted
-        """
-        if not isinstance(item, self.Node):
-            return self.Node(item)
-        else:
-            print(f"{item} is already a node")
-            return item
-
-
     def find_node(self, node, parent = None):
         """
         Special recursive helper method,
@@ -141,7 +127,7 @@ class BST():
         Parameters:
             item(any): the data for the node we're adding
         """
-        node = self.node_me(item)
+        node = self.Node(item)
 
         # When adding the first item
         if self.root == None:
@@ -168,6 +154,7 @@ class BST():
         Parameters:
             item(any): the data for the node we're removing
         """
+        node = self.Node(item)
         return self
 
     def find(self, item):
@@ -177,7 +164,7 @@ class BST():
         Parameters:
             item(any): the data for the node we're finding
         """
-        node = self.node_me(item)
+        node = self.Node(item)
         
         parent, result = self.find_node(node)
 
