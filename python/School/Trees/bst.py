@@ -74,8 +74,47 @@ class BST():
         """Return the height of the tree, which is the length of the path from the root to its deepest leaf"""
         pass
 
-    def add(self, item):
-        """Add item to its proper place in the tree, Return the modified tree"""
+    def add(self, item, parent = None):
+        """
+        Add item to its proper place in the tree, Return the modified tree
+        
+        Parameters:
+            item(any): the data for the node we're adding
+            parent(Node): the parent node, used for recursion
+        """
+        # Used for recursive tree traversal
+        if parent == None:
+            parent = self.root
+        
+        # Convert item to a Node, if it isn't already
+        if not isinstance(item, self.Node):
+            node = self.Node(item)
+        else:
+            node = item
+        
+        # When adding the first item
+        if self.root == None:
+            self.root = node
+        else:
+            if node.data < parent.data:
+                # Node will be a left child
+                if parent.left == None:
+                    # Adding node as left child
+                    parent.left = node
+                else:
+                    # Parent already has a left child
+                    self.add(node, parent.left)
+            elif node.data > parent.data:
+                # Node will be a right child
+                if parent.right == None:
+                    # Adding node as right child
+                    parent.right = node
+                else:
+                    # Parent already has a right child
+                    self.add(node, parent.right)
+            else:
+                # Node is already present in the tree
+                raise ValueError(f"Node {node.data} already present in tree")
         return self
 
     def remove(self, item):
