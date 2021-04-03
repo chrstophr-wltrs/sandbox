@@ -31,6 +31,8 @@ Perform the following form validations in the order provided and display all err
 
 */
 
+const errorList = document.getElementById("errorList")
+
 const validateName = function(){
    // Validate the name
    const fullName = document.getElementById("fullName")
@@ -38,13 +40,12 @@ const validateName = function(){
    if (fullName.value.length <= 0){
       fullName.classList.remove("defaultBorder")
       fullName.classList.add("errorBorder")
-      errorFullName.className = "showLi"
+      errorList.innerHTML += `<li>Missing full name.</li>\n`
       return true
    }
    else{
       fullName.classList.remove("errorBorder")
       fullName.classList.add("defaultBorder")
-      errorFullName.className = "hideMe"
       return false
    }
 }
@@ -57,13 +58,12 @@ const validateEmail = function(){
    if ((email.value.length <= 0) || !emailReg.test(email.value)){
       email.classList.remove("defaultBorder")
       email.classList.add("errorBorder")
-      errorEmail.className = "showLi"
+      errorList.innerHTML += `<li>Invalid or missing email address.</li>\n`
       return true
    }
    else{
       email.classList.remove("errorBorder")
       email.classList.add("defaultBorder")
-      errorEmail.className = "hideMe"
       return false
    }
 }
@@ -74,36 +74,25 @@ const validatePassword = function(){
    const enteredPassword = password.value
    let passwordErrorFlag = false
    let passwordConfirmFlag = false
-   // Grab the various password errors
-   const errorPassLength = document.getElementById("errorPassLength")
-   const errorPassLower = document.getElementById("errorPassLower")
-   const errorPassUpper = document.getElementById("errorPassUpper")
-   const errorPassDigit = document.getElementById("errorPassDigit")
-   const errorPassConfirm = document.getElementById("errorPassConfirm")
-   // Disable all the password errors until needed
-   const passwordErrors = [errorPassLength, errorPassLower, errorPassUpper, errorPassDigit]
-   for (let err of passwordErrors){
-      err.className = "hideMe"
-   }
    // Check the password conditions
    // Check password length
    if ((enteredPassword.length < 10) || (enteredPassword.length > 20)){
-      errorPassLength.className = "showLi"
+      errorList.innerHTML += `<li>Password must be between 10 and 20 characters.</li>\n`
       passwordErrorFlag = true
    }
    // Check for lowercase
    if (!/[a-z]/.test(enteredPassword)){
-      errorPassLower.className = "showLi"
+      errorList.innerHTML += `<li>Password must contain at least one lowercase character.</li>\n`
       passwordErrorFlag = true
    }
    // Check for uppercase 
    if (!/[A-Z]/.test(enteredPassword)){
-      errorPassUpper.className = "showLi"
+      errorList.innerHTML += `<li>Password must contain at least one uppercase character.</li>\n`
       passwordErrorFlag = true
    }
    // Check for a digit
    if (!/\d/.test(enteredPassword)){
-      errorPassDigit.className = "showLi"
+      errorList.innerHTML += `<li>Password must contain at least one digit.</li>\n`
       passwordErrorFlag = true
    }
 
@@ -119,16 +108,15 @@ const validatePassword = function(){
    
    // Check the confirmed password matches (even if the password is bad)
    const passwordConfirm = document.getElementById("passwordConfirm")
-   if (passwordConfirm.value !== enteredPassword){
+   if ((passwordConfirm.value !== enteredPassword) && (passwordConfirm.value.length > 0)){
       passwordConfirm.classList.remove("defaultBorder")
       passwordConfirm.classList.add("errorBorder")
-      errorPassConfirm.className = "showLi"
+      errorList.innerHTML += `<li>Password and confirmation password don't match.</li>\n`
       passwordConfirmFlag = true
    }
    else {
       passwordConfirm.classList.remove("errorBorder")
       passwordConfirm.classList.add("defaultBorder")
-      errorPassConfirm.className = "hideMe"
    }
    // Check to see if there was a problem with either password input
    if (passwordErrorFlag || passwordErrorFlag){
@@ -144,6 +132,8 @@ const checkForm = function() {
    // true = one or more errors
    const formErrors = document.getElementById("formErrors")
    formErrors.className = "hideMe"
+   // Clear any previous errors
+   errorList.innerHTML = ""
    // Go through each form, make sure ALL proper errors are in the list
    const badName = validateName()
    const badEmail = validateEmail()

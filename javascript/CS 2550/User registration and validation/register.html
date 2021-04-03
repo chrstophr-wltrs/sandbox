@@ -54,15 +54,7 @@ User inputs elements: Define the following <input> elements using the specified 
             <label for="passwordConfirm">Confirm Password</label>
             <input type="password" id="passwordConfirm" name="passwordConfirm" class="defaultBorder field">
             <div id="formErrors" class="hideMe">
-               <ul class="redText">
-                  <li id="errorFullName" class="hideMe">Missing full name.</li>
-                  <li id="errorEmail" class="hideMe">Invalid or missing email address.</li>
-                  <li id="errorPassLength" class="hideMe">Password must be between 10 and 20 characters.</li>
-                  <li id="errorPassLower" class="hideMe">Password must contain at least one lowercase character.</li>
-                  <li id="errorPassUpper" class="hideMe">Password must contain at least one uppercase character.</li>
-                  <li id="errorPassDigit" class="hideMe">Password must contain at least one digit.</li>
-                  <li id="errorPassConfirm" class="hideMe">Password and confirmation password don't match.</li>
-               </ul>
+               <ul class="redText" id="errorList"></ul>
             </div>
             <input type="submit" id="submit" value="Register">
          </form>
