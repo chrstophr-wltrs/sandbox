@@ -73,47 +73,82 @@ class BST():
     def height(self):
         """Return the height of the tree, which is the length of the path from the root to its deepest leaf"""
         pass
+    
+    def node_me(self, item):
+        """
+        Helper function, converts item to a node, returns the Node
 
-    def add(self, item, parent = None):
+        Parameters:
+            item(any): the item being converted
+        """
+        if not isinstance(item, self.Node):
+            return self.Node(item)
+        else:
+            print(f"{item} is already a node")
+            return item
+
+
+    def search(self, node, parent = None):
+        """
+        Special recursive helper method,
+        assists the other tree-traversal methods
+
+        Parameters:
+            node(Node): the node we're searching for
+            parent(Node): the parent node, used for recursion
+        
+        Result: 
+            -1: Node isn't in tree, is less than parent
+            0: Node is present in tree (the present Node is returned)
+            1: Node isn't in tree, is greater than parent
+
+        Return (parent node, result)
+        """
+        # Used for recursive tree traversal
+        # If parent hasn't been defined, then start at the root
+        if parent == None:
+            parent = self.root
+                
+        # Begin searching for item
+        if node.data == parent.data:
+            return (parent, 0)
+        else:
+            if node.data < parent.data:
+                # Node might be a left child
+                if parent.left == None:
+                    # Node isn't in tree, is less than parent
+                    return (parent, -1)
+                else:
+                    # Search for node in left subtree
+                    self.search(node, parent.left)
+            elif node.data > parent.data:
+                # Node might be a right child
+                if parent.right == None:
+                    # Node isn't in tree, is greater than parent
+                    return (parent, 1)
+                else:
+                    # Search for node in right subtree
+                    self.search(node, parent.right)
+
+    def add(self, item):
         """
         Add item to its proper place in the tree, Return the modified tree
         
         Parameters:
             item(any): the data for the node we're adding
-            parent(Node): the parent node, used for recursion
         """
-        # Used for recursive tree traversal
-        if parent == None:
-            parent = self.root
-        
-        # Convert item to a Node, if it isn't already
-        if not isinstance(item, self.Node):
-            node = self.Node(item)
-        else:
-            node = item
-        
+        node = self.node_me(item)
+
         # When adding the first item
         if self.root == None:
             self.root = node
         else:
-            if node.data < parent.data:
-                # Node will be a left child
-                if parent.left == None:
-                    # Adding node as left child
-                    parent.left = node
-                else:
-                    # Parent already has a left child
-                    self.add(node, parent.left)
-            elif node.data > parent.data:
-                # Node will be a right child
-                if parent.right == None:
-                    # Adding node as right child
-                    parent.right = node
-                else:
-                    # Parent already has a right child
-                    self.add(node, parent.right)
+            parent, result = self.search(node)
+            if result == -1:
+                parent.left = node
+            elif result == 1:
+                parent.right = node
             else:
-                # Node is already present in the tree
                 raise ValueError(f"Node {node.data} already present in tree")
         return self
 
@@ -125,50 +160,27 @@ class BST():
         If the root node or an interior node is deleted,
             copy the information from the appropriate leaf node,
             then delete the leaf
+
+        Parameters:
+            item(any): the data for the node we're removing
         """
         return self
 
-    def find(self, item, parent = None):
+    def find(self, item):
         """
         Return the matched item; If item is not in the tree, raise a ValueError
         
         Parameters:
             item(any): the data for the node we're finding
-            parent(Node): the parent node, used for recursion
         """
-        # Used for recursive tree traversal
-        if parent == None:
-            parent = self.root
+        node = self.node_me(item)
+        
+        parent, result = self.search(node)
 
-        # Convert item to a Node, if it isn't already
-        if not isinstance(item, self.Node):
-            node = self.Node(item)
-        else:
-            node = item
-
-        # The error to raise, if the item is not present
-        not_here = ValueError(f"Node {node.data} not present in tree")
-
-        # Begin searching for item
-        if node.data == parent.data:
+        if result == 0:
             return parent.data
         else:
-            if node.data < parent.data:
-                # Node might be a left child
-                if parent.left == None:
-                    # Node isn't in tree
-                    raise not_here
-                else:
-                    # Search for node in left subtree
-                    self.find(node, parent.left)
-            elif node.data > parent.data:
-                # Node might be a right child
-                if parent.right == None:
-                    # Node isn't in tree
-                    raise not_here
-                else:
-                    # Search for node in right subtree
-                    self.find(node, parent.right)
+            raise ValueError(f"Node {node.data} not present in tree")
 
     def inorder(self):
         """Return a list with the data items in order of inorder traversal"""
