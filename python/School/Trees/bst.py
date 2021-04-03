@@ -50,6 +50,15 @@ class BST():
             self.left = None
             self.right = None
 
+    def __init__(self):
+        """
+        A binary search tree, constructed from Nodes
+
+        Attributes:
+            root(Node): The root node of the tree, which has no parents
+        """
+        self.root = None
+
     def is_empty(self):
         """Return True if empty, False otherwise"""
         pass
