@@ -99,5 +99,13 @@ class BST():
         pass
 
     def rebalance(self):
-        """rebalance the tree, Return the modified tree"""
+        """
+        rebalance the tree, Return the modified tree
+        
+        The rebalancing algorithm you will implement is as follows:
+            1.do an inorder traversal of the tree and write the node values out to a list. If you wish you can use a generator to easily create this list.
+            2.take the middle value as root
+            3.split the list in left and right halves, excluding the middle value
+            4.recursively rebuild the tree, using steps 2 and 3 until done.
+        """
         pass
