@@ -50,6 +50,9 @@ class BST():
             self.left = None
             self.right = None
 
+        def __str__(self):
+            return f"{self.data}, left: {self.left.data}, right: {self.right.data}"
+
     def __init__(self):
         """
         A binary search tree, constructed from Nodes
