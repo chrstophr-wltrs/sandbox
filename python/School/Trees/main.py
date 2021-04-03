@@ -17,7 +17,7 @@ from bst import BST
 class Pair:
     ''' Encapsulate letter,count pair as a single entity.
     
-    Realtional methods make this object comparable
+    Relational methods make this object comparable
     using built-in operators. 
     '''
     def __init__(self, letter, count = 1):
@@ -64,7 +64,7 @@ def main():
     ''' Program kicks off here.
 
     '''
-       pass
+    pass
     
 if __name__ == "__main__":
     main()
