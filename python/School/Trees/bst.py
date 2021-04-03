@@ -74,7 +74,7 @@ class BST():
         """Return the height of the tree, which is the length of the path from the root to its deepest leaf"""
         pass
     
-    def find_node(self, node, parent = None):
+    def find_node(self, node, parent = None, removing = False):
         """
         Special recursive helper method,
         assists the other tree-traversal methods
@@ -86,19 +86,30 @@ class BST():
         Parameters:
             node(Node): the node we're searching for
             parent(Node): the parent node, used for recursion
+            removing(bool): determines whether we are removing the target node
         
-        Result: 
-            -1: Node isn't in tree, is less than parent
-            0: Node is present in tree (the present Node is returned)
-            1: Node isn't in tree, is greater than parent
+        Result (When Removing):
+            -1: Child is found, is a left child of parent
+            1: Child is found, is right child of parent
+            Return (parent node, result)
 
-        Return (parent node, result)
+        Result (When Not Removing): 
+            -1: Node isn't in tree, data less than parent
+            0: Node is present in tree (the present Node is returned)
+            1: Node isn't in tree, data greater than parent
+            Return (parent/target node, result)
         """
         # Used for recursive tree traversal
         # If parent hasn't been defined, then start at the root
         if parent == None:
             parent = self.root
-                
+        
+        if removing:
+            if node.data == parent.left.data:
+                return (parent, -1)
+            if node.data == parent.right.data:
+                return (parent, 1)
+
         # Begin searching for item
         if node.data == parent.data:
             return (parent, 0)
@@ -155,6 +166,10 @@ class BST():
             item(any): the data for the node we're removing
         """
         node = self.Node(item)
+        parent, result = self.find_node(node)
+        left_child, right_child = parent.left, parent.right
+        if result == 0:
+
         return self
 
     def find(self, item):
