@@ -79,7 +79,14 @@ class BST():
         pass
 
     def remove(self, item):
-        """Remove item from the tree, Return the modified tree"""
+        """
+        Remove item from the tree, Return the modified tree
+        
+        You can simplify the remove algorithm by always deleting a leaf node.
+        If the root node or an interior node is deleted,
+            copy the information from the appropriate leaf node,
+            then delete the leaf
+        """
         pass
 
     def find(self, item):
