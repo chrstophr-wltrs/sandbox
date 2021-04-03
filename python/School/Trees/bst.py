@@ -27,6 +27,29 @@ class BST():
         rebalance(): rebalance the tree, Return the modified tree
     """
     
+    class Node():
+        """
+        Node of a binary search tree, helper class of BST
+
+        Attributes:
+            data(any): the contents of the Node, will typically be a dict or a Pair
+            left(Node): points to the 'left' node descendent
+            right(Node): points to the 'right' node descendent
+        """
+
+        def __init__(self, data):
+            """
+            Node of a binary search tree, specifically used to count letters
+
+            Attributes:
+                data(any): the contents of the Node, will typically be a dict or a Pair
+                left(Node): points to the 'left' node descendent
+                right(Node): points to the 'right' node descendent 
+            """
+            self.data = data
+            self.left = None
+            self.right = None
+
     def is_empty(self):
         """Return True if empty, False otherwise"""
         pass
