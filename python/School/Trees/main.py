@@ -15,7 +15,8 @@ from bst import BST
 
 
 class Pair:
-    ''' Encapsulate letter,count pair as a single entity.
+    '''
+    Encapsulate letter, count pair as a single entity.
     
     Relational methods make this object comparable
     using built-in operators. 
