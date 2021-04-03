@@ -1,12 +1,12 @@
 '''
-Project:
-Author: 
-Course: 
-Date: 
+Project: Binary Search Trees
+Author: Chris Walters
+Course: CS 2550
+Date: 4/3/2021
 
-Description:
+Description: Main function for testing the bst module
 
-Lessons Learned:
+Lessons Learned: I guess we'll see!
 
 '''
 from pathlib import Path
