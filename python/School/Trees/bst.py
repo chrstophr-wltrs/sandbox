@@ -51,10 +51,10 @@ class BST():
             self.right = None
 
         def __str__(self):
-            return f'{self.data}, left: {self.left.data}, right: {self.right.data}'
+            return f'Node {self.data}, left: {self.left.data}, right: {self.right.data}'
         
         def __repr__(self):
-            return f'{self.data}, left: {self.left.data}, right: {self.right.data}'
+            return f'Node {self.data}, left: {self.left.data}, right: {self.right.data}'
 
 
     def __init__(self):
@@ -72,18 +72,15 @@ class BST():
 
     def size(self):
         """Return the number of items in the tree"""
-        def lnr(node):
-            """Recursive behavior for in-order processing"""
-            if node is None:
-                return
-            lnr(node.left)
-            sum += 1
-            lnr(node.right)
-        sum = 0
-        lnr(self.root)
-        return sum
+        def sz(tree):
+            if tree is None:
+                return 0
+            else:
+                return sz(tree.left) + sz(tree.right) + 1
+        
+        return sz(self.root)
 
-    def height(self, tree = None):
+    def height(self):
         """
         Return the height of the tree
         which is the length of the path from the root to its deepest leaf
@@ -91,10 +88,13 @@ class BST():
         Parameters:
             tree(Node): the root point of the tree we're exploring
         """
-        if tree is None:
-            return 0
-        else:
-            return max(self.height(tree.left), self.height(tree.right)) + 1
+        def ht(tree):
+            if tree is None:
+                return 0
+            else:
+                return max(ht(tree.left), ht(tree.right)) + 1
+        
+        return ht(self.root) - 1
         
     
     def find_node(self, node, parent = None):
@@ -306,3 +306,8 @@ class BST():
         
         
         starter_list = self.inorder(self.root)
+    def __str__(self):
+        return f'Binary Tree, root: {self.root.data}'
+        
+    def __repr__(self):
+        return f'Binary Tree, root: {self.root.data}'
