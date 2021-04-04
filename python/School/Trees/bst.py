@@ -232,7 +232,7 @@ class BST():
             if node is None:
                 return
             lnr(node.left)
-            lyst.append(node)
+            lyst.append(node.data)
             lnr(node.right)
         lyst = []
         lnr(self.root)
@@ -244,7 +244,7 @@ class BST():
             """Recursive behavior for pre-order processing"""
             if node is None:
                 return
-            lyst.append(node)
+            lyst.append(node.data)
             nlr(node.left)
             nlr(node.right)
         lyst = []
@@ -259,7 +259,7 @@ class BST():
                 return
             lrn(node.left)
             lrn(node.right)
-            lyst.append(node)
+            lyst.append(node.data)
         lyst = []
         lrn(self.root)
         return lyst
@@ -275,4 +275,4 @@ class BST():
             3. split the list in left and right halves, excluding the middle value
             4. recursively rebuild the tree, using steps 2 and 3 until done
         """
-        return self
+        lyst = self.inorder(self.root)
