@@ -7,13 +7,14 @@ Date: 4/3/2021
 Description: the bst module, used for testing!
 """
 
-class BST():
+
+class BST:
     """
     A binary search tree, constructed from Nodes
 
     Attributes:
         root(Node): The root node of the tree, which has no parents
-    
+
     Methods:
         is_empty(): Return True if empty, False otherwise
         size(): Return the number of items in the tree
@@ -26,8 +27,8 @@ class BST():
         postorder(): Return a list with the data items in order of postorder traversal
         rebalance(): rebalance the tree, Return the modified tree
     """
-    
-    class Node():
+
+    class Node:
         """
         Node of a binary search tree, helper class of BST
 
@@ -44,18 +45,17 @@ class BST():
             Attributes:
                 data(any): the contents of the Node, will typically be a dict or a Pair
                 left(Node): points to the 'left' node descendent
-                right(Node): points to the 'right' node descendent 
+                right(Node): points to the 'right' node descendent
             """
             self.data = data
             self.left = None
             self.right = None
 
         def __str__(self):
-            return f'Node {self.data}, left: {self.left.data}, right: {self.right.data}'
-        
-        def __repr__(self):
-            return f'Node {self.data}, left: {self.left.data}, right: {self.right.data}'
+            return f"Node {self.data}, left: {self.left.data}, right: {self.right.data}"
 
+        def __repr__(self):
+            return f"Node {self.data}, left: {self.left.data}, right: {self.right.data}"
 
     def __init__(self):
         """
@@ -72,32 +72,33 @@ class BST():
 
     def size(self):
         """Return the number of items in the tree"""
+
         def sz(tree):
             if tree is None:
                 return 0
             else:
                 return sz(tree.left) + sz(tree.right) + 1
-        
+
         return sz(self.root)
 
     def height(self):
         """
         Return the height of the tree
         which is the length of the path from the root to its deepest leaf
-        
+
         Parameters:
             tree(Node): the root point of the tree we're exploring
         """
+
         def ht(tree):
             if tree is None:
                 return 0
             else:
                 return max(ht(tree.left), ht(tree.right)) + 1
-        
+
         return ht(self.root)
-        
-    
-    def find_node(self, node, parent = None):
+
+    def find_node(self, node, parent=None):
         """
         Special recursive helper method,
         assists the other tree-traversal methods
@@ -109,19 +110,19 @@ class BST():
         Parameters:
             node(Node): the node we're searching for
             parent(Node): the parent node, used for recursion
-        
-        Result: 
+
+        Result:
             -1: Node isn't in tree, data less than parent
             0: Node is present in tree (the present Node is returned)
             1: Node isn't in tree, data greater than parent
-            
+
             Return (parent/target node, result)
         """
         # Used for recursive tree traversal
         # If parent hasn't been defined, then start at the root
         if parent is None:
             parent = self.root
-        
+
         # Begin searching for item
         if node.data == parent.data:
             return parent, 0
@@ -146,7 +147,7 @@ class BST():
     def add(self, item):
         """
         Add item to its proper place in the tree, Return the modified tree
-        
+
         Parameters:
             item(any): the data for the node we're adding
         """
@@ -168,7 +169,7 @@ class BST():
     def remove(self, item):
         """
         Remove item from the tree, Return the modified tree
-        
+
         You can simplify the remove algorithm by always deleting a leaf node.
         If the root node or an interior node is deleted,
             copy the information from the appropriate leaf node,
@@ -177,6 +178,7 @@ class BST():
         Parameters:
             item(any): the data for the node we're removing
         """
+
         def delete(node, data):
             """Recursive deleting, helper method for remove()"""
             if node is None:
@@ -192,7 +194,7 @@ class BST():
                 if node.right is None:
                     # node has left children
                     return node.left
-                
+
                 # node has 2 children
                 next_highest = node.right
                 # Find the next highest value in tree
@@ -209,7 +211,9 @@ class BST():
                 node.right = delete(node.right, data)
                 return node
             else:
-                raise ValueError(f"data to be removed ({data}) is neither <, ==, or > anything in tree")
+                raise ValueError(
+                    f"data to be removed ({data}) is neither <, ==, or > anything in tree"
+                )
 
         self.root = delete(self.root, item)
         return self
@@ -217,7 +221,7 @@ class BST():
     def find(self, item):
         """
         Return the matched item; If item is not in the tree, raise a ValueError
-        
+
         Parameters:
             item(any): the data for the node we're finding
         """
@@ -233,6 +237,7 @@ class BST():
 
     def inorder(self):
         """Return a list with the data items in order of inorder traversal"""
+
         def lnr(node):
             """Recursive behavior for in-order processing"""
             if node is None:
@@ -240,12 +245,14 @@ class BST():
             lnr(node.left)
             lyst.append(node.data)
             lnr(node.right)
+
         lyst = []
         lnr(self.root)
         return lyst
 
     def preorder(self):
         """Return a list with the data items in order of preorder traversal"""
+
         def nlr(node):
             """Recursive behavior for pre-order processing"""
             if node is None:
@@ -253,12 +260,14 @@ class BST():
             lyst.append(node.data)
             nlr(node.left)
             nlr(node.right)
+
         lyst = []
         nlr(self.root)
         return lyst
 
     def postorder(self):
         """Return a list with the data items in order of postorder traversal"""
+
         def lrn(node):
             """Recursive behavior for post-order processing"""
             if node is None:
@@ -266,14 +275,17 @@ class BST():
             lrn(node.left)
             lrn(node.right)
             lyst.append(node.data)
+
         lyst = []
         lrn(self.root)
         return lyst
 
-    def rebalance(self,):
+    def rebalance(
+        self,
+    ):
         """
         rebalance the tree, Return the modified tree
-        
+
         The rebalancing algorithm you will implement is as follows:
             1. do an inorder traversal of the tree and write the node values out to a list
                     If you wish you can use a generator to easily create this list
@@ -281,16 +293,17 @@ class BST():
             3. split the list in left and right halves, excluding the middle value
             4. recursively rebuild the tree, using steps 2 and 3 until done
         """
+
         def bal(lyst):
             """
             Recursively build the tree
-            """                
+            """
             if len(lyst) == 0:
                 return None
             midex = len(lyst) // 2
             node = self.Node(lyst[midex])
             before = lyst[:midex]
-            after = lyst[midex + 1:]
+            after = lyst[midex + 1 :]
             if len(before) == 1:
                 node.left = self.Node(before[0])
             else:
@@ -304,9 +317,9 @@ class BST():
         starter_list = self.inorder()
         self.root = bal(starter_list)
         return self
-    
+
     def __str__(self):
-        return f'Binary Tree, root: {self.root.data}'
-        
+        return f"Binary Tree, root: {self.root.data}"
+
     def __repr__(self):
-        return f'Binary Tree, root: {self.root.data}'
+        return f"Binary Tree, root: {self.root.data}"
