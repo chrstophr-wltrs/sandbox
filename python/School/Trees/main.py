@@ -59,13 +59,28 @@ def make_tree():
     :param: None
     :returns: A binary search tree
     '''
-    pass
+    tree = BST()
+    with open('around-the-world-in-80-days-3.txt', 'r') as file:
+        for line in file:
+            for char in line:
+                if (char not in whitespace) and (char not in punctuation):
+                    if tree.is_empty():
+                        pair = Pair(char)
+                        tree.add(pair)
+                    else:
+                        try:
+                            pair = tree.find(Pair(char))
+                            pair.count += 1
+                        except(ValueError):
+                            pair = Pair(char)
+                            tree.add(pair)
+    return tree
+
 
 def main():
     ''' Program kicks off here.
 
     '''
-    pass
     
 if __name__ == "__main__":
     main()
