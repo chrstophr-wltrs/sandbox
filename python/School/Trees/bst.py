@@ -208,24 +208,46 @@ class BST():
 
     def inorder(self):
         """Return a list with the data items in order of inorder traversal"""
-        pass
+        def lnr(node):
+            """Recursive behavior for in-order processing"""
+            if node is None:
+                return
+            lnr(node.left)
+            lyst.append(node)
+            lnr(node.right)
+        lyst = []
 
     def preorder(self):
         """Return a list with the data items in order of preorder traversal"""
-        pass
+        def nlr(node):
+            """Recursive behavior for pre-order processing"""
+            if node is None:
+                return
+            lyst.append(node)
+            nlr(node.left)
+            nlr(node.right)
+        lyst = []
 
     def postorder(self):
         """Return a list with the data items in order of postorder traversal"""
-        pass
+        def lrn(node):
+            """Recursive behavior for post-order processing"""
+            if node is None:
+                return
+            lrn(node.left)
+            lrn(node.right)
+            lyst.append(node)
+        lyst = []
 
     def rebalance(self):
         """
         rebalance the tree, Return the modified tree
         
         The rebalancing algorithm you will implement is as follows:
-            1.do an inorder traversal of the tree and write the node values out to a list. If you wish you can use a generator to easily create this list.
-            2.take the middle value as root
-            3.split the list in left and right halves, excluding the middle value
-            4.recursively rebuild the tree, using steps 2 and 3 until done.
+            1. do an inorder traversal of the tree and write the node values out to a list
+                    If you wish you can use a generator to easily create this list
+            2. take the middle value as root
+            3. split the list in left and right halves, excluding the middle value
+            4. recursively rebuild the tree, using steps 2 and 3 until done
         """
         return self
