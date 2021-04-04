@@ -94,7 +94,7 @@ class BST():
             else:
                 return max(ht(tree.left), ht(tree.right)) + 1
         
-        return ht(self.root) - 1
+        return ht(self.root)
         
     
     def find_node(self, node, parent = None):
@@ -222,7 +222,8 @@ class BST():
             item(any): the data for the node we're finding
         """
         node = self.Node(item)
-        
+        if self.root is None:
+            raise ValueError(f"Node {node.data} not present in tree")
         parent, result = self.find_node(node)
 
         if result == 0:
@@ -269,42 +270,46 @@ class BST():
         lrn(self.root)
         return lyst
 
-    def rebalance(self,):
-        """
-        rebalance the tree, Return the modified tree
+    # def rebalance(self,):
+    #     """
+    #     rebalance the tree, Return the modified tree
         
-        The rebalancing algorithm you will implement is as follows:
-            1. do an inorder traversal of the tree and write the node values out to a list
-                    If you wish you can use a generator to easily create this list
-            2. take the middle value as root
-            3. split the list in left and right halves, excluding the middle value
-            4. recursively rebuild the tree, using steps 2 and 3 until done
-        """
-        def bal(lyst, node = None):
-            """
-            Recursively build the tree
-            """
-            midex = len(lyst) // 2
-            if node is None:
-                node = self.Node(lyst[midex])
-            if len(lyst) == 0:
-                return None
-            elif len(lyst) == 1:
-                if lyst[0] < node.data:
-                    node.left = self.Node(lyst[0])
-                else:
-                    node.right = self.Node(lyst[0])
-                return node
-            else:
-                before = lyst[:midex]
-                after = lyst[midex + 1:]
-                node.left = bal(before, node)
-                node.right = bal(after, node)
-                return node
-        
-        starter_list = self.inorder()
-        self.root = bal(starter_list)
-        return self
+    #     The rebalancing algorithm you will implement is as follows:
+    #         1. do an inorder traversal of the tree and write the node values out to a list
+    #                 If you wish you can use a generator to easily create this list
+    #         2. take the middle value as root
+    #         3. split the list in left and right halves, excluding the middle value
+    #         4. recursively rebuild the tree, using steps 2 and 3 until done
+    #     """
+    #     def bal(lyst, node):
+    #         """
+    #         Recursively build the tree
+    #         """                
+    #         if len(lyst) == 0:
+    #             return None
+    #         elif len(lyst) == 1:
+    #             if lyst[0] < node.data:
+    #                 node.left = self.Node(lyst[0])
+    #             else:
+    #                 node.right = self.Node(lyst[0])
+    #             return node
+    #         else:
+    #             midex = len(lyst) // 2
+    #             before = lyst[:midex]
+    #             after = lyst[midex + 1:]
+    #             new_node = self.Node(lyst[midex])
+    #             node.left = bal(before, new_node)
+    #             node.right = bal(after, new_node)
+    #             return node
+
+
+    #     starter_list = self.inorder()
+    #     midex = len(starter_list) // 2
+    #     before = starter_list[:midex]
+    #     after = starter_list[midex + 1:]
+    #     new_point = self.Node(starter_list[midex])
+    #     self.root = bal(starter_list, new_point)
+    #     return self
     
     def __str__(self):
         return f'Binary Tree, root: {self.root.data}'
