@@ -68,11 +68,30 @@ class BST():
 
     def size(self):
         """Return the number of items in the tree"""
-        pass
+        def lnr(node):
+            """Recursive behavior for in-order processing"""
+            if node is None:
+                return
+            lnr(node.left)
+            sum += 1
+            lnr(node.right)
+        sum = 0
+        lnr(self.root)
+        return sum
 
-    def height(self):
-        """Return the height of the tree, which is the length of the path from the root to its deepest leaf"""
-        pass
+    def height(self, tree = None):
+        """
+        Return the height of the tree
+        which is the length of the path from the root to its deepest leaf
+        
+        Parameters:
+            tree(Node): the root point of the tree we're exploring
+        """
+        if tree is None:
+            return 0
+        else:
+            return self.height(tree.left) + self.height(tree.right) + 1
+        
     
     def find_node(self, node, parent = None):
         """
