@@ -74,7 +74,7 @@ class BST():
         """Return the height of the tree, which is the length of the path from the root to its deepest leaf"""
         pass
     
-    def find_node(self, node, parent = None, removing = False):
+    def find_node(self, node, parent = None):
         """
         Special recursive helper method,
         assists the other tree-traversal methods
@@ -86,14 +86,8 @@ class BST():
         Parameters:
             node(Node): the node we're searching for
             parent(Node): the parent node, used for recursion
-            removing(bool): determines whether we are removing the target node
         
-        Result (When Removing):
-            -1: Child is found, is left child of parent
-            1: Child is found, is right child of parent
-            Return (parent node, result)
-
-        Result (When Not Removing): 
+        Result: 
             -1: Node isn't in tree, data less than parent
             0: Node is present in tree (the present Node is returned)
             1: Node isn't in tree, data greater than parent
@@ -104,12 +98,6 @@ class BST():
         if parent is None:
             parent = self.root
         
-        if removing:
-            if node.data == parent.left.data:
-                return (parent, -1)
-            if node.data == parent.right.data:
-                return (parent, 1)
-
         # Begin searching for item
         if node.data == parent.data:
             return (parent, 0)
@@ -198,7 +186,7 @@ class BST():
                 return node
             else:
                 raise ValueError(f"data to be removed ({data}) is neither <, ==, or > anything in tree")
-                
+
         self.root = delete(self.root, item)
         return self
 
