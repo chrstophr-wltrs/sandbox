@@ -112,6 +112,7 @@ def main():
     print(tree.inorder())
     sleep(10)
     print("Post order:")
+    sleep(3)
     print(tree.postorder())
     sleep(10)
     print("Time for testing!")
