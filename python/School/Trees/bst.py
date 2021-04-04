@@ -51,7 +51,11 @@ class BST():
             self.right = None
 
         def __str__(self):
-            return f"{self.data}, left: {self.left.data}, right: {self.right.data}"
+            return f'{self.data}, left: {self.left.data}, right: {self.right.data}'
+        
+        def __repr__(self):
+            return f'{self.data}, left: {self.left.data}, right: {self.right.data}'
+
 
     def __init__(self):
         """
@@ -110,6 +114,7 @@ class BST():
             -1: Node isn't in tree, data less than parent
             0: Node is present in tree (the present Node is returned)
             1: Node isn't in tree, data greater than parent
+            
             Return (parent/target node, result)
         """
         # Used for recursive tree traversal
@@ -119,24 +124,24 @@ class BST():
         
         # Begin searching for item
         if node.data == parent.data:
-            return (parent, 0)
+            return parent, 0
         else:
             if node.data < parent.data:
                 # Node might be a left child
                 if parent.left is None:
                     # Node isn't in tree, is less than parent
-                    return (parent, -1)
+                    return parent, -1
                 else:
                     # Search for node in left subtree
-                    self.find_node(node, parent.left)
+                    return self.find_node(node, parent.left)
             elif node.data > parent.data:
                 # Node might be a right child
                 if parent.right is None:
                     # Node isn't in tree, is greater than parent
-                    return (parent, 1)
+                    return parent, 1
                 else:
                     # Search for node in right subtree
-                    self.find_node(node, parent.right)
+                    return self.find_node(node, parent.right)
 
     def add(self, item):
         """
@@ -264,7 +269,7 @@ class BST():
         lrn(self.root)
         return lyst
 
-    def rebalance(self):
+    def rebalance(self,):
         """
         rebalance the tree, Return the modified tree
         
@@ -275,4 +280,29 @@ class BST():
             3. split the list in left and right halves, excluding the middle value
             4. recursively rebuild the tree, using steps 2 and 3 until done
         """
-        lyst = self.inorder(self.root)
+        def bal(lyst, node = None):
+            """
+            Recursively build the tree
+            """
+            if len(lyst) == 0:
+                return None
+            elif len(lyst) == 1:
+                if lyst[0] < node.data:
+                    node.left = self.Node(lyst[0])
+                else:
+                    node.right = self.Node(lyst[0])
+                return node
+            elif len(lyst) == 2:
+                node.left = self.Node(lyst[0])
+                node.right = self.Node(lyst[0])
+                return node
+            else:
+                midex = len(lyst) // 2
+                this_node = self.Node(lyst[midex])
+                before = lyst[:midex]
+                after = lyst[midex + 1:]
+                this_node.left = bal(before, this_node)
+                this_node.right = bal(before, this_node)
+        
+        
+        starter_list = self.inorder(self.root)
