@@ -284,6 +284,9 @@ class BST():
             """
             Recursively build the tree
             """
+            midex = len(lyst) // 2
+            if node is None:
+                node = self.Node(lyst[midex])
             if len(lyst) == 0:
                 return None
             elif len(lyst) == 1:
@@ -292,20 +295,17 @@ class BST():
                 else:
                     node.right = self.Node(lyst[0])
                 return node
-            elif len(lyst) == 2:
-                node.left = self.Node(lyst[0])
-                node.right = self.Node(lyst[0])
-                return node
             else:
-                midex = len(lyst) // 2
-                this_node = self.Node(lyst[midex])
                 before = lyst[:midex]
                 after = lyst[midex + 1:]
-                this_node.left = bal(before, this_node)
-                this_node.right = bal(before, this_node)
+                node.left = bal(before, node)
+                node.right = bal(after, node)
+                return node
         
-        
-        starter_list = self.inorder(self.root)
+        starter_list = self.inorder()
+        self.root = bal(starter_list)
+        return self
+    
     def __str__(self):
         return f'Binary Tree, root: {self.root.data}'
         
