@@ -90,7 +90,7 @@ class BST():
         if tree is None:
             return 0
         else:
-            return self.height(tree.left) + self.height(tree.right) + 1
+            return max(self.height(tree.left), self.height(tree.right)) + 1
         
     
     def find_node(self, node, parent = None):
