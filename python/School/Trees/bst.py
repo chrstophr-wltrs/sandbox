@@ -7,7 +7,6 @@ Date: 4/3/2021
 Description: the bst module, used for testing!
 """
 
-
 class BST:
     """
     A binary search tree, constructed from Nodes
@@ -18,7 +17,8 @@ class BST:
     Methods:
         is_empty(): Return True if empty, False otherwise
         size(): Return the number of items in the tree
-        height(): Return the height of the tree, which is the length of the path from the root to its deepest leaf
+        height(): Return the height of the tree,
+            which is the length of the path from the root to its deepest leaf
         add(item): Add item to its proper place in the tree, Return the modified tree
         remove(item): Remove item from the tree, Return the modified tree
         find(item): Return the matched item, If item is not in the tree, raise a ValueError
@@ -76,8 +76,7 @@ class BST:
         def sz(tree):
             if tree is None:
                 return 0
-            else:
-                return sz(tree.left) + sz(tree.right) + 1
+            return sz(tree.left) + sz(tree.right) + 1
 
         return sz(self.root)
 
@@ -93,8 +92,7 @@ class BST:
         def ht(tree):
             if tree is None:
                 return 0
-            else:
-                return max(ht(tree.left), ht(tree.right)) + 1
+            return max(ht(tree.left), ht(tree.right)) + 1
 
         return ht(self.root)
 
@@ -126,23 +124,19 @@ class BST:
         # Begin searching for item
         if node.data == parent.data:
             return parent, 0
-        else:
-            if node.data < parent.data:
-                # Node might be a left child
-                if parent.left is None:
-                    # Node isn't in tree, is less than parent
-                    return parent, -1
-                else:
-                    # Search for node in left subtree
-                    return self.find_node(node, parent.left)
-            elif node.data > parent.data:
-                # Node might be a right child
-                if parent.right is None:
-                    # Node isn't in tree, is greater than parent
-                    return parent, 1
-                else:
-                    # Search for node in right subtree
-                    return self.find_node(node, parent.right)
+        if node.data < parent.data:
+            # Node might be a left child
+            if parent.left is None:
+                # Node isn't in tree, is less than parent
+                return parent, -1
+            # Search for node in left subtree
+            return self.find_node(node, parent.left)
+        # Node might be a right child
+        if parent.right is None:
+            # Node isn't in tree, is greater than parent
+            return parent, 1
+        # Search for node in right subtree
+        return self.find_node(node, parent.right)
 
     def add(self, item):
         """
@@ -204,16 +198,15 @@ class BST:
                 node.right = delete(node.right, next_highest.data)
                 return node
             # Continue searching for node
-            elif data < node.data:
+            if data < node.data:
                 node.left = delete(node.left, data)
                 return node
-            elif data > node.data:
+            if data > node.data:
                 node.right = delete(node.right, data)
                 return node
-            else:
-                raise ValueError(
-                    f"data to be removed ({data}) is neither <, ==, or > anything in tree"
-                )
+            raise ValueError(
+                f"data to be removed ({data}) is neither <, ==, or > anything in tree"
+            )
 
         self.root = delete(self.root, item)
         return self
@@ -232,8 +225,8 @@ class BST:
 
         if result == 0:
             return parent.data
-        else:
-            raise ValueError(f"Node {node.data} not present in tree")
+
+        raise ValueError(f"Node {node.data} not present in tree")
 
     def inorder(self):
         """Return a list with the data items in order of inorder traversal"""
