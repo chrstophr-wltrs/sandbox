@@ -216,6 +216,8 @@ class BST():
             lyst.append(node)
             lnr(node.right)
         lyst = []
+        lnr(self.root)
+        return lyst
 
     def preorder(self):
         """Return a list with the data items in order of preorder traversal"""
@@ -227,6 +229,8 @@ class BST():
             nlr(node.left)
             nlr(node.right)
         lyst = []
+        nlr(self.root)
+        return lyst
 
     def postorder(self):
         """Return a list with the data items in order of postorder traversal"""
@@ -238,6 +242,8 @@ class BST():
             lrn(node.right)
             lyst.append(node)
         lyst = []
+        lrn(self.root)
+        return lyst
 
     def rebalance(self):
         """
