@@ -10,7 +10,7 @@ class Countculator:
         return x
 
     def perm(self, n:int, r = None):
-        if (r is None) or (n == r):
+        if (r is None) or (r >= n):
             return self.fact(n)
 
         min = n - r
@@ -37,13 +37,13 @@ class Countculator:
                 split_string[i] = self.fact(int(el[:-1]))
             elif call in ["p", "P", "C", "c"]:
                 # Multiple factors
-                factors = el[el.index("("):el.index(")") + 1].strip().split(",")
+                factors = el[el.index("(") + 1:el.index(")")].strip().split(",")
                 if call in ["p", "P"]:
                     # Permutation call
-                    split_string[i] = self.perm(int(factors[0], int(factors[1])))
+                    split_string[i] = self.perm(int(factors[0]), int(factors[1]))
                 else:
                     # Choose/Combination call
-                    split_string[i] = self.choose(int(factors[0], int(factors[1])))
+                    split_string[i] = self.choose(int(factors[0]), int(factors[1]))
         
         # Parse algebra from the list as necessary
         while "*" in split_string:
