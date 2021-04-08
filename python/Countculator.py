@@ -1,6 +1,6 @@
 class Countculator:
     def __init__(self):
-        self.fact_dict = {2: 2}
+        self.fact_dict = {0: 1, 1:1, 2: 2}
 
     def fact(self, n:int):
         if n in self.fact_dict:
@@ -30,8 +30,11 @@ class Countculator:
             el = split_string[i]
             call = el[0]
             if call == "!":
-                # Factorial call
+                # Factorial call (wrong syntax)
                 split_string[i] = self.fact(int(el[1:]))
+            elif el[-1] == "!":
+                # Factorial call (correct syntax)
+                split_string[i] = self.fact(int(el[:-1]))
             elif call in ["p", "P", "C", "c"]:
                 # Multiple factors
                 factors = el[el.index("("):el.index(")") + 1].strip().split(",")
