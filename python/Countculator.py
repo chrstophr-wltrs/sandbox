@@ -21,9 +21,7 @@ class Countculator:
         return total
 
     def choose(self, n:int, r:int):
-        top = self.fact(n)
-        bottom = self.fact(r) * self.fact(n - r)
-        return top / bottom
+        return self.fact(n) / self.fact(r) * self.fact(n - r)
 
     def process_string(self, string:str):
         split_string = string.strip().split(" ")
@@ -56,8 +54,6 @@ class Countculator:
         
         return split_string[0]
         
-                
-
 def main():
     counter = Countculator()
     math_string = input("Enter the values to process: ")
