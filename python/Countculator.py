@@ -59,8 +59,11 @@ class Countculator:
         
 def main():
     counter = Countculator()
-    math_string = "4 * 15 - c(4,2) * 5 + c(4,3) * 2 - 1"
-    print(counter.process_string(math_string))
+    math_string = input("Enter the values to process: ")
+    while math_string != "":
+        print(f"Answer: {counter.process_string(math_string)}\n")
+        math_string = input("Enter the values to process: ")
+    print("Goodbye!")
 
 if __name__ == "__main__":
     main()
