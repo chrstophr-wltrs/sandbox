@@ -46,24 +46,21 @@ class Countculator:
                     split_string[i] = self.choose(int(factors[0]), int(factors[1]))
         
         # Parse algebra from the list as necessary
-        while "*" in split_string:
-            split_string[split_string.index("*")] = float(split_string.pop(split_string.index("*") - 1)) * float(split_string.pop(split_string.index("*") + 1))
         while "/" in split_string:
             split_string[split_string.index("/")] = float(split_string.pop(split_string.index("/") - 1)) / float(split_string.pop(split_string.index("/") + 1))
-        while "+" in split_string:
-            split_string[split_string.index("+")] = float(split_string.pop(split_string.index("+") - 1)) + float(split_string.pop(split_string.index("+") + 1))
+        while "*" in split_string:
+            split_string[split_string.index("*")] = float(split_string.pop(split_string.index("*") - 1)) * float(split_string.pop(split_string.index("*") + 1))
         while "-" in split_string:
             split_string[split_string.index("-")] = float(split_string.pop(split_string.index("-") - 1)) - float(split_string.pop(split_string.index("-") + 1))
+        while "+" in split_string:
+            split_string[split_string.index("+")] = float(split_string.pop(split_string.index("+") - 1)) + float(split_string.pop(split_string.index("+") + 1))
         
         return split_string[0]
         
 def main():
     counter = Countculator()
-    math_string = input("Enter the values to process: ")
-    while math_string != "":
-        print(f"Answer: {counter.process_string(math_string)}\n")
-        math_string = input("Enter the values to process: ")
-    print("Goodbye!")
+    math_string = "4 * 15 - c(4,2) * 5 + c(4,3) * 2 - 1"
+    print(counter.process_string(math_string))
 
 if __name__ == "__main__":
     main()
