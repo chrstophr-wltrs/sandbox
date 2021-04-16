@@ -30,7 +30,6 @@ echo "Adjusted swappiness to 10"
 # Turn on the firewall
 sudo ufw enable
 sudo ufw logging off
-echo "Firewall enabled!"
 
 # Improve font support
 wget http://ftp.us.debian.org/debian/pool/contrib/m/msttcorefonts/ttf-mscorefonts-installer_3.8_all.deb -P ~/Downloads
