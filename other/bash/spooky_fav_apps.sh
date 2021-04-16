@@ -35,7 +35,10 @@ sudo apt-get install -q discord.deb
 rm -f discord.deb
 
 # Install GIMP
-sudo apt install -q gimp
+sudo apt-get install -q gimp
+
+# Install Steam
+sudo apt-get install -q steam
 
 # Install Reaper from another script
 sudo sh install_reaper.sh
