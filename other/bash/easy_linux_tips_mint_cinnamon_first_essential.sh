@@ -34,7 +34,7 @@ sudo ufw logging off
 # Improve font support
 wget http://ftp.us.debian.org/debian/pool/contrib/m/msttcorefonts/ttf-mscorefonts-installer_3.8_all.deb -P ~/Downloads
 sudo apt-get install -q ~/Downloads/ttf-mscorefonts-installer_3.8_all.deb
-rm -f ~/Downloads/ttf-mscorefonts-installer_3.8_all.deb
+rm -f ~/Downloads/ttf-mscorefonts-installer*.deb
 sudo dpkg-reconfigure -u fontconfig
 sudo apt-get install -q fonts-crosextra-carlito fonts-crosextra-caladea
 echo "Microsoft compatibility fonts installed!"
