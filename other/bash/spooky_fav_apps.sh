@@ -22,6 +22,8 @@ wget -qO- https://packages.microsoft.com/keys/microsoft.asc | gpg --dearmor > pa
 sudo install -o root -g root -m 644 packages.microsoft.gpg /etc/apt/trusted.gpg.d/
 sudo sh -c 'echo "deb [arch=amd64,arm64,armhf signed-by=/etc/apt/trusted.gpg.d/packages.microsoft.gpg] https://packages.microsoft.com/repos/code stable main" > /etc/apt/sources.list.d/vscode.list'
 rm -f packages.microsoft.gpg
+cd ~/Downloads
+rm -f code*.deb
 sudo apt-get install -q apt-transport-https
 sudo apt-get update -q 
 sudo apt-get install -q code
@@ -35,3 +37,11 @@ rm -f discord.deb
 # Install GIMP
 sudo apt install -q gimp
 
+# Install Reaper from another script
+sudo sh install_reaper.sh
+
+# Install Natron
+cd ~/Downloads
+wget -q "https://github.com/NatronGitHub/Natron/releases/download/v2.3.15/Natron-2.3.15-Linux-64.tgz"
+rm -f Natron*.tgz
+./Natron*
