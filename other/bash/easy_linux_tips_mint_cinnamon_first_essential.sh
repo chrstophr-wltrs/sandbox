@@ -40,3 +40,5 @@ echo "Check 'Apply replacement table'"
 echo "Add 'Calibri' -> 'Carlito'"
 echo "Add 'Cambria' -> 'Caladea'"
 echo "Check 'Always' and 'Screen only' for both"
+
+echo "Remember to reboot to properly apply changes"
