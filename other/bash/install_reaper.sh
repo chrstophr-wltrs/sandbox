@@ -16,7 +16,7 @@ sudo echo "load-module module-jack-source" >> /etc/pulse/default.pa
 
 # Actually download and install Reaper
 cd ~/Downloads
-wget -q reaper_linux_x86_64.tar.xz "http://reaper.fm/files/6.x/reaper627_linux_x86_64.tar.xz"
+wget -q "http://reaper.fm/files/6.x/reaper627_linux_x86_64.tar.xz"
 tar -xf reaper*.tar.xz
 rm -f reaper*.tar.xz
 sudo sh reaper_linux_x86_64/install-reaper.sh
