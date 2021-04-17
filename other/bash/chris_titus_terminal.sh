@@ -29,3 +29,8 @@ echo "    - Switch font to 'MesloGS NF Regular'" >> to-do.txt
 echo "    - Do the same thing in Profiles > default > General" >> to-do.txt
 echo "  - Enable background transparency" >> to-do.txt
 echo "    - Profiles > default > Background" >> to-do.txt
+
+# Change default shell to zsh
+echo "You're going to type '/bin/zsh' when prompted"
+chsh $USER
+echo "Now close down and restart the terminal"
