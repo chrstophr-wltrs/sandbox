@@ -46,5 +46,3 @@ echo "    - Check 'Apply replacement table'" >> to-do.txt
 echo "    - Add 'Calibri' -> 'Carlito'" >> to-do.txt
 echo "    - Add 'Cambria' -> 'Caladea'" >> to-do.txt
 echo "    - Check 'Always' and 'Screen only' for both" >> to-do.txt
-
-echo "Reboot to apply all changes" >> to-do.txt
