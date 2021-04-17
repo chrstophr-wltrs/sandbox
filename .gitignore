@@ -135,3 +135,4 @@ javascript/default.json
 javascript/testing.html
 javascript/testing.js
 *test*.py
+*.ipynb
