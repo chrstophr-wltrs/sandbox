@@ -3,6 +3,8 @@
 cd Desktop
 touch to-do.txt
 
+echo "Applying Easy Linux Tips' Recommended steps"
+
 sudo chown -Rc $USER:$USER $HOME
 chmod -f 700 $HOME
 echo "Set proper permissions for $USER's home"
@@ -46,7 +48,9 @@ sudo apt-get install -q numlockx
 
 echo "- Turn Num Lock on automatically" >> to-do.txt
 echo "  - Menu > Administration > Login Window > Settings > Activate numlock" >> to-do.txt
+
 sudo apt-get remove -q gnome-orca
+echo "Orca removed"
 
 echo "- Get Weather applet" >> to-do.txt
 echo "  - Right click panel > Applets > Download > Weather" >> to-do.txt

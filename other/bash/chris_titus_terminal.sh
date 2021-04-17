@@ -1,11 +1,15 @@
 #!/bin/bash
 
+echo "Applying Chris Titus Tech terminal settings"
+
 # Get terminator
 sudo apt-get update -q
 sudo apt-get install -q terminator
+echo "Terminator installed"
 
 # Get zsh
 sudo apt-get install -q zsh zsh-syntax-highlighting autojump zsh-autosuggestions
+echo "zsh and associated packages installed"
 
 # Initial setup
 touch "$HOME/.cache/zshhistory"
@@ -19,6 +23,7 @@ sudo wget -q https://github.com/romkatv/powerlevel10k-media/raw/master/MesloLGS%
 sudo wget -q https://github.com/romkatv/powerlevel10k-media/raw/master/MesloLGS%20NF%20Bold.ttf
 sudo wget -q https://github.com/romkatv/powerlevel10k-media/raw/master/MesloLGS%20NF%20Italic.ttf
 sudo wget -q https://github.com/romkatv/powerlevel10k-media/raw/master/MesloLGS%20NF%20Bold%20Italic.ttf
+echo "Meslo Fonts installed"
 
 # Preference Changes should really be done in the GUI
 cd ~/Desktop

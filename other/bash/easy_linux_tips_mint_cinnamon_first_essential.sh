@@ -3,9 +3,6 @@
 # Apply all available updates
 echo Welcome!
 echo Applying Easy Linux Tips\' \"10 Things to Do First in Linux Mint 20.1 Cinnamon\"
-sudo apt-get update -q
-sudo apt-get upgrade -q
-echo Software updated!
 cd Desktop
 touch to-do.txt
 echo "- Configure Timeshift" >> to-do.txt
