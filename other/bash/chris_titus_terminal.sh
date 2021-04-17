@@ -23,6 +23,8 @@ sudo wget -q https://github.com/romkatv/powerlevel10k-media/raw/master/MesloLGS%
 # Preference Changes should really be done in the GUI
 cd ~/Desktop
 touch to-do.txt
+echo "- Use Terminator as default terminal" >> to-do.txt
+echo "  - Menu > Preferences > Preferred Applications > Terminal" >> to-do.txt
 echo "- Terminator preferences" >> to-do.txt
 echo "  - Use system font -> OFF" >> to-do.txt
 echo "    - Switch font to 'MesloGS NF Regular'" >> to-do.txt
@@ -31,6 +33,7 @@ echo "  - Enable background transparency" >> to-do.txt
 echo "    - Profiles > default > Background" >> to-do.txt
 
 # Change default shell to zsh
-echo "You're going to type '/bin/zsh' when prompted"
+echo "Use '/bin/zsh' when prompted"
 chsh $USER
 echo "Now close down and restart the terminal"
+echo "Use 'p10k configure' if nothing happens"
