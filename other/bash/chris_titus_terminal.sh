@@ -15,8 +15,7 @@ echo "zsh and associated packages installed"
 touch "$HOME/.cache/zshhistory"
 #-- Setup Alias in $HOME/zsh/aliasrc
 git clone --depth=1 https://github.com/romkatv/powerlevel10k.git ~/powerlevel10k
-wget https://github.com/ChrisTitusTech/zsh/blob/master/.zshrc -0 ~/.zshrc
-echo 'source ~/powerlevel10k/powerlevel10k.zsh-theme' >> ~/.zshrc
+wget -q https://raw.githubusercontent.com/ChrisTitusTech/zsh/master/.zshrc
 
 # Install fonts
 cd /usr/share/fonts/truetype/
