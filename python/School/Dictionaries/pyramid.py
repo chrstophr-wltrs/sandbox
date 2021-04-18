@@ -50,7 +50,7 @@ class HumanPyramid:
 
 def main():
     pyr = HumanPyramid()
-    pyr.test_recursive(7)
+    pyr.test_recursive(sys.argv[1])
 
 if __name__ == "__main__":
     main()
