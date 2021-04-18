@@ -50,9 +50,11 @@ class HashMap:
         self.entries = 0
         self.table = [None] * ((self.capacity() * 2) - 1)
         for i in old_hash:
+            # Add items from sub-lists
             if isinstance(i, list):
                 for j in i:
                     self.set(j.key, j.value)
+            # Add regular items
             elif i is not None:
                 self.set(i.key, i.value)
         return self
@@ -67,10 +69,13 @@ class HashMap:
         new_pair = Pair(key, value)
         ind = self.hash(key)
         target = self.table[ind]
+        # no item @ target index
         if target is None:
             self.table[ind] = new_pair
+        # collission with a sub-list
         elif isinstance(target, list):
             target.append(new_pair)
+        # collission with a single item
         else:
             self.table[ind] = [target, new_pair]
 
@@ -108,9 +113,11 @@ class HashMap:
         """
         keys = []
         for i in self.table:
+            # get keys from sub-lists
             if isinstance(i, list):
                 for j in i:
                     keys.append(j.key)
+            # get keys from first-level items
             elif i is not None:
                 keys.append(i.key)
         return keys
