@@ -107,9 +107,9 @@ class HashMap:
                 if target[i].key == key:
                     self.table[ind].pop(i)
                     self.entries -= 1
-                    # sub-list only has 1 item,
-                    # replacing sub-list with single item
                     if len(self.table[ind]) == 1:
+                        # sub-list only has 1 item,
+                        # replacing sub-list with single item
                         self.table[ind] = self.table[ind][0]
         elif target.key == key:
             self.table[ind] = None
