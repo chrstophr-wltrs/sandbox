@@ -67,8 +67,12 @@ class HashMap:
         new_pair = Pair(key, value)
         ind = self.hash(key)
         target = self.table[ind]
-        if isinstance(target, list):
+        if target is None:
+            self.table[ind] = new_pair
+        elif isinstance(target, list):
             target.append(new_pair)
+        else:
+            self.table[ind] = [target, new_pair]
 
     def remove(self, key):
         """
