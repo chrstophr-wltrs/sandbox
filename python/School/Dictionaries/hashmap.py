@@ -6,8 +6,11 @@ Date: 17 Apr 2021
 
 Description: contains the classes for a key-value pair and a HashMap
 """
+
+
 class Pair:
     """A key-value pair"""
+
     def __init__(self, key, value):
         """
         a key-value pair
@@ -19,11 +22,13 @@ class Pair:
         self.key = key
         self.value = value
 
+
 class HashMap:
     """
     A hash table, with associated key-value pairs
     """
-    def __init__(self, capacity:int = 7):
+
+    def __init__(self, capacity: int = 7):
         """
         Create a hash table
 
@@ -33,9 +38,9 @@ class HashMap:
         self.entries = 0
         self.starting_capacity = capacity
         self.table = [None] * self.starting_capacity
-        self.max_load_factor = .8
+        self.max_load_factor = 0.8
 
-    def hash(self, key:tuple):
+    def hash(self, key: tuple):
         """
         Returns the index for a given key
 
@@ -47,8 +52,8 @@ class HashMap:
     def get(self, key):
         """
         Return the value for key if key is in the dictionary
-        
-        If key is not in the dictionary, 
+
+        If key is not in the dictionary,
         raise a KeyError
         """
         ind = self.hash(key)
@@ -80,7 +85,7 @@ class HashMap:
         """
         add the (key,value) pair to the hashMap
 
-        After adding, if the load-factor>= 80%, 
+        After adding, if the load-factor>= 80%,
         rehash the map into a map double its current capacity
         """
         new_pair = Pair(key, value)
@@ -111,9 +116,9 @@ class HashMap:
     def remove(self, key):
         """
         Remove the key and its associated value from the map
-        
+
         If the key does not exist, nothing happens
-        
+
         Do not rehash the table after deleting keys
         """
         ind = self.hash(key)
@@ -140,11 +145,11 @@ class HashMap:
     def capacity(self):
         """Return the current capacity--number of buckets--in the map"""
         return len(self.table)
-    
+
     def size(self):
         """Return the number of key-value pairs in the map"""
         return self.entries
-    
+
     def keys(self):
         """Return a list of keys"""
         keys = []
