@@ -1,5 +1,6 @@
 from time import perf_counter
 import sys
+from hashmap import HashMap
 
 class HumanPyramid:
     """
@@ -8,7 +9,7 @@ class HumanPyramid:
     def __init__(self, person_weight:int = 200):
         self.function_calls = 0
         self.cache_hits = 0
-        self.cache_flag = False
+        self.cache = HashMap()
         self.person_weight = person_weight
     
     def weight_on(self, coords:tuple):
@@ -18,22 +19,26 @@ class HumanPyramid:
         Parameters:
             coords(tuple): tuple of 2 integers
         """
-        self.function_calls += 1
-        if coords == (0,0):
-            # top of the pyramid
-            return 0
-        row = coords[0]
-        col = coords[1]
-        left, right = (row - 1, col - 1), (row - 1, col)
-        if col == 0:
-            l_weight = 0
-        else:
-            l_weight = self.weight_on(left) + self.person_weight
-        if col == row:
-            r_weight = 0
-        else:
-            r_weight = self.weight_on(right) + self.person_weight
-        return (l_weight + r_weight) / 2
+        try:
+            val = self.cache.get(coords)
+            self.cache_hits += 1
+            return val
+        except(KeyError): 
+            self.function_calls += 1
+            row = coords[0]
+            col = coords[1]
+            left, right = (row - 1, col - 1), (row - 1, col)
+            if col == 0:
+                l_weight = 0
+            else:
+                l_weight = self.weight_on(left) + self.person_weight
+            if col == row:
+                r_weight = 0
+            else:
+                r_weight = self.weight_on(right) + self.person_weight
+            weight = (l_weight + r_weight) / 2
+            self.cache.set(coords, weight)
+            return weight
     
     def test_recursive(self, rows):
         self.function_calls = 0
