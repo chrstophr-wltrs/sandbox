@@ -131,21 +131,15 @@ class HashMap:
         return self
 
     def capacity(self):
-        """
-        Return the current capacity--number of buckets--in the map
-        """
+        """Return the current capacity--number of buckets--in the map"""
         return len(self.table)
     
     def size(self):
-        """
-        Return the number of key-value pairs in the map
-        """
+        """Return the number of key-value pairs in the map"""
         return self.entries
     
     def keys(self):
-        """
-        Return a list of keys
-        """
+        """Return a list of keys"""
         keys = []
         for i in self.table:
             # get keys from sub-lists
