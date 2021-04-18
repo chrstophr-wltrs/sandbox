@@ -42,8 +42,7 @@ class HashMap:
         Parameters:
             key(tuple[float]): tuple of 2 numbers
         """
-        a, b = key[0],key[1]
-        return (a * a + a + b) % self.capacity()
+        return (key[0] * key[0] + key[0] + key[1]) % self.capacity()
 
     def get(self, key):
         """
