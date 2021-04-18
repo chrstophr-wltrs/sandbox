@@ -1,4 +1,5 @@
 from time import perf_counter
+import sys
 
 class HumanPyramid:
     """
@@ -35,7 +36,7 @@ class HumanPyramid:
         self.function_calls = 0
         curr_r, curr_c = 0, 0
         start_time = perf_counter()
-        while curr_r <= rows:
+        while curr_r < rows:
             row_str = ""
             while curr_c <= curr_r:
                 row_str += f"{self.weight_on((curr_r, curr_c)):.2f} "
@@ -49,7 +50,7 @@ class HumanPyramid:
 
 def main():
     pyr = HumanPyramid()
-    pyr.test_recursive(23)
+    pyr.test_recursive(sys.argv[1])
 
 if __name__ == "__main__":
     main()
