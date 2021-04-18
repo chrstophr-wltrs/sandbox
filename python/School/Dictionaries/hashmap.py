@@ -106,9 +106,14 @@ class HashMap:
             for i in range(len(target)):
                 if target[i].key == key:
                     self.table[ind].pop(i)
-                    return
+                    self.entries -= 1
+                    # sub-list only has 1 item,
+                    # replacing sub-list with single item
+                    if len(self.table[ind]) == 1:
+                        self.table[ind] = self.table[ind][0]
         elif target.key == key:
             self.table[ind] = None
+            self.entries -= 1
 
     def clear(self):
         """empty the HashMap"""
