@@ -24,6 +24,7 @@ class HashMap:
         """
         self.entries = 0
         self.table = [None] * capacity
+        self.max_load_factor = .8
 
     def hash(self, key:tuple):
         """
@@ -87,6 +88,9 @@ class HashMap:
         # collission with a single item
         else:
             self.table[ind] = [target, new_pair]
+        self.entries += 1
+        if (self.entries / self.capacity()) >= self.max_load_factor:
+            self.resize()
 
     def remove(self, key):
         """
