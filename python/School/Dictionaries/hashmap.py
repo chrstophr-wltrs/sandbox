@@ -58,12 +58,13 @@ class HashMap:
         """
         ind = self.hash(key)
         target = self.table[ind]
-        if target.key == key:
-            return target.value
-        if isinstance(target, list):
-            for i in target:
-                if i.key == key:
-                    return i.value
+        if target is not None:
+            if isinstance(target, list):
+                for i in target:
+                    if i.key == key:
+                        return i.value
+            if target.key == key:
+                return target.value
         raise KeyError(f"key {key} not in HashMap")
 
     def resize(self):
