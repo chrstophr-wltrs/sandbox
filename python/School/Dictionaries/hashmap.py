@@ -1,3 +1,11 @@
+"""
+Project: HashMap ADT
+Author: Chris Walters
+Course:  CS 2420 Spring 2021
+Date: 17 Apr 2021
+
+Description: contains the classes for a key-value pair and a HashMap
+"""
 class Pair:
     """A key-value pair"""
     def __init__(self, key, value):
