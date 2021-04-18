@@ -119,8 +119,8 @@ class HashMap:
         ind = self.hash(key)
         target = self.table[ind]
         if isinstance(target, list):
-            for i, v in enumerate(target):
-                if v.key == key:
+            for i, j in enumerate(target):
+                if j.key == key:
                     self.table[ind].pop(i)
                     self.entries -= 1
                     if len(self.table[ind]) == 1:
