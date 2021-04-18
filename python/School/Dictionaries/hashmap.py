@@ -55,7 +55,7 @@ class HashMap:
         target = self.table[ind]
         if target.key == key:
             return target.value
-        elif isinstance(target, list):
+        if isinstance(target, list):
             for i in target:
                 if i.key == key:
                     return i.value
@@ -119,8 +119,8 @@ class HashMap:
         ind = self.hash(key)
         target = self.table[ind]
         if isinstance(target, list):
-            for i in range(len(target)):
-                if target[i].key == key:
+            for i, v in enumerate(target):
+                if v.key == key:
                     self.table[ind].pop(i)
                     self.entries -= 1
                     if len(self.table[ind]) == 1:
