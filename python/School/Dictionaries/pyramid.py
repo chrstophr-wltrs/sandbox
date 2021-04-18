@@ -33,12 +33,23 @@ class HumanPyramid:
     
     def test_recursive(self, rows):
         self.function_calls = 0
-        curr_r, curr_c = 0,0
-        self.start_time = perf_counter()
-        while 
+        curr_r, curr_c = 0, 0
+        start_time = perf_counter()
+        while curr_r <= rows:
+            row_str = ""
+            while curr_c <= curr_r:
+                row_str += f"{self.weight_on((curr_r, curr_c)):.2f} "
+                curr_c += 1
+            print(row_str)
+            curr_c = 0
+            curr_r += 1
+        end_time = perf_counter()
+        print(f"Elapsed time: {end_time - start_time} seconds")
+        print(f"Number of function calls: {self.function_calls}")
 
 def main():
-    pass
+    pyr = HumanPyramid()
+    pyr.test_recursive(23)
 
 if __name__ == "__main__":
     main()
