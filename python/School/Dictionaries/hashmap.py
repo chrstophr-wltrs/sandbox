@@ -1,3 +1,14 @@
+class Pair:
+    """A key-value pair"""
+    def __init__(self, key, value):
+        """
+        a key-value pair
+
+        Attributes:
+            key(any): the reference used to find the pair
+            value(any): the associated value of the key
+        """
+
 class HashMap:
     """
     A hash table, with associated key-value pairs
@@ -9,9 +20,10 @@ class HashMap:
         Attributes:
             capacity(int): the starting capacity for the HashMap
         """
-        self.table = [None] * capacity
+        self.current_capacity = capacity
         self.entries = 0
-    
+        self.table = [None] * self.current_capacity
+
     def get(self, key):
         """
         Return the value for key if key is in the dictionary
@@ -42,22 +54,28 @@ class HashMap:
 
     def clear(self):
         """empty the HashMap"""
-        pass
+        self.entries = 0
+        self.table = [None] * self.current_capacity
+        return self
 
     def capacity(self):
         """
         Return the current capacity--number of buckets--in the map
         """
-        pass
+        return self.current_capacity
     
     def size(self):
         """
         Return the number of key-value pairs in the map
         """
-        pass
+        return self.entries
     
     def keys(self):
         """
         Return a list of keys
         """
-        pass
+        keys = []
+        for i in self.table:
+            if i is not None:
+                keys.append(i.key)
+        return keys
