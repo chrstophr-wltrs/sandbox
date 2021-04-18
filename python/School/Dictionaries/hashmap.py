@@ -23,7 +23,8 @@ class HashMap:
             capacity(int): the starting capacity for the HashMap
         """
         self.entries = 0
-        self.table = [None] * capacity
+        self.starting_capacity = capacity
+        self.table = [None] * self.starting_capacity
         self.max_load_factor = .8
 
     def hash(self, key:tuple):
@@ -118,7 +119,7 @@ class HashMap:
     def clear(self):
         """empty the HashMap"""
         self.entries = 0
-        self.table = [None] * self.capacity()
+        self.table = [None] * self.starting_capacity
         return self
 
     def capacity(self):
