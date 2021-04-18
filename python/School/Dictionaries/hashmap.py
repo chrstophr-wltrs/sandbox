@@ -44,6 +44,19 @@ class HashMap:
         """
         pass
 
+    def resize(self):
+        """resize the Hash table"""
+        old_hash = self.table
+        self.entries = 0
+        self.table = [None] * ((self.capacity() * 2) - 1)
+        for i in old_hash:
+            if isinstance(i, list):
+                for j in i:
+                    self.set(j.key, j.value)
+            elif i is not None:
+                self.set(i.key, i.value)
+        return self
+
     def set(self, key, value):
         """
         add the (key,value) pair to the hashMap
@@ -51,7 +64,11 @@ class HashMap:
         After adding, if the load-factor>= 80%, 
         rehash the map into a map double its current capacity
         """
-        pass
+        new_pair = Pair(key, value)
+        ind = self.hash(key)
+        target = self.table[ind]
+        if isinstance(target, list):
+            target.append(new_pair)
 
     def remove(self, key):
         """
