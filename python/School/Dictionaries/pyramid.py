@@ -27,12 +27,11 @@ class HumanPyramid:
         left, right = (row - 1, col - 1), (row - 1, col)
         if col == 0:
             l_weight = 0
-            r_weight = self.weight_on(right) + self.person_weight
-        elif col == row:
-            l_weight = self.weight_on(left) + self.person_weight
-            r_weight = 0
         else:
             l_weight = self.weight_on(left) + self.person_weight
+        if col == row:
+            r_weight = 0
+        else:
             r_weight = self.weight_on(right) + self.person_weight
         return (l_weight + r_weight) / 2
     
