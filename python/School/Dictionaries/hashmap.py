@@ -100,7 +100,15 @@ class HashMap:
         
         Do not rehash the table after deleting keys
         """
-        pass
+        ind = self.hash(key)
+        target = self.table[ind]
+        if isinstance(target, list):
+            for i in range(len(target)):
+                if target[i].key == key:
+                    self.table[ind].pop(i)
+                    return
+        elif target.key == key:
+            self.table[ind] = None
 
     def clear(self):
         """empty the HashMap"""
