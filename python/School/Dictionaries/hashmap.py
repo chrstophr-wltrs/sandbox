@@ -74,7 +74,16 @@ class HashMap:
             self.table[ind] = new_pair
         # collission with a sub-list
         elif isinstance(target, list):
+            for i in target:
+                # item to add is already in sub-list
+                if i.key == key:
+                    i.value = value
+                    return
             target.append(new_pair)
+        # item to add is already in HashMap
+        elif target.key == key:
+            self.table[ind].value = value
+            return
         # collission with a single item
         else:
             self.table[ind] = [target, new_pair]
