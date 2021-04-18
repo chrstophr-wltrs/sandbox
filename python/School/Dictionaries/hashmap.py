@@ -44,7 +44,15 @@ class HashMap:
         If key is not in the dictionary, 
         raise a KeyError
         """
-        pass
+        ind = self.hash(key)
+        target = self.table[ind]
+        if target.key == key:
+            return target.value
+        elif isinstance(target, list):
+            for i in target:
+                if i.key == key:
+                    return i.value
+        raise KeyError(f"key {key} not in HashMap")
 
     def resize(self):
         """resize the Hash table"""
