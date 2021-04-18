@@ -8,6 +8,8 @@ class Pair:
             key(any): the reference used to find the pair
             value(any): the associated value of the key
         """
+        self.key = key
+        self.value = value
 
 class HashMap:
     """
@@ -20,9 +22,18 @@ class HashMap:
         Attributes:
             capacity(int): the starting capacity for the HashMap
         """
-        self.current_capacity = capacity
         self.entries = 0
-        self.table = [None] * self.current_capacity
+        self.table = [None] * capacity
+
+    def hash(self, key:tuple):
+        """
+        Returns the index for a given key
+
+        Parameters:
+            key(tuple[float]): tuple of 2 numbers
+        """
+        a, b = key[0],key[1]
+        return (a * a + a + b) % self.capacity()
 
     def get(self, key):
         """
@@ -55,14 +66,14 @@ class HashMap:
     def clear(self):
         """empty the HashMap"""
         self.entries = 0
-        self.table = [None] * self.current_capacity
+        self.table = [None] * self.capacity()
         return self
 
     def capacity(self):
         """
         Return the current capacity--number of buckets--in the map
         """
-        return self.current_capacity
+        return len(self.table)
     
     def size(self):
         """
@@ -76,6 +87,9 @@ class HashMap:
         """
         keys = []
         for i in self.table:
-            if i is not None:
+            if isinstance(i, list):
+                for j in i:
+                    keys.append(j.key)
+            elif i is not None:
                 keys.append(i.key)
         return keys
