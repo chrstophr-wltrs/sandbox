@@ -4,6 +4,10 @@ const glob = {
       currentCharacters: document.getElementById("currentCharacters"),
       characterForm: document.getElementById("characterForm"),
     };
+    this.buttons = {
+      create: document.getElementById("formCreateButton"),
+      update: document.getElementById("formUpdateButton"),
+    };
     this.traits = {
       name: document.getElementById("characterName"),
       abilities: {
@@ -18,8 +22,7 @@ const glob = {
       profession: document.getElementById("professionSelector"),
       hand: document.getElementById("characterIsLeftHanded"),
     };
-    this.invalidNameError = document.getElementById("invalidNameError");
-    this.nameExistsError = document.getElementById("nameExistsError");
+    this.nameError = document.getElementById("nameError");
     this.characterTable = document
       .getElementById("characterTable")
       .getElementsByTagName("tbody")[0];
@@ -35,12 +38,7 @@ const domLoaded = function () {
   document
     .getElementById("rerollStatsButton")
     .addEventListener("click", rerollStats);
-  document
-    .getElementById("formCreateButton")
-    .addEventListener("click", addCharacter);
-  document.getElementById("formUpdateButton").addEventListener("click", () => {
-    updateCharacter(characterID);
-  });
+  glob.buttons.create.addEventListener("click", addCharacter);
   document
     .getElementById("formCancelButton")
     .addEventListener("click", formHide);
@@ -135,28 +133,16 @@ const titleMe = function (string) {
   return string.charAt(0).toUpperCase() + string.slice(1);
 };
 
-const validateNameCollission = function () {
-  const items = modelGetAllCharacters();
-  for (const character of items) {
-    if (character.name == glob.traits.name.value) {
-      glob.nameExistsError.classList.remove("d-none");
-      glob.traits.name.classList.add("border");
-      glob.traits.name.classList.add("border-danger");
-      return false;
-    }
-  }
-  glob.nameExistsError.classList.add("d-none");
-  return true;
-};
-
-const validateNameCharacters = function () {
+const validateName = function () {
   if (/[!@#\$%\^&\*\(\)<>\/_\+=\\[\]\|:;\?]/gm.test(glob.traits.name.value)) {
-    glob.invalidNameError.classList.remove("d-none");
+    glob.nameError.classList.remove("d-none");
     glob.traits.name.classList.add("border");
     glob.traits.name.classList.add("border-danger");
     return false;
   }
-  glob.invalidNameError.classList.add("d-none");
+  glob.nameError.classList.add("d-none");
+  glob.traits.name.classList.remove("border");
+  glob.traits.name.classList.remove("border-danger");
   return true;
 };
 
@@ -180,6 +166,7 @@ const populateForm = function (characterID) {
 
 const editCharacter = function (characterID) {
   populateForm(characterID);
+  document.getElementById();
   formShow("Edit Character");
 };
 
@@ -214,7 +201,7 @@ const formCreateNew = function () {
 };
 
 const addCharacter = function () {
-  if (validateNameCharacters() && validateNameCollission()) {
+  if (validateName()) {
     const { name, abilities, race, profession, hand } = glob.traits;
     const { str, dex, con, wis, int, cha } = abilities;
     const abilityArray = [
