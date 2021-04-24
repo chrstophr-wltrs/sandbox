@@ -71,7 +71,7 @@ const populateTable = function () {
     editBtn.classList.add("btn");
     editBtn.classList.add("btn-warning");
     editBtn.onclick = function () {
-      editCharacter(character.id);
+      formEditCharacter(character.id);
     };
     editBtn.innerText = "Edit";
     editCell.appendChild(editBtn);
@@ -164,12 +164,44 @@ const populateForm = function (characterID) {
   hand.checked = char.leftHanded;
 };
 
-const editCharacter = function (characterID) {
+const formEditCharacter = function (characterID) {
   populateForm(characterID);
   glob.buttons.create.classList.add("d-none");
   glob.buttons.update.classList.remove("d-none");
+  glob.buttons.update.onclick = function (characterID) {
+    updateCharacter(characterID);
+  };
   formShow("Edit Character");
 };
+
+const updateCharacter = function (characterID) {
+  if (validateName()) {
+    const { name, abilities, race, profession, hand } = glob.traits;
+    const { str, dex, con, wis, int, cha } = abilities;
+    const abilityArray = [
+      str.value,
+      dex.value,
+      con.value,
+      wis.value,
+      int.value,
+      cha.value,
+    ];
+    const sex = document.querySelector("input[name=characterSex]:checked")
+      .value;
+    modelUpdateCharacter(
+      characterID,
+      name.value,
+      abilityArray,
+      race.value,
+      profession.value,
+      sex,
+      hand.checked
+    );
+    formHide();
+  }
+};
+
+const deleteCharacter = function (characterID) {};
 
 const resetForm = function () {
   glob.traits.name.classList.remove("border");
