@@ -166,7 +166,8 @@ const populateForm = function (characterID) {
 
 const editCharacter = function (characterID) {
   populateForm(characterID);
-  document.getElementById();
+  glob.buttons.create.classList.add("d-none");
+  glob.buttons.update.classList.remove("d-none");
   formShow("Edit Character");
 };
 
@@ -196,6 +197,8 @@ const formHide = function () {
 
 const formCreateNew = function () {
   resetForm();
+  glob.buttons.create.classList.remove("d-none");
+  glob.buttons.update.classList.add("d-none");
   formShow("Create New Character");
 };
 
