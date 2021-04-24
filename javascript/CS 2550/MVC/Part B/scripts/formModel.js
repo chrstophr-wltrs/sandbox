@@ -75,3 +75,11 @@ const modelUpdateCharacter = function (
   }
   return undefined;
 };
+
+const modelDeleteCharacter = function (targetId = 0) {
+  for (let c = 0; c <= currentCharacters.length; c++) {
+    if (currentCharacters[c].id == targetId) {
+      return currentCharacters.splice(c, 1);
+    }
+  }
+};
