@@ -80,6 +80,10 @@ const rerollStats = function () {
   cha.value = roll("3d6");
 };
 
+const titleMe = function (string) {
+  return string.charAt(0).toUpperCase() + string.slice(1);
+};
+
 const validateName = function () {
   if (/[!@#\$%\^&\*\(\)<>\/_\+=\\[\]\|:;\?]/gm.test(glob.traits.name.value)) {
     glob.nameError.classList.remove("d-none");
@@ -97,9 +101,11 @@ const addCharacter = function () {
   if (validateName()) {
     glob.characterTable.innerHTML += `<tr>
     <td>${glob.traits.name.value}</td>
-    <td>${glob.traits.race.value}</td>
-    <td>${glob.traits.class.value}</td>
-    <td>${document.querySelector("input[name=characterSex]:checked").value}</td>
+    <td>${titleMe(glob.traits.race.value)}</td>
+    <td>${titleMe(glob.traits.class.value)}</td>
+    <td>${titleMe(
+      document.querySelector("input[name=characterSex]:checked").value
+    )}</td>
     </tr>`;
   }
   switchSection();
