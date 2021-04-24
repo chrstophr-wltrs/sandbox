@@ -30,16 +30,19 @@ const glob = {
 const domLoaded = function () {
   glob.init;
   document
-    .getElementById("formCreateButton")
+    .getElementById("createButton")
     .addEventListener("click", formCreateNew);
   document
     .getElementById("rerollStatsButton")
     .addEventListener("click", rerollStats);
   document
-    .getElementById("addCharacterButton")
+    .getElementById("formCreateButton")
     .addEventListener("click", addCharacter);
+  document.getElementById("formUpdateButton").addEventListener("click", () => {
+    updateCharacter(characterID);
+  });
   document
-    .getElementById("cancelCreateButton")
+    .getElementById("formCancelButton")
     .addEventListener("click", formHide);
   populateTable();
 };
