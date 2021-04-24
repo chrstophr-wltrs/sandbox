@@ -2,7 +2,7 @@ const glob = {
   get init() {
     this.sections = {
       currentCharacters: document.getElementById("currentCharacters"),
-      newCharacter: document.getElementById("characterForm"),
+      characterForm: document.getElementById("characterForm"),
     };
     this.traits = {
       name: document.getElementById("characterName"),
@@ -149,7 +149,11 @@ const resetForm = function () {
 const showForm = function (header) {
   glob.formHead.innerText = header;
   glob.sections.currentCharacters.classList.add("d-none");
-  glob.sections.
+  glob.sections.characterForm.classList.remove("d-none");
 };
 
-const hideForm = function () {};
+const hideForm = function () {
+  populateTable();
+  glob.sections.characterForm.classList.add("d-none");
+  glob.sections.currentCharacters.classList.remove("d-none");
+};
