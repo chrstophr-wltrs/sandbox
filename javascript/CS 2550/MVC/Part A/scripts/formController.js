@@ -15,7 +15,7 @@ const glob = {
         cha: document.getElementById("abilityCha"),
       },
       race: document.getElementById("raceSelector"),
-      class: document.getElementById("classSelector"),
+      profession: document.getElementById("professionSelector"),
       hand: document.getElementById("characterIsLeftHanded"),
     };
     this.invalidNameError = document.getElementById("invalidNameError");
@@ -138,6 +138,10 @@ const validateNameCharacters = function () {
 };
 
 const resetForm = function () {
+  glob.traits.name.classList.remove("border");
+  glob.traits.name.classList.remove("border-danger");
+  glob.invalidNameError.classList.add("d-none");
+  glob.nameExistsError.classList.add("d-none");
   glob.traits.name.value = "";
   rerollStats();
   glob.traits.race.value = "human";
@@ -146,7 +150,7 @@ const resetForm = function () {
   document.getElementById("other").checked = true;
 };
 
-const formShow = function (header) {
+const formShow = function (header = "Create New Character") {
   glob.formHead.innerText = header;
   glob.sections.currentCharacters.classList.add("d-none");
   glob.sections.characterForm.classList.remove("d-none");
@@ -156,4 +160,35 @@ const formHide = function () {
   populateTable();
   glob.sections.characterForm.classList.add("d-none");
   glob.sections.currentCharacters.classList.remove("d-none");
+};
+
+const formCreateNew = function () {
+  resetForm();
+  formShow("Create New Character");
+};
+
+const addCharacter = function () {
+  if (validateNameCharacters() && validateNameCollission()) {
+    const { name, abilities, race, profession, hand } = glob.traits;
+    const { str, dex, con, wis, int, cha } = abilities;
+    const abilityArray = [
+      str.value,
+      dex.value,
+      con.value,
+      wis.value,
+      int.value,
+      cha.value,
+    ];
+    const sex = document.querySelector("input[name=characterSex]:checked")
+      .value;
+    createItem(
+      name.value,
+      abilityArray,
+      race.value,
+      profession.value,
+      sex,
+      hand.checked
+    );
+    formHide();
+  }
 };
