@@ -145,7 +145,7 @@ const resetForm = function () {
   glob.traits.name.value = "";
   rerollStats();
   glob.traits.race.value = "human";
-  glob.traits.class.value = "artificer";
+  glob.traits.profession.value = "artificer";
   glob.traits.hand.checked = false;
   document.getElementById("other").checked = true;
 };
