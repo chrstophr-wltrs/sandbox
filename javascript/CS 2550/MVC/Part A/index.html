@@ -66,22 +66,189 @@
       </div>
       <div id="newCharacterForm" class="px-3 py-2 m-2">
         <h1>Create Character</h1>
-        <div id="formButtonRow" class="row">
-          <button
-            id="createCharacterButton"
-            type="button"
-            class="btn btn-success col m-4"
+        <form id="creationForm" class="mx-4">
+          <div class="form-floating mb-3">
+            <input
+              type="text"
+              id="characterName"
+              class="form-control"
+              placeholder="Strahd"
+            />
+            <label class="form-label" for="characterName" required
+              >Character Name</label
+            >
+          </div>
+          <div id="nameError" class="alert alert-danger" hidden>
+            Character name may not contain any of the following characters:
+            <br />! @ # $ % ^ & * ( ) < > / _ + = \ [ ] | : ; ?
+          </div>
+          <h5>Ability Scores</h5>
+          <div id="abilityRow" class="form-group row mb-3">
+            <div class="col mx-2">
+              <label for="abilityStr" class="form-label">STR</label>
+              <input
+                type="number"
+                id="abilityStr"
+                name="abilityStr"
+                class="form-control"
+                placeholder="8"
+                disabled
+              />
+            </div>
+            <div class="col mx-2">
+              <label for="abilityCon" class="form-label">CON</label>
+              <input
+                type="number"
+                id="abilityCon"
+                name="abilityCon"
+                class="form-control"
+                placeholder="8"
+                disabled
+              />
+            </div>
+            <div class="col mx-2">
+              <label for="abilityDex" class="form-label">DEX</label>
+              <input
+                type="number"
+                id="abilityDex"
+                name="abilityDex"
+                class="form-control col-1"
+                placeholder="8"
+                disabled
+              />
+            </div>
+            <div class="col mx-2">
+              <label for="abilityWis" class="form-label">WIS</label>
+              <input
+                type="number"
+                id="abilityWis"
+                name="abilityWis"
+                class="form-control col-1"
+                placeholder="8"
+                disabled
+              />
+            </div>
+            <div class="col mx-2">
+              <label for="abilityInt" class="form-label">INT</label>
+              <input
+                type="number"
+                id="abilityStr"
+                name="abilityStr"
+                class="form-control col-1"
+                placeholder="8"
+                disabled
+              />
+            </div>
+            <div class="col mx-2">
+              <label for="abilityCha" class="form-label">CHA</label>
+              <input
+                type="number"
+                id="abilityStr"
+                name="abilityStr"
+                class="form-control col-1"
+                placeholder="8"
+                disabled
+              />
+            </div>
+          </div>
+          <div class="row justify-content-end">
+            <button
+              id="rerollStatsButton"
+              type="button"
+              class="btn btn-warning col-2"
+            >
+              Reroll
+            </button>
+          </div>
+          <label class="form-label" for="characterRace">Race</label>
+          <select
+            id="raceSelector"
+            name="raceSelector"
+            class="form-select mb-3"
           >
-            Create
-          </button>
-          <button
-            id="cancelCreationButton"
-            type="button"
-            class="btn btn-danger col m-4"
+            <option value="human">Human</option>
+            <option value="barovian">Barovian</option>
+            <option value="vistani">Vistani</option>
+            <option value="elf">Elf</option>
+            <option value="dwarf">Dwarf</option>
+            <option value="halfling">Halfling</option>
+          </select>
+          <label class="form-label" for="classSelector">Class</label>
+          <select
+            id="classSelector"
+            name="classSelector"
+            class="form-select mb-3"
           >
-            Cancel
-          </button>
-        </div>
+            <option value="artificer">Artificer</option>
+            <option value="barbarian">Barbarian</option>
+            <option value="bard">Bard</option>
+            <option value="cleric">Cleric</option>
+            <option value="druid">Druid</option>
+            <option value="fighter">Fighter</option>
+            <option value="monk">Monk</option>
+            <option value="paladin">Paladin</option>
+            <option value="ranger">Ranger</option>
+            <option value="rogue">Rogue</option>
+            <option value="sorcerer">Sorcerer</option>
+            <option value="warlock">Warlock</option>
+            <option value="wizard">Wizard</option>
+          </select>
+          <h5>Character Sex</h5>
+          <div class="form-check">
+            <input
+              type="radio"
+              class="form-check-input"
+              name="characterSex"
+              id="male"
+            />
+            <label class="form-check-label" for="male">Male</label>
+          </div>
+          <div class="form-check">
+            <input
+              type="radio"
+              class="form-check-input"
+              name="characterSex"
+              id="female"
+            />
+            <label class="form-check-label" for="female">Female</label>
+          </div>
+          <div class="form-check mb-3">
+            <input
+              type="radio"
+              class="form-check-input"
+              name="characterSex"
+              id="other"
+            />
+            <label class="form-check-label" for="other">Other</label>
+          </div>
+          <div class="form-check form-switch">
+            <input
+              class="form-check-input"
+              type="checkbox"
+              id="characterIsLeftHanded"
+              name="characterIsLeftHanded"
+            />
+            <label class="form-check-label" for="characterIsLeftHanded"
+              >Character is Left-Handed</label
+            >
+          </div>
+          <div id="formButtonRow" class="row justify-content-evenly mt-3 mb-3">
+            <button
+              id="createCharacterButton"
+              type="button"
+              class="btn btn-success col-2"
+            >
+              Create
+            </button>
+            <button
+              id="cancelCreationButton"
+              type="button"
+              class="btn btn-danger col-2"
+            >
+              Cancel
+            </button>
+          </div>
+        </form>
       </div>
     </div>
   </body>
