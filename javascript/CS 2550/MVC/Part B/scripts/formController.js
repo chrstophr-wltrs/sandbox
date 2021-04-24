@@ -67,6 +67,26 @@ const populateTable = function () {
     classCell.innerText = titleMe(character.profession);
     sexCell = newRow.insertCell();
     sexCell.innerText = titleMe(character.sex);
+    editCell = newRow.insertCell();
+    editBtn = document.createElement("button");
+    editBtn.type = "button";
+    editBtn.classList.add("btn");
+    editBtn.classList.add("btn-warning");
+    editBtn.onclick = function () {
+      editCharacter(character.id);
+    };
+    editBtn.innerText = "Edit";
+    editCell.appendChild(editBtn);
+    deleteCell = newRow.insertCell();
+    deleteButton = document.createElement("button");
+    deleteButton.type = "button";
+    deleteButton.classList.add("btn");
+    deleteButton.classList.add("btn-danger");
+    deleteButton.onclick = function () {
+      deleteCharacter(character.id);
+    };
+    deleteButton.innerText = "Delete";
+    deleteCell.appendChild(deleteButton);
   }
 };
 
