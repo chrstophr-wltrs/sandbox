@@ -1,14 +1,17 @@
+let globalID = 0;
+let currentCharacters = [];
+
 class Character {
   constructor(
-    id = 0000,
     name = "",
     abilities = [0, 0, 0, 0, 0, 0],
     race = "",
     profession = "",
     sex = "",
-    leftHanded = ""
+    leftHanded = false
   ) {
-    this.id = id;
+    this.id = globalID;
+    globalID++;
     this.name = name;
     this.abilities = {
       str: abilities[0],
@@ -24,3 +27,20 @@ class Character {
     this.leftHanded = leftHanded;
   }
 }
+
+const createItem = function (
+  name = "",
+  abilities = [],
+  race = "",
+  profession = "",
+  sex = "",
+  leftHanded = false
+) {
+  currentCharacters.push(
+    new Character(name, abilities, race, profession, sex, leftHanded)
+  );
+};
+
+const getAllItems = function () {
+  return currentCharacters;
+};
