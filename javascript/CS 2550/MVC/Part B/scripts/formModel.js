@@ -26,6 +26,16 @@ class Character {
     this.sex = sex;
     this.leftHanded = leftHanded;
   }
+  set updateAbilities(abilityArray) {
+    this.abilities = {
+      str: abilityArray[0],
+      dex: abilityArray[1],
+      con: abilityArray[2],
+      wis: abilityArray[3],
+      int: abilityArray[4],
+      cha: abilityArray[5],
+    };
+  }
 }
 
 const modelCreateCharacter = function (
@@ -45,9 +55,9 @@ const modelGetAllCharacters = function () {
   return currentCharacters;
 };
 
-const modelGetCharacterByID = function (target) {
+const modelGetCharacterByID = function (targetID = 0000) {
   for (const i of currentCharacters) {
-    if (i.id == target) {
+    if (i.id == targetID) {
       return i;
     }
   }
@@ -64,9 +74,9 @@ const modelUpdateCharacter = function (
   leftHanded = false
 ) {
   const character = modelGetCharacterByID(id);
-  if (!character) {
+  if (character) {
     character.name = name;
-    character.abilities = abilities;
+    character.updateAbilities = abilities;
     character.race = race;
     character.profession = profession;
     character.sex = sex;

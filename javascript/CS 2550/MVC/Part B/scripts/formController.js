@@ -168,7 +168,7 @@ const formEditCharacter = function (characterID) {
   populateForm(characterID);
   glob.buttons.create.classList.add("d-none");
   glob.buttons.update.classList.remove("d-none");
-  glob.buttons.update.onclick = function (characterID) {
+  glob.buttons.update.onclick = function () {
     updateCharacter(characterID);
   };
   formShow("Edit Character");
@@ -179,12 +179,12 @@ const updateCharacter = function (characterID) {
     const { name, abilities, race, profession, hand } = glob.traits;
     const { str, dex, con, wis, int, cha } = abilities;
     const abilityArray = [
-      str.value,
-      dex.value,
-      con.value,
-      wis.value,
-      int.value,
-      cha.value,
+      parseInt(str.value),
+      parseInt(dex.value),
+      parseInt(con.value),
+      parseInt(wis.value),
+      parseInt(int.value),
+      parseInt(cha.value),
     ];
     const sex = document.querySelector("input[name=characterSex]:checked")
       .value;
@@ -239,12 +239,12 @@ const addCharacter = function () {
     const { name, abilities, race, profession, hand } = glob.traits;
     const { str, dex, con, wis, int, cha } = abilities;
     const abilityArray = [
-      str.value,
-      dex.value,
-      con.value,
-      wis.value,
-      int.value,
-      cha.value,
+      parseInt(str.value),
+      parseInt(dex.value),
+      parseInt(con.value),
+      parseInt(wis.value),
+      parseInt(int.value),
+      parseInt(cha.value),
     ];
     const sex = document.querySelector("input[name=characterSex]:checked")
       .value;
