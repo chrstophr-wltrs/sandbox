@@ -47,7 +47,7 @@ const domLoaded = function () {
 window.addEventListener("DOMContentLoaded", domLoaded);
 
 const populateTable = function () {
-  const items = getAllItems();
+  const items = modelGetAllCharacters();
   glob.characterTable.innerHTML = "";
   let newRow;
   let nameCell;
@@ -113,7 +113,7 @@ const titleMe = function (string) {
 };
 
 const validateNameCollission = function () {
-  const items = getAllItems();
+  const items = modelGetAllCharacters();
   for (const character of items) {
     if (character.name == glob.traits.name.value) {
       glob.nameExistsError.classList.remove("d-none");
@@ -181,7 +181,7 @@ const addCharacter = function () {
     ];
     const sex = document.querySelector("input[name=characterSex]:checked")
       .value;
-    createItem(
+    modelCreateCharacter(
       name.value,
       abilityArray,
       race.value,

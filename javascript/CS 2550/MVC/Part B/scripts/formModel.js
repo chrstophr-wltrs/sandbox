@@ -1,4 +1,5 @@
-let currentCharacters = [];
+let globalID = 1000;
+const currentCharacters = [];
 
 class Character {
   constructor(
@@ -9,6 +10,8 @@ class Character {
     sex = "",
     leftHanded = false
   ) {
+    this.id = globalID;
+    globalID++;
     this.name = name;
     this.abilities = {
       str: abilities[0],
@@ -25,7 +28,7 @@ class Character {
   }
 }
 
-const createItem = function (
+const modelCreateCharacter = function (
   name = "",
   abilities = [],
   race = "",
@@ -38,13 +41,13 @@ const createItem = function (
   );
 };
 
-const getAllItems = function () {
+const modelGetAllCharacters = function () {
   return currentCharacters;
 };
 
-const getItemByName = function (target) {
+const modelGetCharacterByID = function (target) {
   for (const i of currentCharacters) {
-    if (i.name == target) {
+    if (i.id == target) {
       return i;
     }
   }
