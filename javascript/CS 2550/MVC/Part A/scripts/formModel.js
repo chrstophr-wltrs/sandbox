@@ -44,3 +44,12 @@ const createItem = function (
 const getAllItems = function () {
   return currentCharacters;
 };
+
+const getItemById = function (target) {
+  for (const i of currentCharacters) {
+    if (i.id == target) {
+      return i;
+    }
+  }
+  return undefined;
+};
