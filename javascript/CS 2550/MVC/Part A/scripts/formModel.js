@@ -1,4 +1,3 @@
-let globalID = 0;
 let currentCharacters = [];
 
 class Character {
@@ -10,8 +9,6 @@ class Character {
     sex = "",
     leftHanded = false
   ) {
-    this.id = globalID;
-    globalID++;
     this.name = name;
     this.abilities = {
       str: abilities[0],
