@@ -29,10 +29,18 @@ const glob = {
 
 const domLoaded = function () {
   glob.init;
-  document.getElementById("openCreationFormButton").addEventListener();
-  document.getElementById("rerollStatsButton").addEventListener();
-  document.getElementById("createCharacterButton").addEventListener();
-  document.getElementById("cancelCreationButton").addEventListener();
+  document
+    .getElementById("formCreateButton")
+    .addEventListener("click", formCreateNew);
+  document
+    .getElementById("rerollStatsButton")
+    .addEventListener("click", rerollStats);
+  document
+    .getElementById("addCharacterButton")
+    .addEventListener("click", addCharacter);
+  document
+    .getElementById("cancelCreateButton")
+    .addEventListener("click", formHide);
   populateTable();
 };
 
@@ -128,3 +136,7 @@ const validateNameCharacters = function () {
   glob.invalidNameError.classList.add("d-none");
   return true;
 };
+
+const showForm = function () {};
+
+const hideForm = function () {};
