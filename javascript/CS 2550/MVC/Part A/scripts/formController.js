@@ -2,7 +2,7 @@ const glob = {
   get init() {
     this.sections = {
       currentCharacters: document.getElementById("currentCharacters"),
-      newCharacter: document.getElementById("newCharacterForm"),
+      newCharacter: document.getElementById("characterForm"),
     };
     this.traits = {
       name: document.getElementById("characterName"),
@@ -137,6 +137,19 @@ const validateNameCharacters = function () {
   return true;
 };
 
-const showForm = function () {};
+const resetForm = function () {
+  glob.traits.name.value = "";
+  rerollStats();
+  glob.traits.race.value = "human";
+  glob.traits.class.value = "artificer";
+  glob.traits.hand.checked = false;
+  document.getElementById("other").checked = true;
+};
+
+const showForm = function (header) {
+  glob.formHead.innerText = header;
+  glob.sections.currentCharacters.classList.add("d-none");
+  glob.sections.
+};
 
 const hideForm = function () {};
