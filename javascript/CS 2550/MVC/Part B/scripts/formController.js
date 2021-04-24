@@ -50,14 +50,14 @@ const domLoaded = function () {
 window.addEventListener("DOMContentLoaded", domLoaded);
 
 const populateTable = function () {
-  const items = modelGetAllCharacters();
+  const allCharacters = modelGetAllCharacters();
   glob.characterTable.innerHTML = "";
   let newRow;
   let nameCell;
   let raceCell;
   let classCell;
   let sexCell;
-  for (const character of items) {
+  for (const character of allCharacters) {
     newRow = glob.characterTable.insertRow();
     nameCell = newRow.insertCell();
     nameCell.innerText = character.name;
@@ -158,6 +158,29 @@ const validateNameCharacters = function () {
   }
   glob.invalidNameError.classList.add("d-none");
   return true;
+};
+
+const populateForm = function (characterID) {
+  const char = modelGetCharacterByID(characterID);
+  resetForm();
+  const { name, abilities, race, profession, hand } = glob.traits;
+  const { str, dex, con, wis, int, cha } = abilities;
+  name.value = char.name;
+  str.value = char.abilities.str;
+  dex.value = char.abilities.dex;
+  con.value = char.abilities.con;
+  wis.value = char.abilities.wis;
+  int.value = char.abilities.int;
+  cha.value = char.abilities.cha;
+  race.value = char.race;
+  profession.value = char.profession;
+  document.getElementById(char.sex).checked = true;
+  hand.checked = char.leftHanded;
+};
+
+const editCharacter = function (characterID) {
+  populateForm(characterID);
+  formShow("Edit Character");
 };
 
 const resetForm = function () {
