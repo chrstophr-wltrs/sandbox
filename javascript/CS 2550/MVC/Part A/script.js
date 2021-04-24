@@ -1,5 +1,3 @@
-window.addEventListener("DOMContentLoaded", domLoaded);
-
 const glob = {
   get init() {
     this.sections = {
@@ -12,13 +10,18 @@ const glob = {
       create: document.getElementById("createCharacterButton"),
       cancel: document.getElementById("cancelCreationButton"),
     };
-    this.abilities = {
-      str: document.getElementById("abilityStr"),
-      dex: document.getElementById("abilityDex"),
-      con: document.getElementById("abilityCon"),
-      wis: document.getElementById("abilityWis"),
-      int: document.getElementById("abilityInt"),
-      cha: document.getElementById("abilityCha"),
+    this.traits = {
+      abilities: {
+        str: document.getElementById("abilityStr"),
+        dex: document.getElementById("abilityDex"),
+        con: document.getElementById("abilityCon"),
+        wis: document.getElementById("abilityWis"),
+        int: document.getElementById("abilityInt"),
+        cha: document.getElementById("abilityCha"),
+      },
+      race: document.getElementById("raceSelector"),
+      class: document.getElementById("classSelector"),
+      hand: document.getElementById("characterIsLeftHanded"),
     };
     this.nameError = document.getElementById("nameError");
   },
@@ -26,11 +29,13 @@ const glob = {
 
 const domLoaded = function () {
   glob.init;
-  glob.buttons.createNew.addEventListener("click", showForm);
+  glob.buttons.createNew.addEventListener("click", switchSection);
   glob.buttons.reroll.addEventListener("click", rerollStats);
   glob.buttons.create.addEventListener("click", addCharacter);
-  glob.buttons.cancel.addEventListener("click", hideForm);
+  glob.buttons.cancel.addEventListener("click", switchSection);
 };
+
+window.addEventListener("DOMContentLoaded", domLoaded);
 
 const roll = function (diceString = "1d20") {
   let bonus = 0;
@@ -64,7 +69,11 @@ const roll = function (diceString = "1d20") {
 };
 
 const rerollStats = function () {
-  for (i of glob.abilities) {
+  for (i of glob.traits.abilities) {
     i.value = roll("3d6");
   }
+};
+
+const getTraits = function () {
+  return {};
 };
