@@ -233,7 +233,7 @@ const roll = function (diceString = "1d20") {
   }
   let sum = 0;
   for (let i = 0; i < numberOfDice; i++) {
-    sum = Math.floor(Math.random() * diceSize) + 1;
+    sum += Math.floor(Math.random() * diceSize) + 1;
   }
   return sum + bonus;
 };
