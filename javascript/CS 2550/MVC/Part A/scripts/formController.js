@@ -146,13 +146,13 @@ const resetForm = function () {
   document.getElementById("other").checked = true;
 };
 
-const showForm = function (header) {
+const formShow = function (header) {
   glob.formHead.innerText = header;
   glob.sections.currentCharacters.classList.add("d-none");
   glob.sections.characterForm.classList.remove("d-none");
 };
 
-const hideForm = function () {
+const formHide = function () {
   populateTable();
   glob.sections.characterForm.classList.add("d-none");
   glob.sections.currentCharacters.classList.remove("d-none");
