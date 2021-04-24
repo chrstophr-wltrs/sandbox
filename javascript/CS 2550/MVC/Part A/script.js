@@ -1,3 +1,37 @@
+window.addEventListener("DOMContentLoaded", domLoaded);
+
+const glob = {
+  get init() {
+    this.sections = {
+      currentCharacters: document.getElementById("currentCharacters"),
+      newCharacter: document.getElementById("newCharacterForm"),
+    };
+    this.buttons = {
+      createNew: document.getElementById("openCreationFormButton"),
+      reroll: document.getElementById("rerollStatsButton"),
+      create: document.getElementById("createCharacterButton"),
+      cancel: document.getElementById("cancelCreationButton"),
+    };
+    this.abilities = {
+      str: document.getElementById("abilityStr"),
+      dex: document.getElementById("abilityDex"),
+      con: document.getElementById("abilityCon"),
+      wis: document.getElementById("abilityWis"),
+      int: document.getElementById("abilityInt"),
+      cha: document.getElementById("abilityCha"),
+    };
+    this.nameError = document.getElementById("nameError");
+  },
+};
+
+const domLoaded = function () {
+  glob.init;
+  glob.buttons.createNew.addEventListener("click", showForm);
+  glob.buttons.reroll.addEventListener("click", rerollStats);
+  glob.buttons.create.addEventListener("click", addCharacter);
+  glob.buttons.cancel.addEventListener("click", hideForm);
+};
+
 const roll = function (diceString = "1d20") {
   let bonus = 0;
   let numberOfDice;
