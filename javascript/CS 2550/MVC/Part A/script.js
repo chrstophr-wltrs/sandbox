@@ -107,8 +107,8 @@ const addCharacter = function () {
       document.querySelector("input[name=characterSex]:checked").value
     )}</td>
     </tr>`;
+    switchSection();
   }
-  switchSection();
 };
 
 const switchSection = function () {
