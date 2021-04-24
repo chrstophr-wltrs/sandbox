@@ -11,6 +11,7 @@ const glob = {
       cancel: document.getElementById("cancelCreationButton"),
     };
     this.traits = {
+      name: document.getElementById("characterName"),
       abilities: {
         str: document.getElementById("abilityStr"),
         dex: document.getElementById("abilityDex"),
@@ -24,6 +25,7 @@ const glob = {
       hand: document.getElementById("characterIsLeftHanded"),
     };
     this.nameError = document.getElementById("nameError");
+    this.characterTable = document.getElementById("characterTable");
   },
 };
 
@@ -63,17 +65,56 @@ const roll = function (diceString = "1d20") {
   }
   let sum = 0;
   for (let i = 0; i < numberOfDice; i++) {
-    sum = Math.floor(Math.random() * diceSize) + 1;
+    sum += Math.floor(Math.random() * diceSize) + 1;
   }
   return sum + bonus;
 };
 
 const rerollStats = function () {
-  for (i of glob.traits.abilities) {
-    i.value = roll("3d6");
-  }
+  const { str, dex, con, wis, int, cha } = glob.traits.abilities;
+  str.value = roll("3d6");
+  dex.value = roll("3d6");
+  con.value = roll("3d6");
+  wis.value = roll("3d6");
+  int.value = roll("3d6");
+  cha.value = roll("3d6");
 };
 
-const getTraits = function () {
-  return {};
+const validateName = function () {
+  if (/[!@#\$%\^&\*\(\)<>\/_\+=\\[\]\|:;\?]/gm.test(glob.traits.name.value)) {
+    glob.nameError.classList.remove("d-none");
+    glob.traits.name.classList.add("border");
+    glob.traits.name.classList.add("border-danger");
+    return false;
+  }
+  glob.nameError.classList.add("d-none");
+  glob.traits.name.classList.remove("border");
+  glob.traits.name.classList.remove("border-danger");
+  return true;
+};
+
+const addCharacter = function () {
+  if (validateName()) {
+    glob.characterTable.innerHTML += `<tr>
+    <td>${glob.traits.name.value}</td>
+    <td>${glob.traits.race.value}</td>
+    <td>${glob.traits.class.value}</td>
+    <td>${document.querySelector("input[name=characterSex]:checked").value}</td>
+    </tr>`;
+  }
+  switchSection();
+};
+
+const switchSection = function () {
+  if (glob.sections.newCharacter.classList.contains("d-none")) {
+    // creating a new character, reset character creation field
+    glob.traits.name.value = "";
+    rerollStats();
+    glob.traits.race.value = "human";
+    glob.traits.class.value = "artificer";
+    glob.traits.hand.checked = false;
+    document.getElementById("other").checked = true;
+  }
+  glob.sections.currentCharacters.classList.toggle("d-none");
+  glob.sections.newCharacter.classList.toggle("d-none");
 };
