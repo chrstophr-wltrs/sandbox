@@ -42,9 +42,9 @@ const getAllItems = function () {
   return currentCharacters;
 };
 
-const getItemById = function (target) {
+const getItemByName = function (target) {
   for (const i of currentCharacters) {
-    if (i.id == target) {
+    if (i.name == target) {
       return i;
     }
   }
