@@ -1,170 +1,182 @@
 <!DOCTYPE html>
 <html lang="en">
-	<head>
-        <title>Random Encounters</title>
-        <style>
-            :root {
-                --gray0: rgb(15, 15, 15);
-                --gray1: rgb(46, 46, 46);
-                --gray2: rgb(54, 54, 54);
-                --gray3: rgb(64, 64, 64);
-                --gray4: rgb(74, 74, 74);
-                --gray5: rgb(191, 191, 191);
-                --niceRed: #ef3c39;
-                --darkRed: #991b1e;
-                --cream: #F3EDDE;
-            }
-            body {
-                background-color: var(--gray4);
-                font-family: Arial, Helvetica, sans-serif;
-                color: var(--gray5)
-            }
-            .bigBox {
-                background-color: var(--gray3);
-                margin: 17px 10px;
-                padding: 5px;
-                display: flex;
-                flex-flow: column nowrap;
-                max-width: 630px;
-            }
-            .miniBox {
-                background-color: var(--gray2);
-                margin: 4px;
-                padding: 6px 8px;
-            }
-            .tinyBox {
-                background-color: var(--gray1);
-                margin: 4px;
-                padding: 3px 5px;
-            }
-            h1, h2, h3, ul {
-                margin: 3px 3px;
-            }
-            p {
-                margin: 3px 3px 8px;
-                line-height: 150%;
-            }
-            .forceRow {
-                display: flex;
-                justify-content: space-between;
-                align-items: stretch;
-            }
-            #skeleBox, #wispBox {
-                width: 50%
-            }
-            #calcEncounters {
-                background-color: var(--gray1);
-                border: none;
-                color: var(--niceRed);
-                margin: 10px 4px;
-                padding: 25px 10px;
-                font-size: 16px;
-                transition-duration: .2s;
-                cursor: pointer;
-                font-weight: bold;
-            }
-            #calcEncounters:hover {
-                background-color: var(--darkRed);
-                color: var(--gray1);
-            }
-            #travelLog {
-                margin: 4px;
-                height: 100px;
-            }
-            .readAloud {
-                background-color: var(--cream);
-                color: var(--gray0);
-                display: block;
-                margin: 10px 4px;
-                padding: 10px 20px;
-                font-style: italic;
-                border-left: 6px solid var(--niceRed);
-                font-size: 15px;
-                line-height: 125%;
-            }
-            .errorBorder {
-                border: 2px solid red;
-            }
-        </style>
-        <script src="randomEncounter.js" defer></script>
-    </head>
-	<body>
-        <div id="parametersBox" class="bigBox">
-            <div id="title" class="miniBox">
-                <h1>Random Encounters</h1>
-            </div>
-            <div id="sideRow" class="forceRow">
-                <div id="guideBox" class="miniBox">
-                    <label  for="guide">Competent Guide: </label>
-                    <input type="checkbox" id="guide" name="guide">
-                </div>
-                <div id="timeBox" class="miniBox">
-                    <label  for="time">Time of Day: </label>
-                    <select id="time" name="time">
-                        <option value="day" selected>Day</option>
-                        <option value="night">Night</option>
-                    </select>
-                </div>
-                <div id="waitBox" class="miniBox">
-                    <label  for="waitTime">Time to Wait (hrs): </label>
-                    <input type="number" id="waitTime" name="waitTime" min=0 max=24 step=.5>
-                </div>    
-            </div>
-            <div id="travelRow" class="forceRow">
-                <div id="distanceBox" class="miniBox">
-                    <label  for="distance">Distance to Travel (mi): </label>
-                    <input type="number" id="distance" name="distance" min=0 max=50>
-                </div>
-                <div id="paceBox" class="miniBox">
-                    <label  for="pace">Travel Pace: </label>
-                    <select id="pace" name="pace">
-                        <option value="slow">Slow</option>
-                        <option value="normal" selected>Normal</option>
-                        <option value="fast">Fast</option>
-                    </select>
-                </div>
-                <div id="terrainBox" class="miniBox">
-                    <label  for="terrain">Terrain: </label>
-                    <select id="terrain" name="terrain">
-                        <option value="road" selected>On/By Roads</option>
-                        <option value="wild">Wilderness</option>
-                    </select>
-                </div>
-            </div>
-            <div id="paceRulesBox" class="miniBox">
-                <ul  id="paceRules">
-                </ul>
-            </div>
-            <div id="oneTimeBox" class="miniBox">
-                <h3  id="oneTimeHead">One-Time Encounters:</h3>
-                <div id="oneTimeRow" class="forceRow">
-                    <div id="wispBox" class="tinyBox">
-                        <label  for="willOWisp">Encountered Will O' Wisp: </label>    
-                        <input type="checkbox" id="willOWisp" name="willOWisp">
-                    </div>
-                    <div id="skeleBox" class="tinyBox">
-                        <label  for="skelly">Killed Skeletal Rider: </label>    
-                        <input type="checkbox" id="skelly" name="skelly">
-                    </div>
-                </div>
-            </div>
-            <button type="button" id="calcEncounters" name="calcEncounters">Calculate Random Encounters</button>
-            <textarea id="travelLog" name="travelLog" disabled></textarea>
+  <head>
+    <title>Random Encounters</title>
+    <style>
+      :root {
+        --gray0: rgb(15, 15, 15);
+        --gray1: rgb(46, 46, 46);
+        --gray2: rgb(54, 54, 54);
+        --gray3: rgb(64, 64, 64);
+        --gray4: rgb(74, 74, 74);
+        --gray5: rgb(191, 191, 191);
+        --niceRed: #ef3c39;
+        --darkRed: #991b1e;
+        --cream: #f3edde;
+      }
+      body {
+        background-color: var(--gray4);
+        font-family: Arial, Helvetica, sans-serif;
+        color: var(--gray5);
+      }
+      .bigBox {
+        background-color: var(--gray3);
+        margin: 17px 10px;
+        padding: 5px;
+        display: flex;
+        flex-flow: column nowrap;
+        max-width: 630px;
+      }
+      .miniBox {
+        background-color: var(--gray2);
+        margin: 4px;
+        padding: 6px 8px;
+      }
+      .tinyBox {
+        background-color: var(--gray1);
+        margin: 4px;
+        padding: 3px 5px;
+      }
+      h1,
+      h2,
+      h3,
+      ul {
+        margin: 3px 3px;
+      }
+      p {
+        margin: 3px 3px 8px;
+        line-height: 150%;
+      }
+      .forceRow {
+        display: flex;
+        justify-content: space-between;
+        align-items: stretch;
+      }
+      #skeleBox,
+      #wispBox {
+        width: 50%;
+      }
+      #calcEncounters {
+        background-color: var(--gray1);
+        border: none;
+        color: var(--niceRed);
+        margin: 10px 4px;
+        padding: 25px 10px;
+        font-size: 16px;
+        transition-duration: 0.2s;
+        cursor: pointer;
+        font-weight: bold;
+      }
+      #calcEncounters:hover {
+        background-color: var(--darkRed);
+        color: var(--gray1);
+      }
+      #travelLog {
+        margin: 4px;
+        height: 100px;
+      }
+      .readAloud {
+        background-color: var(--cream);
+        color: var(--gray0);
+        display: block;
+        margin: 10px 4px;
+        padding: 10px 20px;
+        font-style: italic;
+        border-left: 6px solid var(--niceRed);
+        font-size: 15px;
+        line-height: 125%;
+      }
+      .errorBorder {
+        border: 2px solid red;
+      }
+    </style>
+    <script src="randomEncounter.js" defer></script>
+  </head>
+  <body>
+    <div id="parametersBox" class="bigBox">
+      <div id="title" class="miniBox">
+        <h1>Random Encounters</h1>
+      </div>
+      <div id="sideRow" class="forceRow">
+        <div id="guideBox" class="miniBox">
+          <label for="guide">Competent Guide: </label>
+          <input type="checkbox" id="guide" name="guide" />
         </div>
+        <div id="timeBox" class="miniBox">
+          <label for="time">Time of Day: </label>
+          <select id="time" name="time">
+            <option value="day" selected>Day</option>
+            <option value="night">Night</option>
+          </select>
+        </div>
+        <div id="waitBox" class="miniBox">
+          <label for="waitTime">Time to Wait (hrs): </label>
+          <input
+            type="number"
+            id="waitTime"
+            name="waitTime"
+            min="0"
+            max="24"
+            step=".5"
+          />
+        </div>
+      </div>
+      <div id="travelRow" class="forceRow">
+        <div id="distanceBox" class="miniBox">
+          <label for="distance">Distance to Travel (mi): </label>
+          <input type="number" id="distance" name="distance" min="0" max="50" />
+        </div>
+        <div id="paceBox" class="miniBox">
+          <label for="pace">Travel Pace: </label>
+          <select id="pace" name="pace">
+            <option value="slow">Slow</option>
+            <option value="normal" selected>Normal</option>
+            <option value="fast">Fast</option>
+          </select>
+        </div>
+        <div id="terrainBox" class="miniBox">
+          <label for="terrain">Terrain: </label>
+          <select id="terrain" name="terrain">
+            <option value="road" selected>On/By Roads</option>
+            <option value="wild">Wilderness</option>
+          </select>
+        </div>
+      </div>
+      <div id="paceRulesBox" class="miniBox">
+        <ul id="paceRules"></ul>
+      </div>
+      <div id="oneTimeBox" class="miniBox">
+        <h3 id="oneTimeHead">One-Time Encounters:</h3>
+        <div id="oneTimeRow" class="forceRow">
+          <div id="wispBox" class="tinyBox">
+            <label for="willOWisp">Encountered Will O' Wisp: </label>
+            <input type="checkbox" id="willOWisp" name="willOWisp" />
+          </div>
+          <div id="skeleBox" class="tinyBox">
+            <label for="skelly">Killed Skeletal Rider: </label>
+            <input type="checkbox" id="skelly" name="skelly" />
+          </div>
+        </div>
+      </div>
+      <button type="button" id="calcEncounters" name="calcEncounters">
+        Calculate Random Encounters
+      </button>
+      <textarea id="travelLog" name="travelLog" disabled></textarea>
+    </div>
 
-        <div id="detailsBox" class="bigBox">
-            <div id="titleBox" class="miniBox">
-                <h2 id="encounterName">Encounter Name</h2>
-            </div>
-            <div id="perceptionBox" class="miniBox">
-                Perception: <span id="perceptionDC">-</span>
-            </div>
-            <div id="descriptionBox" class="miniBox">
-                <aside class="readAloud" id="firstDescription">Some Flavor Text</aside>
-            </div>
-            <div id="rulesBox" class="miniBox">
-                Rules that the players don't get to know about.
-            </div>
-        </div>
-	</body>
+    <div id="detailsBox" class="bigBox">
+      <div id="titleBox" class="miniBox">
+        <h2 id="encounterName">Encounter Name</h2>
+      </div>
+      <div id="perceptionBox" class="miniBox">
+        Perception: <span id="perceptionDC">-</span>
+      </div>
+      <div id="descriptionBox" class="miniBox">
+        <aside class="readAloud" id="firstDescription">Some Flavor Text</aside>
+      </div>
+      <div id="rulesBox" class="miniBox">
+        Rules that the players don't get to know about.
+      </div>
+    </div>
+  </body>
 </html>
