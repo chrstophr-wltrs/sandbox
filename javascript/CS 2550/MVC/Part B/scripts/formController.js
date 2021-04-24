@@ -81,7 +81,7 @@ const populateTable = function () {
     deleteButton.classList.add("btn");
     deleteButton.classList.add("btn-danger");
     deleteButton.onclick = function () {
-      deleteCharacter(character.id);
+      deleteCharacter(character);
     };
     deleteButton.innerText = "Delete";
     deleteCell.appendChild(deleteButton);
@@ -201,7 +201,12 @@ const updateCharacter = function (characterID) {
   }
 };
 
-const deleteCharacter = function (characterID) {};
+const deleteCharacter = function (character) {
+  if (confirm(`Are you sure you want to delete ${character.name}?`)) {
+    modelDeleteCharacter(character.id);
+    populateTable();
+  }
+};
 
 const resetForm = function () {
   glob.traits.name.classList.remove("border");
