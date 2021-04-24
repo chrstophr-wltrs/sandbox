@@ -173,8 +173,7 @@ const editCharacter = function (characterID) {
 const resetForm = function () {
   glob.traits.name.classList.remove("border");
   glob.traits.name.classList.remove("border-danger");
-  glob.invalidNameError.classList.add("d-none");
-  glob.nameExistsError.classList.add("d-none");
+  glob.nameError.classList.add("d-none");
   glob.traits.name.value = "";
   rerollStats();
   glob.traits.race.value = "human";
