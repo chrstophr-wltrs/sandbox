@@ -53,3 +53,25 @@ const modelGetCharacterByID = function (target) {
   }
   return undefined;
 };
+
+const modelUpdateCharacter = function (
+  id = 0,
+  name = "",
+  abilities = [],
+  race = "",
+  profession = "",
+  sex = "",
+  leftHanded = false
+) {
+  const character = modelGetCharacterByID(id);
+  if (!character) {
+    character.name = name;
+    character.abilities = abilities;
+    character.race = race;
+    character.profession = profession;
+    character.sex = sex;
+    character.leftHanded = leftHanded;
+    return character;
+  }
+  return undefined;
+};
