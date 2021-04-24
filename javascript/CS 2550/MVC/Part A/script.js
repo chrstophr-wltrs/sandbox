@@ -24,7 +24,7 @@ const glob = {
   },
 };
 
-const domLoaded = () => {
+const domLoaded = function () {
   glob.init;
   glob.buttons.createNew.addEventListener("click", showForm);
   glob.buttons.reroll.addEventListener("click", rerollStats);
@@ -32,7 +32,7 @@ const domLoaded = () => {
   glob.buttons.cancel.addEventListener("click", hideForm);
 };
 
-const roll = (diceString = "1d20") => {
+const roll = function (diceString = "1d20") {
   let bonus = 0;
   let numberOfDice;
   let diceSize;
@@ -63,7 +63,7 @@ const roll = (diceString = "1d20") => {
   return sum + bonus;
 };
 
-const rerollStats = () => {
+const rerollStats = function () {
   for (i of glob.abilities) {
     i.value = roll("3d6");
   }
