@@ -8,3 +8,17 @@ Description: Weighted graphs show up as a way to represent information in many a
 
 For this project, you will write a Graph ADT and a small main function as a small test driver “application”. Include main() in your graph.py source file with conditional execution.  It is common for modules to include a runnable main() to use for testing purposes.  It happens in this case, you will have both main() AND the test code we give you to test your implementation.
 """
+
+def main():
+    """
+    1. Construct the graph shown in Figure 1 using your ADT
+    2. Print it to the console in GraphViz notation as shown in Figure 1
+    3. Print results of DFS starting with vertex “A” as shown in Figure 2
+    4. BFS starting with vertex “A” as shown in Figure 3
+    5. Print the path from vertex “ A” to vertex “F” (not shown here) using Djikstra’s shortest path algorithm (DSP) as a string like #3 and #4
+    6. Print the shortest paths from “A” to each other vertex, one path per line using DSP
+    """
+    pass
+
+if __name__ == "__main__":
+    main()
