@@ -95,33 +95,14 @@ class Graph:
         self.vertices.append(new_vertex)
         return self
 
-    def check_for_verts(self, label_a, label_b):
+    def check_for_vert(self, label):
         """
-        search vertices for both verts
-        returns true if both are found, else returns false
+        search vertices for a vertex
         """
-        a_flag = False
-        b_flag = False
-        err_string = ""
         for i in self.vertices:
-            if i.label == label_a:
-                a_flag = True
-                vert_a = i
-                break
-        if not a_flag:
-            err_string += f"vertex {label_a} could not be found"
-        for i in self.vertices:
-            if i.label == label_b:
-                b_flag = True
-                vert_b = i
-                break
-        if (not a_flag) and (not b_flag):
-            err_string += ", "
-        if not b_flag:
-            err_string += f"vertex {label_b} could not be found"
-        if a_flag and b_flag:
-            return vert_a, vert_b
-        raise ValueError(err_string)
+            if i.label == label:
+                return i
+        raise ValueError(f"vertex {label} could not be found")
 
     def add_edge(self, src, dest, w):
         """
@@ -132,7 +113,7 @@ class Graph:
         """
         if not isinstance(w, (int, float)):
             raise ValueError(f"weight {w} is not a number")
-        v_src, v_dest = self.check_for_verts(src, dest)
+        v_src, v_dest = self.check_for_vert(src), self.check_for_vert(dest)
         new_edge = Edge(v_src, v_dest, w)
         v_src.edges.append(new_edge)
         return self
@@ -144,7 +125,7 @@ class Graph:
             raise ValueError if src
             or dest not added to graph)
         """
-        v_src, v_dest = self.check_for_verts(src, dest)
+        v_src, v_dest = self.check_for_vert(src), self.check_for_vert(dest)
         for i in v_src.edges:
             if i.end == v_dest:
                 return i.weight
