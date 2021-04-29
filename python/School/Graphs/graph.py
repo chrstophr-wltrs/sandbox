@@ -144,7 +144,11 @@ class Graph:
             raise ValueError if src
             or dest not added to graph)
         """
-        pass
+        v_src, v_dest = self.check_for_verts(src, dest)
+        for i in v_src.edges:
+            if i.end == v_dest:
+                return i.weight
+        return math.inf
 
     def dfs(self, starting_vertex):
         """
