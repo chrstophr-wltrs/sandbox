@@ -9,6 +9,8 @@ Description: Weighted graphs show up as a way to represent information in many a
 For this project, you will write a Graph ADT and a small main function as a small test driver “application”. Include main() in your graph.py source file with conditional execution.  It is common for modules to include a runnable main() to use for testing purposes.  It happens in this case, you will have both main() AND the test code we give you to test your implementation.
 """
 
+import math
+
 
 class Vertex:
     """
@@ -26,6 +28,7 @@ class Vertex:
         """
         self.label = label
         self.edges = []
+        return self
 
     def __str__(self):
         return self.label
@@ -58,6 +61,7 @@ class Edge:
         self.start = start
         self.end = end
         self.weight = weight
+        return self
 
     def __str__(self):
         return f'{self.start.label} -> {self.end.label}[label="{self.weight:.1f}",weight="{self.weight:.1f}"];'
@@ -77,6 +81,7 @@ class Graph:
 
     def __init__(self):
         self.vertices = []
+        return self
 
     def add_vertex(self, label):
         """
@@ -90,6 +95,34 @@ class Graph:
         self.vertices.append(new_vertex)
         return self
 
+    def check_for_verts(self, label_a, label_b):
+        """
+        search vertices for both verts
+        returns true if both are found, else returns false
+        """
+        a_flag = False
+        b_flag = False
+        err_string = ""
+        for i in self.vertices:
+            if i.label == label_a:
+                a_flag = True
+                vert_a = i
+                break
+        if not a_flag:
+            err_string += f"vertex {label_a} could not be found"
+        for i in self.vertices:
+            if i.label == label_b:
+                b_flag = True
+                vert_b = i
+                break
+        if (not a_flag) and (not b_flag):
+            err_string += ", "
+        if not b_flag:
+            err_string += f"vertex {label_b} could not be found"
+        if a_flag and b_flag:
+            return vert_a, vert_b
+        raise ValueError(err_string)
+
     def add_edge(self, src, dest, w):
         """
         add an edge from vertex src to vertex dest with weight w
@@ -97,7 +130,10 @@ class Graph:
         validate src, dest, and w:
             raise ValueError if not valid
         """
-        pass
+        if not isinstance(w, (int, float)):
+            raise ValueError(f"weight {w} must be a number")
+        v_src, v_dest = self.check_for_verts(src, dest)
+        new_edge = Edge(v_src, v_dest, w)
 
     def get_weight(self, src, dest):
         """
