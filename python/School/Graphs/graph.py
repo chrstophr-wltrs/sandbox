@@ -10,13 +10,72 @@ For this project, you will write a Graph ADT and a small main function as a smal
 """
 
 
+class Vertex:
+    """
+    Helper class for Graph
+    Represents a vertex in the graph
+
+    Attributes:
+        label(str): a label which represents the vertex
+        edges(list[Edge]): a list of Edges that have this vertex as the starting point
+    """
+
+    def __init__(self, label):
+        """
+        label(str): a label to represent the vertex
+        """
+        self.label = label
+        self.edges = []
+
+    def __str__(self):
+        return self.label
+
+    def __repr__(self):
+        edges_string = ""
+        for i in self.edges:
+            edges_string += f"{i.end.label}, "
+        edges_string = edges_string[:-2]
+        return f"{self.label} with edges to {edges_string}"
+
+
+class Edge:
+    """
+    Helper class for Graph
+    represents a directed edge from one vertex to another
+
+    Attributes:
+        start(Vertex): the starting vertex
+        end(Vertex): the ending vertex
+        weight(float): the weight of the edge from start to end
+    """
+
+    def __init__(self, start, end, weight):
+        """
+        start(Vertex): the starting vertex
+        end(Vertex): the ending vertex
+        weight(float): the weight of the edge from start to end
+        """
+        self.start = start
+        self.end = end
+        self.weight = weight
+
+    def __str__(self):
+        return f'{self.start.label} -> {self.end.label}[label="{self.weight:.1f}",weight="{self.weight:.1f}"];'
+
+    def __repr__(self):
+        return f"{self.start.label} -> {self.end.label}: {self.weight:.1f}"
+
+
 class Graph:
     """
     ADT representing a weighted directed graph, comprised of vertices and edges
+
+    Attributes:
+        vertices(list[Vertex]): the vertices present in the graph
     """
 
     def __init__(self):
-        pass
+        self.vertices = []
 
     def add_vertex(self, label):
         """
