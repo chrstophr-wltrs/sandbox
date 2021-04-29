@@ -68,7 +68,8 @@ class Edge:
 
 class Graph:
     """
-    ADT representing a weighted directed graph, comprised of vertices and edges
+    Represents a weighted directed graph,
+        comprised of vertices and edges
 
     Attributes:
         vertices(list[Vertex]): the vertices present in the graph
@@ -83,7 +84,11 @@ class Graph:
         Return the graph
         label must be a string or raise ValueError
         """
-        pass
+        if not isinstance(label, str):
+            raise ValueError(f"label {label} is not a string")
+        new_vertex = Vertex(label)
+        self.vertices.append(new_vertex)
+        return self
 
     def add_edge(self, src, dest, w):
         """
