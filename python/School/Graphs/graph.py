@@ -131,9 +131,11 @@ class Graph:
             raise ValueError if not valid
         """
         if not isinstance(w, (int, float)):
-            raise ValueError(f"weight {w} must be a number")
+            raise ValueError(f"weight {w} is not a number")
         v_src, v_dest = self.check_for_verts(src, dest)
         new_edge = Edge(v_src, v_dest, w)
+        v_src.edges.append(new_edge)
+        return self
 
     def get_weight(self, src, dest):
         """
