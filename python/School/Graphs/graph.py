@@ -153,7 +153,7 @@ class Graph:
         recursive_dfs(self.check_for_vert(starting_vertex))
         return dfs_list
 
-    def bfs(self, starting_vertex:str):
+    def bfs(self, starting_vertex: str):
         """
         Return a generator for traversing the graph in breadth-first order starting from the specified vertex
         Raise a ValueError if the vertex does not exist
@@ -168,23 +168,27 @@ class Graph:
                     process_queue.append(i.end)
         return bfs_list
 
-    def dsp(self, src:str, dest:str):
+    def dsp(self, src: str, dest: str):
         """
         Return a tuple (path length, the list of vertices on the path from destback to src)
         If no path exists, return the tuple (math.inf,  empty list)
         """
-        def edge_finder(vertices:list):
-            edges = 
+
+        def edge_finder(vertices: list):
+            edges = []
+            for i in vertices:
+                for j in i.edges:
+                    if j.end not in vertices:
+                        edges.append(j)
+            return edges
+
         distance = 0
         starting_vertex = self.check_for_vert(src)
         target_vertex = self.check_for_vert(dest)
         vertices = [starting_vertex]
-        label_list = [starting_vertex.label]
-        candidate_edges = [x.edges for x in vertices if x.end not in vertices]
+        candidate_edges = edge_finder(vertices)
         candidate_edges.sort(key=lambda x: x.weight)
         end_points = [x.end for x in candidate_edges]
-        while target_vertex not in end_points:
-
 
     def dsp_all(self, src):
         """
