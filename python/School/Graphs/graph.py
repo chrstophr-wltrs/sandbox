@@ -138,7 +138,16 @@ class Graph:
         Return a generator for traversing the graph in depth-first order starting from the specified vertex
         Raise a ValueError if the vertex does not exist
         """
-        pass
+        dfs_list = [self.check_for_vert(starting_vertex)]
+
+        def recursive_dfs(vert, list=dfs_list):
+            for i in vert.edges:
+                if i.end not in dfs_list:
+                    dfs_list.append(i.end)
+                    recursive_dfs(i.end, dfs_list)
+
+        recursive_dfs(self.check_for_vert(starting_vertex), dfs_list)
+        return dfs_list
 
     def bfs(self, starting_vertex):
         """
