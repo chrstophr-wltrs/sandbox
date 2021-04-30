@@ -28,7 +28,6 @@ class Vertex:
         """
         self.label = label
         self.edges = []
-        return self
 
     def __str__(self):
         return self.label
@@ -61,7 +60,6 @@ class Edge:
         self.start = start
         self.end = end
         self.weight = weight
-        return self
 
     def __str__(self):
         return f'{self.start.label} -> {self.end.label}[label="{self.weight:.1f}",weight="{self.weight:.1f}"];'
@@ -81,7 +79,6 @@ class Graph:
 
     def __init__(self):
         self.vertices = []
-        return self
 
     def check_for_vert(self, label):
         """
@@ -141,15 +138,22 @@ class Graph:
         Return a generator for traversing the graph in depth-first order starting from the specified vertex
         Raise a ValueError if the vertex does not exist
         """
-        dfs_list = []
-        process_stack = [self.check_for_vert(starting_vertex)]
+        pass
 
     def bfs(self, starting_vertex):
         """
         Return a generator for traversing the graph in breadth-first order starting from the specified vertex
         Raise a ValueError if the vertex does not exist
         """
-        pass
+        bfs_list = [self.check_for_vert(starting_vertex)]
+        process_queue = [self.check_for_vert(starting_vertex)]
+        while len(process_queue) > 0:
+            current_item = process_queue.pop(0)
+            for i in current_item.edges:
+                if i.end not in bfs_list:
+                    bfs_list.append(i.end)
+                    process_queue.append(i.end)
+        return bfs_list
 
     def dsp(self, src, dest):
         """
@@ -187,7 +191,26 @@ def main():
     5. Print the path from vertex “ A” to vertex “F” (not shown here) using Djikstra’s shortest path algorithm (DSP) as a string like #3 and #4
     6. Print the shortest paths from “A” to each other vertex, one path per line using DSP
     """
-    pass
+    G = Graph()
+    G.add_vertex("A")
+    G.add_vertex("B")
+    G.add_vertex("C")
+    G.add_vertex("D")
+    G.add_vertex("E")
+    G.add_vertex("F")
+    G.add_edge("A", "B", 2)
+    G.add_edge("A", "F", 9)
+    G.add_edge("B", "C", 8)
+    G.add_edge("B", "D", 15)
+    G.add_edge("B", "F", 6)
+    G.add_edge("C", "D", 1)
+    G.add_edge("E", "C", 7)
+    G.add_edge("E", "D", 3)
+    G.add_edge("F", "B", 6)
+    G.add_edge("F", "E", 3)
+    print("starting DFS with vertex A")
+    for vertex in G.dfs("A"):
+        print(vertex, end="")
 
 
 if __name__ == "__main__":
