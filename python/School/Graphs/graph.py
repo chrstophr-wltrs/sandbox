@@ -140,12 +140,12 @@ class Graph:
         Return a generator for traversing the graph in depth-first order starting from the specified vertex
         Raise a ValueError if the vertex does not exist
         """
-        dfs_list = [self.get_vert(starting_vertex)]
+        dfs_list = [self.get_vert(starting_vertex).label]
 
         def recursive_dfs(vert):
             for i in vert.edges:
                 if i.end not in dfs_list:
-                    dfs_list.append(i.end)
+                    dfs_list.append(i.end.label)
                     recursive_dfs(i.end)
 
         recursive_dfs(self.get_vert(starting_vertex))
@@ -156,13 +156,13 @@ class Graph:
         Return a generator for traversing the graph in breadth-first order starting from the specified vertex
         Raise a ValueError if the vertex does not exist
         """
-        bfs_list = [self.get_vert(starting_vertex)]
+        bfs_list = [self.get_vert(starting_vertex).label]
         process_queue = [self.get_vert(starting_vertex)]
         while len(process_queue) > 0:
             current_item = process_queue.pop(0)
             for i in current_item.edges:
-                if i.end not in bfs_list:
-                    bfs_list.append(i.end)
+                if i.end.label not in bfs_list:
+                    bfs_list.append(i.end.label)
                     process_queue.append(i.end)
         return bfs_list
 
@@ -236,8 +236,7 @@ class Graph:
         source_point = self.get_vert(src)
         basic_dict = {}
         for i in source_point.paths:
-            if i != src:
-                basic_dict[i] = self.dsp(src, i)[1]
+            basic_dict[i] = self.dsp(src, i)[1]
         return basic_dict
 
     def __str__(self):
@@ -249,7 +248,7 @@ class Graph:
         for i in self.vertices:
             for j in i.edges:
                 string += f"   {str(j)}\n"
-        string += "}"
+        string += "}\n"
         return string
 
 
