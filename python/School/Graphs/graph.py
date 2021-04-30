@@ -164,7 +164,12 @@ class Graph:
         Produce a string representation of the graph that can be used with print()
         The format of the graph should be in GraphViz dot notation
         """
-        pass
+        string = "digraph G {\n"
+        for i in self.vertices:
+            for j in i.edges:
+                string += f"   {str(j)}\n"
+        string += "}"
+        return string
 
 
 def main():
