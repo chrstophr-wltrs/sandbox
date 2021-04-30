@@ -232,7 +232,13 @@ class Graph:
         Return a dictionary of the shortest weighted path between src and all other vertices using Dijkstra's Shortest Path algorithm
         In the dictionary, the key is the the destination vertex label, the value is a list of vertices on the path from src to dest inclusive
         """
-        pass
+        self.dsp_table(src)
+        source_point = self.get_vert(src)
+        basic_dict = {}
+        for i in source_point.paths:
+            if i != src:
+                basic_dict[i] = self.dsp(src, i)[1]
+        return basic_dict
 
     def __str__(self):
         """
@@ -269,7 +275,7 @@ def main():
     G.add_edge("E", "C", 5)
     G.add_edge("E", "B", 2)
     G.add_edge("B", "C", 5)
-    print(G.dsp("A", "B"))
+    print(G.dsp_all("A"))
 
 
 if __name__ == "__main__":
