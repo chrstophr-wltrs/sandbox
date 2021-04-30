@@ -212,42 +212,20 @@ class Graph:
         Return a tuple (path length, the list of vertices on the path from destback to src)
         If no path exists, return the tuple (math.inf,  empty list)
         """
+        self.dsp_table(src)
+        source_point = self.get_vert(src)
+        path_list = [dest]
+        entry = source_point.paths[dest]
+        length = entry[0]
+        if length == math.inf:
+            return (math.inf, [])
+        backtrack = entry[1]
+        while backtrack != "":
+            path_list.append(backtrack)
+            backtrack = source_point.paths[backtrack][1]
 
-        # def edge_finder(vertices: list):
-        #     edges = []
-        #     for i in vertices:
-        #         for j in i.edges:
-        #             if j.end not in vertices:
-        #                 edges.append(j)
-        #     edges.sort(key=lambda x: x.weight)
-        #     return edges
-
-        # distance = 0
-        # starting_vertex = self.get_vert(src)
-        # target_vertex = self.get_vert(dest)
-        # if starting_vertex == target_vertex:
-        #     return 0
-        # vertices = [starting_vertex]
-        # candidate_edges = edge_finder(vertices)
-        # if len(candidate_edges) == 0:
-        #     return (math.inf, [])
-        # end_points = [x.end for x in candidate_edges]
-        # while target_vertex not in end_points:
-        #     added_edge = candidate_edges[0]
-        #     distance += added_edge.weight
-        #     vertices.append(added_edge.end)
-        #     candidate_edges = edge_finder(vertices)
-        #     if len(candidate_edges) == 0:
-        #         return (math.inf, [])
-        #     end_points = [x.end for x in candidate_edges]
-        # valid_points = [
-        #     x for x in filter(lambda x: x.end == target_vertex, candidate_edges)
-        # ]
-        # valid_points.sort(key=lambda x: x.weight)
-        # added_edge = valid_points[0]
-        # distance += added_edge.weight
-        # vertices.append(added_edge.end)
-        # return (distance, vertices)
+        path_list.reverse()
+        return (length, path_list)
 
     def dsp_all(self, src):
         """
@@ -291,8 +269,7 @@ def main():
     G.add_edge("E", "C", 5)
     G.add_edge("E", "B", 2)
     G.add_edge("B", "C", 5)
-    strip, second = G.dsp_all("A")
-    print(strip)
+    print(G.dsp("A", "B"))
 
 
 if __name__ == "__main__":
