@@ -9,6 +9,7 @@ Description: Weighted graphs show up as a way to represent information in many a
 For this project, you will write a Graph ADT and a small main function as a small test driver “application”. Include main() in your graph.py source file with conditional execution.  It is common for modules to include a runnable main() to use for testing purposes.  It happens in this case, you will have both main() AND the test code we give you to test your implementation.
 """
 
+from inspect import currentframe
 import math
 
 
@@ -22,12 +23,13 @@ class Vertex:
         edges(list[Edge]): a list of Edges that have this vertex as the starting point
     """
 
-    def __init__(self, label):
+    def __init__(self, label: str):
         """
         label(str): a label to represent the vertex
         """
         self.label = label
         self.edges = []
+        self.paths = None
 
     def sort_edges(self):
         self.edges.sort(key=lambda x: x.weight)
@@ -36,11 +38,7 @@ class Vertex:
         return self.label
 
     def __repr__(self):
-        edges_string = ""
-        for i in self.edges:
-            edges_string += f"{i.end.label}, "
-        edges_string = edges_string[:-2]
-        return f"{self.label} with edges to {edges_string}"
+        return self.label
 
 
 class Edge:
@@ -83,7 +81,7 @@ class Graph:
     def __init__(self):
         self.vertices = []
 
-    def check_for_vert(self, label):
+    def get_vert(self, label: str):
         """
         search vertices for a vertex
         """
@@ -92,7 +90,7 @@ class Graph:
                 return i
         raise ValueError(f"vertex {label} could not be found")
 
-    def add_vertex(self, label):
+    def add_vertex(self, label: str):
         """
         add a vertex with the specified label
         Return the graph
@@ -102,14 +100,14 @@ class Graph:
             raise ValueError(f"label {label} is not a string")
         # Check to see if the vertex already exists in the tree
         try:
-            exists_vert = self.check_for_vert("label")
+            exists_vert = self.get_vert("label")
             raise ValueError(f"vertex {label} already in tree")
         except (ValueError):
             new_vertex = Vertex(label)
         self.vertices.append(new_vertex)
         return self
 
-    def add_edge(self, src, dest, w):
+    def add_edge(self, src: str, dest: str, w):
         """
         add an edge from vertex src to vertex dest with weight w
         Return the graph
@@ -118,31 +116,31 @@ class Graph:
         """
         if not isinstance(w, (int, float)):
             raise ValueError(f"weight {w} is not a number")
-        v_src, v_dest = self.check_for_vert(src), self.check_for_vert(dest)
+        v_src, v_dest = self.get_vert(src), self.get_vert(dest)
         new_edge = Edge(v_src, v_dest, w)
         v_src.edges.append(new_edge)
         v_src.sort_edges()
         return self
 
-    def get_weight(self, src, dest):
+    def get_weight(self, src: str, dest: str):
         """
         Return the weight (float) on edge src-dest
             (math.inf if no path exists,
             raise ValueError if src
             or dest not added to graph)
         """
-        v_src, v_dest = self.check_for_vert(src), self.check_for_vert(dest)
+        v_src, v_dest = self.get_vert(src), self.get_vert(dest)
         for i in v_src.edges:
             if i.end == v_dest:
                 return i.weight
         return math.inf
 
-    def dfs(self, starting_vertex):
+    def dfs(self, starting_vertex: str):
         """
         Return a generator for traversing the graph in depth-first order starting from the specified vertex
         Raise a ValueError if the vertex does not exist
         """
-        dfs_list = [self.check_for_vert(starting_vertex)]
+        dfs_list = [self.get_vert(starting_vertex)]
 
         def recursive_dfs(vert):
             for i in vert.edges:
@@ -150,7 +148,7 @@ class Graph:
                     dfs_list.append(i.end)
                     recursive_dfs(i.end)
 
-        recursive_dfs(self.check_for_vert(starting_vertex))
+        recursive_dfs(self.get_vert(starting_vertex))
         return dfs_list
 
     def bfs(self, starting_vertex: str):
@@ -158,8 +156,8 @@ class Graph:
         Return a generator for traversing the graph in breadth-first order starting from the specified vertex
         Raise a ValueError if the vertex does not exist
         """
-        bfs_list = [self.check_for_vert(starting_vertex)]
-        process_queue = [self.check_for_vert(starting_vertex)]
+        bfs_list = [self.get_vert(starting_vertex)]
+        process_queue = [self.get_vert(starting_vertex)]
         while len(process_queue) > 0:
             current_item = process_queue.pop(0)
             for i in current_item.edges:
@@ -168,27 +166,88 @@ class Graph:
                     process_queue.append(i.end)
         return bfs_list
 
+    def dsp_table(self, src: str):
+        source_vert = self.get_vert(src)
+        if source_vert.paths is None:
+            unvisited = [x.label for x in self.vertices]
+            visited = []
+            table = {}
+            for i in unvisited:
+                table[i] = [math.inf, ""]
+            table[src][0] = 0
+
+            while len(unvisited) > 0:
+                current_item = self.get_vert(
+                    sorted(
+                        filter(lambda x: x[0] not in visited, table.items()),
+                        key=lambda x: x[1][0],
+                    )[0][0]
+                )
+                # Edges from the current item to vertices that haven't yet been visited
+                unvisited_neighbors = [
+                    neb
+                    for neb in filter(
+                        lambda edg: edg.end not in visited, current_item.edges
+                    )
+                ]
+                # Distance from the source to the current item
+                current_distance = table[current_item.label][0]
+                for i in unvisited_neighbors:
+                    # Distance from source to the target neighbor
+                    src_distance = current_distance + i.weight
+                    for j in table:
+                        if i.end.label == j:
+                            if src_distance < table[j][0]:
+                                # Update the speed and previous vert for neighbor
+                                table[j] = [src_distance, i.start.label]
+                            break
+
+                visited.append(current_item.label)
+                unvisited.remove(current_item.label)
+
+            source_vert.paths = table
+
     def dsp(self, src: str, dest: str):
         """
         Return a tuple (path length, the list of vertices on the path from destback to src)
         If no path exists, return the tuple (math.inf,  empty list)
         """
 
-        def edge_finder(vertices: list):
-            edges = []
-            for i in vertices:
-                for j in i.edges:
-                    if j.end not in vertices:
-                        edges.append(j)
-            return edges
+        # def edge_finder(vertices: list):
+        #     edges = []
+        #     for i in vertices:
+        #         for j in i.edges:
+        #             if j.end not in vertices:
+        #                 edges.append(j)
+        #     edges.sort(key=lambda x: x.weight)
+        #     return edges
 
-        distance = 0
-        starting_vertex = self.check_for_vert(src)
-        target_vertex = self.check_for_vert(dest)
-        vertices = [starting_vertex]
-        candidate_edges = edge_finder(vertices)
-        candidate_edges.sort(key=lambda x: x.weight)
-        end_points = [x.end for x in candidate_edges]
+        # distance = 0
+        # starting_vertex = self.get_vert(src)
+        # target_vertex = self.get_vert(dest)
+        # if starting_vertex == target_vertex:
+        #     return 0
+        # vertices = [starting_vertex]
+        # candidate_edges = edge_finder(vertices)
+        # if len(candidate_edges) == 0:
+        #     return (math.inf, [])
+        # end_points = [x.end for x in candidate_edges]
+        # while target_vertex not in end_points:
+        #     added_edge = candidate_edges[0]
+        #     distance += added_edge.weight
+        #     vertices.append(added_edge.end)
+        #     candidate_edges = edge_finder(vertices)
+        #     if len(candidate_edges) == 0:
+        #         return (math.inf, [])
+        #     end_points = [x.end for x in candidate_edges]
+        # valid_points = [
+        #     x for x in filter(lambda x: x.end == target_vertex, candidate_edges)
+        # ]
+        # valid_points.sort(key=lambda x: x.weight)
+        # added_edge = valid_points[0]
+        # distance += added_edge.weight
+        # vertices.append(added_edge.end)
+        # return (distance, vertices)
 
     def dsp_all(self, src):
         """
@@ -225,20 +284,15 @@ def main():
     G.add_vertex("C")
     G.add_vertex("D")
     G.add_vertex("E")
-    G.add_vertex("F")
-    G.add_edge("A", "B", 2)
-    G.add_edge("A", "F", 9)
-    G.add_edge("B", "C", 8)
-    G.add_edge("B", "D", 15)
-    G.add_edge("B", "F", 6)
-    G.add_edge("C", "D", 1)
-    G.add_edge("E", "C", 7)
-    G.add_edge("E", "D", 3)
-    G.add_edge("F", "B", 6)
-    G.add_edge("F", "E", 3)
-    print("starting DFS with vertex A")
-    for vertex in G.dfs("A"):
-        print(vertex, end="")
+    G.add_edge("A", "B", 6)
+    G.add_edge("A", "D", 1)
+    G.add_edge("D", "E", 1)
+    G.add_edge("D", "B", 2)
+    G.add_edge("E", "C", 5)
+    G.add_edge("E", "B", 2)
+    G.add_edge("B", "C", 5)
+    strip, second = G.dsp_all("A")
+    print(strip)
 
 
 if __name__ == "__main__":
