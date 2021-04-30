@@ -29,6 +29,9 @@ class Vertex:
         self.label = label
         self.edges = []
 
+    def sort_edges(self):
+        self.edges.sort(key=lambda x: x.weight)
+
     def __str__(self):
         return self.label
 
@@ -118,6 +121,7 @@ class Graph:
         v_src, v_dest = self.check_for_vert(src), self.check_for_vert(dest)
         new_edge = Edge(v_src, v_dest, w)
         v_src.edges.append(new_edge)
+        v_src.sort_edges()
         return self
 
     def get_weight(self, src, dest):
