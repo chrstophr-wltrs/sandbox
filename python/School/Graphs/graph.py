@@ -83,18 +83,6 @@ class Graph:
         self.vertices = []
         return self
 
-    def add_vertex(self, label):
-        """
-        add a vertex with the specified label
-        Return the graph
-        label must be a string or raise ValueError
-        """
-        if not isinstance(label, str):
-            raise ValueError(f"label {label} is not a string")
-        new_vertex = Vertex(label)
-        self.vertices.append(new_vertex)
-        return self
-
     def check_for_vert(self, label):
         """
         search vertices for a vertex
@@ -103,6 +91,23 @@ class Graph:
             if i.label == label:
                 return i
         raise ValueError(f"vertex {label} could not be found")
+
+    def add_vertex(self, label):
+        """
+        add a vertex with the specified label
+        Return the graph
+        label must be a string or raise ValueError
+        """
+        if not isinstance(label, str):
+            raise ValueError(f"label {label} is not a string")
+        # Check to see if the vertex already exists in the tree
+        try:
+            exists_vert = self.check_for_vert("label")
+            raise ValueError(f"vertex {label} already in tree")
+        except (ValueError):
+            new_vertex = Vertex(label)
+        self.vertices.append(new_vertex)
+        return self
 
     def add_edge(self, src, dest, w):
         """
@@ -136,7 +141,8 @@ class Graph:
         Return a generator for traversing the graph in depth-first order starting from the specified vertex
         Raise a ValueError if the vertex does not exist
         """
-        pass
+        dfs_list = []
+        process_stack = [self.check_for_vert(starting_vertex)]
 
     def bfs(self, starting_vertex):
         """
