@@ -63,7 +63,7 @@ class Edge:
         self.weight = weight
 
     def __str__(self):
-        return f'{self.start.label} -> {self.end.label}[label="{self.weight:.1f}",weight="{self.weight:.1f}"];'
+        return f'{self.start.label} -> {self.end.label} [label="{self.weight:.1f}",weight="{self.weight:.1f}"];'
 
     def __repr__(self):
         return f"{self.start.label} -> {self.end.label}: {self.weight:.1f}"
@@ -144,7 +144,7 @@ class Graph:
 
         def recursive_dfs(vert):
             for i in vert.edges:
-                if i.end not in dfs_list:
+                if i.end.label not in dfs_list:
                     dfs_list.append(i.end.label)
                     recursive_dfs(i.end)
 
@@ -267,14 +267,36 @@ def main():
     G.add_vertex("C")
     G.add_vertex("D")
     G.add_vertex("E")
-    G.add_edge("A", "B", 6)
-    G.add_edge("A", "D", 1)
-    G.add_edge("D", "E", 1)
-    G.add_edge("D", "B", 2)
-    G.add_edge("E", "C", 5)
-    G.add_edge("E", "B", 2)
-    G.add_edge("B", "C", 5)
-    print(G.dsp_all("A"))
+    G.add_vertex("F")
+    G.add_edge("A", "B", 2)
+    G.add_edge("A", "F", 9)
+    G.add_edge("B", "C", 8)
+    G.add_edge("B", "D", 15)
+    G.add_edge("B", "F", 6)
+    G.add_edge("C", "D", 1)
+    G.add_edge("E", "C", 7)
+    G.add_edge("E", "D", 3)
+    G.add_edge("F", "B", 6)
+    G.add_edge("F", "E", 3)
+    print(G)
+    print("Starting BFS with Vertex A:")
+    for vertex in G.bfs("A"):
+        print(vertex, end="")
+    print("")
+    print("Starting DFS with Vertex A:")
+    for vertex in G.dfs("A"):
+        print(vertex, end="")
+    print("")
+    print("Shortest path from A to F:")
+    for vertex in G.dsp("A", "F")[1]:
+        print(vertex, end="")
+    print("")
+    print("Shortest path from A to each vertex:")
+    new_dict = G.dsp_all("A")
+    for i in new_dict:
+        for vertex in new_dict[i]:
+            print(vertex, end="")
+        print("")
 
 
 if __name__ == "__main__":
