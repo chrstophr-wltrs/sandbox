@@ -17,7 +17,7 @@ sudo apt-get update -q && sudo apt-get install -q spotify-client
 echo "Spotify installed"
 
 # Install Git
-sudo apt-get install -q Git
+sudo apt-get install -q git
 git config --global user.name "Chris Walters"
 git config --global user.email christopherman2cool@gmail.com
 echo "Git installed and configured"
@@ -44,9 +44,9 @@ echo "Discord installed"
 # Install Reaper from another script
 sudo sh install_reaper.sh
 
-# Install Natron
-cd ~/Downloads
-wget -q "https://github.com/NatronGitHub/Natron/releases/download/v2.3.15/Natron-2.3.15-Linux-64.tgz"
-rm -f Natron*.tgz
-./Natron*
-echo "Natron installed"
+# # Install Natron
+# cd ~/Downloads
+# wget -q "https://github.com/NatronGitHub/Natron/releases/download/v2.3.15/Natron-2.3.15-Linux-64.tgz"
+# rm -f Natron*.tgz
+# ./Natron*
+# echo "Natron installed"

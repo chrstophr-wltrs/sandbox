@@ -12,7 +12,7 @@ echo "  - Select local mirror" >> to-do.txt
 echo "  - Set automatic cleaning" >> to-do.txt to select a local mirror, and to automatically clean.
 
 # Install some useful tools and an extra media player
-sudo apt-get install -q doublecmd-gtk
+sudo apt-get install -q doublecmd-gtk   
 sudo apt-get install -q pavucontrol
 sudo apt-get install -q rar
 sudo apt-get install -q p7zip-rar

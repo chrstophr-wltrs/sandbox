@@ -11,11 +11,11 @@ echo "Reaper dependencies installed"
 # Install driver firmware
 sudo apt-get install -q alsa-base
 sudo apt-get install -q pulseaudio
-sudo apt-get install -q jackd qjackctl
-sudo apt-get install -q pulseaudio-module-jack
-sudo echo "load-module module-jack-sink" >> /etc/pulse/default.pa
-sudo echo "load-module module-jack-source" >> /etc/pulse/default.pa
-echo "PulseAudio and Jack installed"
+# sudo apt-get install -q jackd qjackctl
+# sudo apt-get install -q pulseaudio-module-jack
+# sudo echo "load-module module-jack-sink" >> /etc/pulse/default.pa
+# sudo echo "load-module module-jack-source" >> /etc/pulse/default.pa
+# echo "PulseAudio and Jack installed"
 
 # Actually download and install Reaper
 cd ~/Downloads
