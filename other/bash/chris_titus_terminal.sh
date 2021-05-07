@@ -37,6 +37,8 @@ echo "    - Switch font to 'MesloGS NF Regular'" >> to-do.txt
 echo "    - Do the same thing in Profiles > default > General" >> to-do.txt
 echo "  - Enable background transparency" >> to-do.txt
 echo "    - Profiles > default > Background" >> to-do.txt
+echo "Make sure .zshrc actually points to the correct directory for plugins"
+xed ~/.zshrc
 
 # Change default shell to zsh
 echo "Use '/bin/zsh' when prompted"
