@@ -33,7 +33,7 @@ echo "- Use Terminator as default terminal" >> to-do.txt
 echo "  - Menu > Preferences > Preferred Applications > Terminal" >> to-do.txt
 echo "- Terminator preferences" >> to-do.txt
 echo "  - Use system font -> OFF" >> to-do.txt
-echo "    - Switch font to 'MesloGS NF Regular'" >> to-do.txt
+echo "    - Switch font to 'MesloLGS NF Regular'" >> to-do.txt
 echo "    - Do the same thing in Profiles > default > General" >> to-do.txt
 echo "  - Enable background transparency" >> to-do.txt
 echo "    - Profiles > default > Background" >> to-do.txt
@@ -42,6 +42,6 @@ xed ~/.zshrc
 
 # Change default shell to zsh
 echo "Use '/bin/zsh' when prompted"
-chsh $USER
+sudo chsh $USER
 echo "Now close down and restart the terminal"
 echo "Use 'p10k configure' if nothing happens"
