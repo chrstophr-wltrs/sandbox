@@ -42,7 +42,7 @@ rm -f discord.deb
 echo "Discord installed"
 
 # Install Reaper from another script
-sudo sh install_reaper.sh
+sh install_reaper.sh
 
 # # Install Natron
 # cd ~/Downloads
