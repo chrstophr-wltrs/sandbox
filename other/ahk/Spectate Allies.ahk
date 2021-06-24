@@ -1,4 +1,12 @@
-﻿#NoEnv  ; Recommended for performance and compatibility with future AutoHotkey releases.
+﻿/*
+USERS GUIDE
+
+Welcome to Spoo
+
+*/
+
+
+#NoEnv  ; Recommended for performance and compatibility with future AutoHotkey releases.
 #Warn  ; Enable warnings to assist with detecting common errors.
 ; SendMode Input  ; Recommended for new scripts due to its superior speed and reliability.
 SendMode Event ; Only way to get AHK scripts working in LoL
@@ -10,7 +18,7 @@ keyArray := ["F3", "F2", "F5", "F4"]
 
 keyInd := 0
 
-#IfWinActive, ahk_exe League of Legends.exe 
+if WinActive("ahk_exe League of Legends.exe"),  
 {
     WheelUp::
     Send % "{" keyArray[keyInd] " up}"
