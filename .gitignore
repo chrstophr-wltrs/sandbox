@@ -137,3 +137,4 @@ javascript/testing.js
 *test*.py
 *.ipynb
 *node_modules
+*scratch.*
