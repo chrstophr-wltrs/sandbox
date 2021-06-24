@@ -1,7 +1,83 @@
 ﻿/*
-HOW TO USE
 
-Welcome to Spooky Noodle's Camera-Scroll Script! If you're reading this, I assume that means you're looking to boost your map awareness. 
+Welcome to Spooky Noodle's Camera-Scroll Script! 
+
+If you're reading this, I assume that means you're looking
+to boost your map awareness by quickly and easily checking
+in on your teammates, and you're in exactly the right place. 
+
+But there's a few things you need to do first, before this
+script will work in your games:
+
+* = This item is important (for if you're in a hurry)
+
+HOW TO SET UP
+
+1. * Install AutoHotKey 
+    
+    URL: https://www.autohotkey.com/
+    
+    (This is the engine that drives the script. Don't worry, 
+    people have been using AHK scripts in League for a decade,
+    and the only ones who have received anything like a ban
+    or warning are people cheesing inhuman combos. We're
+    basically just remapping some of the keyboard shortcuts to
+    a different key. With that being said...)
+
+    * !!WARNING!!
+    
+    I can't guarantee the safety of your League account if you're
+    using AHK scripts (such as this one) during your games. It
+    seems REALLY unlikely that they'd ban someone for this, but
+    use at your own discretion.
+
+2. Disable In-Game Scrolling
+    
+    Go to C:\Riot Games\League of Legends\Config (or wherever you
+    installed the game files), and do 2 things:
+
+    a. * Delete PersistedSettings.json
+        (Don't worry, it will be re-generated the first time you
+        launch into a game, even the Practice Tool.)
+
+    b. * Edit input.ini and copy + paste the following to the
+    bottom of the file:
+
+[MouseSettings]
+RollerButtonSpeed=0
+
+        Just like that, with the [MouseSettings] on a line above
+        the 'RollerButtonSpeed' option.
+    
+    Once those are both done, scrolling your mouse wheel will
+    no longer zoom in/out when you're in a game. 
+
+        (You also won't be able to scroll up or down in the in-game
+        options menu, so either click-drag the scroll bar or edit
+        your settings in the client.)
+
+3. Set Up Your Hotkeys
+
+    * Either in-game or in the client, make sure the following
+    camera control hotkeys are bound correctly, otherwise the
+    script won't work:
+
+        Center Camera on Champion: Spce
+        Select Ally 1: F2
+        Select Ally 2: F3
+        Select Ally 3: F4
+        Select Ally 4: F5
+    
+    I would also recommend binding the 'Scroll Up/Down'
+    hotkeys to something other than the arrow keys. 
+    Just something random on your keyboard that you
+    never touch. There will be a TINY bit of stutter
+    sometimes if you don't do this, so it's really just
+    up to personal preference. 
+
+HOW TO USE
+Once you've got all of that 
+
 
 */
 
@@ -54,4 +130,4 @@ if WinActive("ahk_exe League of Legends.exe") {
     Return
 }
 
-F11::Reload
+^MButton::Exit
