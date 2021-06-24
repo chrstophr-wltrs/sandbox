@@ -1,7 +1,7 @@
 ﻿/*
-USERS GUIDE
+HOW TO USE
 
-Welcome to Spoo
+Welcome to Spooky Noodle's Camera-Scroll Script! If you're reading this, I assume that means you're looking to boost your map awareness. 
 
 */
 
@@ -18,8 +18,7 @@ keyArray := ["F3", "F2", "F5", "F4"]
 
 keyInd := 0
 
-if WinActive("ahk_exe League of Legends.exe"),  
-{
+if WinActive("ahk_exe League of Legends.exe") {
     WheelUp::
     Send % "{" keyArray[keyInd] " up}"
     if (keyInd >= keyArray.Length()){
