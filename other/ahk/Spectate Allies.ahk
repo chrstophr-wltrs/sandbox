@@ -24,7 +24,7 @@ HOW TO SET UP
     basically just remapping some of the keyboard shortcuts to
     a different key. With that being said...)
 
-    + !!WARNING!!
+    + !! WARNING !!
     
     I can't guarantee the safety of your League account if you're
     using AHK scripts (such as this one) during your games. It
@@ -40,7 +40,7 @@ HOW TO SET UP
         (Don't worry, it will be re-generated the first time you
         launch into a game, even the Practice Tool.)
 
-    b. + Edit input.ini and copy + paste the following to the
+    b. + Edit input.ini and copy/paste the following to the
     bottom of the file:
 
 [MouseSettings]
@@ -101,7 +101,7 @@ fingertips, summoner! Good luck, and have fun.
 
 Here there be dragons...
 
-!!DON'T EDIT ANYTHING BELOW THIS LINE UNLESS YOU KNOW WHAT YOU'RE DOING!!
+!! DON'T EDIT ANYTHING BELOW THIS LINE UNLESS YOU KNOW WHAT YOU'RE DOING !!
 
 */
 
