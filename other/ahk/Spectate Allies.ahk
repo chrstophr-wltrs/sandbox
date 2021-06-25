@@ -110,16 +110,28 @@ Here there be dragons...
 ; SendMode Input  ; Recommended for new scripts due to its superior speed and reliability.
 SendMode Event ; Only way to get AHK scripts working in LoL
 SetWorkingDir %A_ScriptDir%  ; Ensures a consistent starting directory.
-SetKeyDelay, 35, 0
+/*
+This is a good key delay, gives enough time between commands that
+the game can register them, but is still lightning-fast 
+*/
+SetKeyDelay, 35, 0 
 #UseHook, On; Also required for working LoL AHK scripts
 
+; The array of f-keys to cycle between
+; starts at F3 to allow quick, intuitive
+; access to teammates
 keyArray := ["F3", "F2", "F5", "F4"]
 
+; The index pointing to which ally
+; we want to spectate, manipulated
+; by the various hotkeys
 keyInd := 0
 
 if WinActive("ahk_exe League of Legends.exe") {
     WheelUp::
     Send % "{" keyArray[keyInd] " up}"
+    ; Wraps around to the start of the array,
+    ; if the user has reached the end
     if (keyInd >= keyArray.Length()){
         keyInd := 1
     }
@@ -131,6 +143,8 @@ if WinActive("ahk_exe League of Legends.exe") {
 
     WheelDown::
     Send % "{" keyArray[keyInd] " up}"
+    ; wrap around to the end of the array,
+    ; if the user has reached the beginning
     if (keyInd <= 1){
         keyInd := keyArray.Length()
     }
@@ -139,6 +153,13 @@ if WinActive("ahk_exe League of Legends.exe") {
     }
     Send % "{" keyArray[keyInd] " down}"
     Return
+
+    ; Having separate hotkeys for {Space down}
+    ; and {Space up} allows LoL to register the
+    ; button presses, while still allowing the
+    ; user to press and hold Space to center
+    ; the camera on their champion as they move,
+    ; if they want to do that
 
     Space::
     if (keyInd > 0){
@@ -153,4 +174,5 @@ if WinActive("ahk_exe League of Legends.exe") {
     Return
 }
 
+; Emergency exit for the script, if something goes wrong
 ^MButton::Exit
