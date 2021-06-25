@@ -9,11 +9,11 @@ in on your teammates, and you're in exactly the right place.
 But there's a few things you need to do first, before this
 script will work in your games:
 
-+ = This item is important (for if you're in a hurry)
+$ = This item is important (for if you're in a hurry)
 
 HOW TO SET UP
 
-1. + Install AutoHotKey 
+1. $ Install AutoHotKey 
     
     URL: https://www.autohotkey.com/
     
@@ -24,7 +24,7 @@ HOW TO SET UP
     basically just remapping some of the keyboard shortcuts to
     a different key. With that being said...)
 
-    + !! WARNING !!
+    $ !! WARNING !!
     
     I can't guarantee the safety of your League account if you're
     using AHK scripts (such as this one) during your games. It
@@ -36,11 +36,11 @@ HOW TO SET UP
     Go to C:\Riot Games\League of Legends\Config (or wherever you
     installed the game files), and do 2 things:
 
-    a. + Delete PersistedSettings.json
+    a. $ Delete PersistedSettings.json
         (Don't worry, it will be re-generated the first time you
         launch into a game, even the Practice Tool.)
 
-    b. + Edit input.ini and copy/paste the following to the
+    b. $ Edit input.ini and copy + paste the following to the
     bottom of the file:
 
 [MouseSettings]
@@ -63,7 +63,7 @@ RollerButtonSpeed=0
 
 3. Set Up Your Hotkeys
 
-    + Either in-game or in the client, make sure the following
+    $ Either in-game or in the client, make sure the following
     camera control hotkeys are bound correctly, otherwise the
     script won't work:
 
@@ -94,11 +94,11 @@ to the middle of all the champions (if it's not there already.)
 This makes things a little more intuitive, since the script
 assumes you are the middle of the champion roster. 
 
-+ Scroll Up/Down to cycle the camera between ally champions
+$ Scroll Up/Down to cycle the camera between ally champions
 
-+ Press or hold Space to return the camera to your champion
+$ Press or hold Space to return the camera to your champion
 
-+ Use Ctrl + Middle Button to exit the script (in an emergency)
+$ Use Ctrl + Middle Button to exit the script (in an emergency)
 
 And that's everything. Supreme map awareness is at your
 fingertips, summoner! Good luck, and have fun.
