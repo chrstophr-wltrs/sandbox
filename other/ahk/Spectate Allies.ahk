@@ -113,13 +113,14 @@ Here there be dragons...
 #NoEnv  ; Recommended for performance and compatibility with future AutoHotkey releases.
 #Warn  ; Enable warnings to assist with detecting common errors.
 ; SendMode Input  ; Recommended for new scripts due to its superior speed and reliability.
-SendMode Event ; Only way to get AHK scripts working in LoL
 SetWorkingDir %A_ScriptDir%  ; Ensures a consistent starting directory.
-/*
-This is a good key delay, gives enough time between commands that
-the game can register them, but is still lightning-fast 
-*/
+
+SendMode Event ; Only way to get AHK scripts working in LoL
+
+; This is a good key delay, gives enough time between commands that
+; the game can register them, but is still lightning-fast 
 SetKeyDelay, 35, 0 
+
 #UseHook, On; Also required for working LoL AHK scripts
 
 ; The array of f-keys to cycle between
