@@ -56,6 +56,11 @@ RollerButtonSpeed=0
         options menu, so either click-drag the scroll bar or edit
         your settings in the client.)
 
+        NOTE: Signing out then signing in to a Riot account
+        (either the same one, or a different one) will reset
+        these settings, so make sure to repeat this step if you
+        switch accounts regularly.
+
 3. Set Up Your Hotkeys
 
     + Either in-game or in the client, make sure the following
