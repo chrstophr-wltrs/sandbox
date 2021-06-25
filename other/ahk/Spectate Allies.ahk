@@ -76,9 +76,9 @@ RollerButtonSpeed=0
     I would also recommend binding the 'Scroll Up/Down'
     hotkeys to something other than the arrow keys. 
     Just something random on your keyboard that you
-    never touch. There will be a TINY bit of stutter
-    sometimes if you don't do this, so it's really just
-    up to personal preference. 
+    never touch. There will sometimes be a TINY bit
+    of stutter if you don't do this, so it's really
+    just up to personal preference. 
 
 HOW TO USE
 
