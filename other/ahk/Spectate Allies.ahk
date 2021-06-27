@@ -123,7 +123,7 @@ SetKeyDelay, 35, 0
 
 #UseHook, On; Also required for working LoL AHK scripts
 
-; The array of f-keys to cycle between
+; The array of f-keys between which to cycle
 ; starts at F3 to allow quick, intuitive
 ; access to teammates
 keyArray := ["F3", "F2", "F5", "F4"]
@@ -135,7 +135,9 @@ keyInd := 0
 
 if WinActive("ahk_exe League of Legends.exe") {
     WheelUp::
-    Send % "{" keyArray[keyInd] " up}"
+    if (keyInd > 0) {
+        Send % "{" keyArray[keyInd] " up}"
+    }
     ; Wraps around to the start of the array,
     ; if the user has reached the end
     if (keyInd >= keyArray.Length()){
@@ -148,9 +150,11 @@ if WinActive("ahk_exe League of Legends.exe") {
     Return
 
     WheelDown::
-    Send % "{" keyArray[keyInd] " up}"
+    if (keyInd > 0) {
+        Send % "{" keyArray[keyInd] " up}"
+    }
     ; wrap around to the end of the array,
-    ; if the user has reached the beginning
+    ; if the user has reached the start
     if (keyInd <= 1){
         keyInd := keyArray.Length()
     }
@@ -175,9 +179,20 @@ if WinActive("ahk_exe League of Legends.exe") {
     keyInd := 0
     Return
 
-    Space Up::
-    Send {Space up}
+    Space Up::Send {Space up}
+
+    ; Same deal here, some people want to be able
+    ; to hold the MButton, so we're using separate
+    ; hotkeys
+
+    MButton::
+    if (keyInd > 0) {
+        Send % "{" keyArray[keyInd] " up}"
+    }
+    Send {MButton down}
     Return
+
+    MButton Up::Send {MButton up}
 }
 
 ; Emergency exit for the script, if something goes wrong
