@@ -198,5 +198,16 @@ leagueScrollHotkeys() {
         MButton Up::Send {MButton up}
     }
 }
+
+copyScriptToLeagueFolder(){
+    ; TODO
+}
+
+main(){
+    leagueScrollHotkeys()
+}
+
+main()
+
 ; Emergency exit for the script, if something goes wrong
 ^MButton::Exit
