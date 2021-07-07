@@ -29,8 +29,11 @@
   <body>
     <div class="container mt-3">
       <h1>Jetski Tracker</h1>
-      <div class="row m-3 p-2">
-        <table class="table table-striped draggable-table" id="waitlist">
+      <div class="row m-3 p-2" style="justify-content: center">
+        <table
+          class="table table-striped draggable-table main-table"
+          id="waitlist"
+        >
           <thead class="thead">
             <th>Name</th>
             <th>Chaperone</th>
@@ -41,14 +44,17 @@
         </table>
       </div>
       <div class="row m-3 p-2" style="justify-content: space-evenly">
-        <table class="table table-striped" style="width: 45%" id="outingsTable">
+        <table
+          class="table table-striped mini-table mini-table"
+          id="outingsTable"
+        >
           <thead class="thead">
             <th>Rider</th>
             <th>Times Out</th>
           </thead>
           <tbody></tbody>
         </table>
-        <table class="table table-striped" style="width: 45%" id="timeTable">
+        <table class="table table-striped mini-table" id="timeTable">
           <thead class="thead">
             <th>Rider</th>
             <th>Minutes Out</th>
