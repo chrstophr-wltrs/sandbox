@@ -30,14 +30,28 @@
     <div class="container mt-3">
       <h1>Jetski Tracker</h1>
       <div class="row m-3 p-2">
-        <table class="table draggable-table" id="waitlist">
+        <table class="table table-striped draggable-table" id="waitlist">
           <thead class="thead">
-            <tr>
-              <td>Name</td>
-              <td>Chaperone</td>
-              <td>Leave</td>
-              <td>Return</td>
-            </tr>
+            <th>Name</th>
+            <th>Chaperone</th>
+            <th>Leave</th>
+            <th>Return</th>
+          </thead>
+          <tbody></tbody>
+        </table>
+      </div>
+      <div class="row m-3 p-2" style="justify-content: space-evenly">
+        <table class="table table-striped" style="width: 45%" id="outingsTable">
+          <thead class="thead">
+            <th>Rider</th>
+            <th>Times Out</th>
+          </thead>
+          <tbody></tbody>
+        </table>
+        <table class="table table-striped" style="width: 45%" id="timeTable">
+          <thead class="thead">
+            <th>Rider</th>
+            <th>Minutes Out</th>
           </thead>
           <tbody></tbody>
         </table>
