@@ -187,6 +187,7 @@ const newTr = `
   </td>
 </tr>
 `;
+
 $(".table-add").on("click", "i", () => {
   const $clone = $tableID
     .find("tbody tr")
@@ -198,9 +199,11 @@ $(".table-add").on("click", "i", () => {
   }
   $tableID.find("table").append($clone);
 });
+
 $tableID.on("click", ".table-remove", function () {
   $(this).parents("tr").detach();
 });
+
 $tableID.on("click", ".table-up", function () {
   const $row = $(this).parents("tr");
   if ($row.index() === 0) {
@@ -208,13 +211,16 @@ $tableID.on("click", ".table-up", function () {
   }
   $row.prev().before($row.get(0));
 });
+
 $tableID.on("click", ".table-down", function () {
   const $row = $(this).parents("tr");
   $row.next().after($row.get(0));
 });
+
 // A few jQuery helpers for exporting only jQuery.
 fn.pop = [].pop;
 jQuery.fn.shift = [].shift;
+
 $BTN.on("click", () => {
   const $rows = $tableID.find("tr:not(:hidden)");
   const headers = [];
