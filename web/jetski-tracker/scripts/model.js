@@ -39,7 +39,7 @@ const modelGetRiderByID = function (targetID = 1000) {
       return i;
     }
   }
-  return null;
+  return false;
 };
 
 const modelGetRiderByName = function (targetName = "") {
@@ -48,7 +48,7 @@ const modelGetRiderByName = function (targetName = "") {
       return i;
     }
   }
-  return null;
+  return false;
 };
 
 const modelAddOuting = function (
