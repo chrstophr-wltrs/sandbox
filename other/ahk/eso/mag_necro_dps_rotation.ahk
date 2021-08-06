@@ -9,6 +9,7 @@ SetTitleMatchMode 2
 SetKeyDelay, 35, 0
 
 global shades := 0
+global bar_swap_duration := 1000
 
 wait_for(image_name = ""){ ; Waits for an image to be present on screen, loops until the image appears
     global shades
@@ -17,5 +18,23 @@ wait_for(image_name = ""){ ; Waits for an image to be present on screen, loops u
         Sleep 50
     } until ErrorLevel = 0
 }
+
+swap(){
+    Send -
+    Sleep 1000
+}
+
+activate_ability(image_name = "", key_to_press = 0){
+    Click
+    Send %key_to_press%
+    Return
+}
+
+#UseHook, On
+; 1::activate_ability("unstable_wall.png", 1)
+; 2::activate_ability("", 2)
+; 3::activate_ability("", 3)
+; 4::activate_ability("", 4)
+; 5::activate_ability("", 5)
 
 F11::Reload  ; Ctrl+Alt+R
