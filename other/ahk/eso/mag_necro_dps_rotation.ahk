@@ -17,3 +17,5 @@ wait_for(image_name = ""){ ; Waits for an image to be present on screen, loops u
         Sleep 50
     } until ErrorLevel = 0
 }
+
+F11::Reload  ; Ctrl+Alt+R
