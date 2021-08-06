@@ -19,6 +19,12 @@ wait_for(image_name = ""){ ; Waits for an image to be present on screen, loops u
     } until ErrorLevel = 0
 }
 
+check(image_name = ""){
+    global shades
+    ImageSearch, image_x, image_y, 0, 0, A_ScreenWidth, A_ScreenHeight, % "*" shades " " image_name
+    Return (ErrorLevel == 0)
+}
+
 swap(){
     Send -
     Sleep 1000
