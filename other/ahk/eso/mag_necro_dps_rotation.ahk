@@ -37,6 +37,9 @@ activate_ability(image_name = "", key_to_press = 0){
 }
 
 weave(image_name = "", key_to_press = 0){
+    if (not check(image_name)){
+        swap()
+    }
     Click
     activate_ability(image_name, key_to_press)
 }
