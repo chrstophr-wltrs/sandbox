@@ -39,8 +39,8 @@ weave(key_to_press = 0){
 }
 
 mage(pre_buff = false){
-    if (not check("mage_icon.png") or check("mage_icon_1.png") or check("mage_icon_0.png")){
-        if (not check("mage.png")){
+    if (!check("mage_icon.png") or check("mage_icon_1.png") or check("mage_icon_0.png")){
+        if (!check("mage.png")){
             swap()
         }
         if (pre_buff){
@@ -55,8 +55,8 @@ mage(pre_buff = false){
 }
 
 minor_force(pre_buff = false){
-    if (not check("force_icon.png") or check("force_icon_1.png") or check("force_icon_0.png")){
-        if (not check("trap.png")){
+    if (!check("force_icon.png") or check("force_icon_1.png") or check("force_icon_0.png")){
+        if (!check("trap.png")){
             swap()
         }
         if (pre_buff){
@@ -71,8 +71,8 @@ minor_force(pre_buff = false){
 }
 
 degen(){
-    if (not check("degen_icon.png") or check("degen_icon_1.png") or check("degen_icon_0.png")){
-        if (not check("degen.png")){
+    if (!check("degen_icon.png") or check("degen_icon_1.png") or check("degen_icon_0.png")){
+        if (!check("degen.png")){
             swap()
         }
         weave(2)
@@ -95,8 +95,8 @@ blastbones(pre_buff = false){
 }
 
 siphon(){
-    if (not check("siphon_icon.png") or check("siphon_icon_1.png") or check("siphon_icon_0.png")){
-        if (not check("siphon_ready.png")){
+    if (!check("siphon_icon.png") or check("siphon_icon_1.png") or check("siphon_icon_0.png")){
+        if (!check("siphon_ready.png")){
             swap()
         }
         weave(3)
@@ -106,21 +106,21 @@ siphon(){
 }
 
 mystic_orb(){
-    if (not check("mystic_orb.png")){
+    if (!check("mystic_orb.png")){
         swap()
     }
     weave(2)
 }
 
 wall(){
-    if (not check("unstable_wall.png")){
+    if (!check("unstable_wall.png")){
         swap()
     }
     weave(1)
 }
 
 boneyard(){
-    if (not check("boneyard.png")){
+    if (!check("boneyard.png")){
         swap()
     }
     weave(1)
