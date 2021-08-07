@@ -9,7 +9,6 @@ SetTitleMatchMode 2
 SetKeyDelay, 35, 0
 
 global shades := 0
-global bar_swap_duration := 1000
 
 wait_for(image_name = ""){ ; Waits for an image to be present on screen, loops until the image appears
     global shades
@@ -31,9 +30,12 @@ swap(){
 }
 
 activate_ability(image_name = "", key_to_press = 0){
-    Click
     Send %key_to_press%
-    Return
+}
+
+weave(image_name = "", key_to_press = 0){
+    Click
+    activate_ability(image_name, key_to_press)
 }
 
 #UseHook, On
