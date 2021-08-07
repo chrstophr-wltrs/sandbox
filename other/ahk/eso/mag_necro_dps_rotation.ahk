@@ -30,9 +30,6 @@ swap(){
 }
 
 activate_ability(image_name = "", key_to_press = 0){
-    if (not check(image_name)){
-        swap()
-    }
     Send %key_to_press%
 }
 
