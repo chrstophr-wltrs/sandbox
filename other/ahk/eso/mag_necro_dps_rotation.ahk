@@ -54,6 +54,18 @@ mage(pre_buff = false){
     Return false
 }
 
+blastbones(pre_buff = false){
+    if (!(check("blastbones_ready.png") or check("blastbones_disabled.png"))){
+        swap()
+    }
+    if (pre_buff){
+        activate_ability(4)
+    }
+    else {
+        weave(4)
+    }
+}
+
 #UseHook, On
 ; 1::activate_ability("", 1)
 ; 2::activate_ability("", 2)
