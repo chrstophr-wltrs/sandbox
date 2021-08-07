@@ -54,6 +54,33 @@ mage(pre_buff = false){
     Return false
 }
 
+minor_force(pre_buff = false){
+    if (not check("force_icon.png") or check("force_icon_1.png") or check("force_icon_0.png")){
+        if (not check("trap.png")){
+            swap()
+        }
+        if (pre_buff){
+            activate_ability(3)
+        }
+        else {
+            weave(3)
+        }
+        Return True
+    }
+    Return false
+}
+
+degen(){
+    if (not check("degen_icon.png") or check("degen_icon_1.png") or check("degen_icon_0.png")){
+        if (not check("degen.png")){
+            swap()
+        }
+        weave(2)
+        Return True
+    }
+    Return false
+}
+
 blastbones(pre_buff = false){
     if (!(check("blastbones_ready.png") or check("blastbones_disabled.png"))){
         swap()
@@ -63,6 +90,12 @@ blastbones(pre_buff = false){
     }
     else {
         weave(4)
+    }
+}
+
+goliath(){
+    if (check("goliath_ready.png")){
+        activate_ability("R")
     }
 }
 
