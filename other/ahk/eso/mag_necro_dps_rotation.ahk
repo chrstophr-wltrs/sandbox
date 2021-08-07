@@ -30,6 +30,9 @@ swap(){
 }
 
 activate_ability(image_name = "", key_to_press = 0){
+    if (not check(image_name)){
+        swap()
+    }
     Send %key_to_press%
 }
 
@@ -39,7 +42,7 @@ weave(image_name = "", key_to_press = 0){
 }
 
 #UseHook, On
-; 1::activate_ability("unstable_wall.png", 1)
+; 1::activate_ability("", 1)
 ; 2::activate_ability("", 2)
 ; 3::activate_ability("", 3)
 ; 4::activate_ability("", 4)
