@@ -141,6 +141,28 @@ goliath(){
     }
 }
 
+static_rotation(){
+    if (WinActive("Elder Scrolls Online")){
+        blastbones()
+        swap()
+        boneyard()
+        wall()
+        swap()
+        blastbones()
+        siphon()
+        swap()
+        mystic_orb()
+        swap()
+        blastbones()
+        minor_force()
+        rune()
+        swap()
+        blastbones()
+        degen()
+        mage()
+    }
+}
+
 #UseHook, On
 ; 1::activate_ability("", 1)
 ; 2::activate_ability("", 2)
