@@ -85,6 +85,7 @@ blastbones(pre_buff = false){
     if (!(check("blastbones_ready.png") or check("blastbones_disabled.png"))){
         swap()
     }
+    wait_for("blastbones_ready.png")
     if (pre_buff){
         activate_ability(4)
     }
@@ -93,9 +94,34 @@ blastbones(pre_buff = false){
     }
 }
 
+siphon(){
+    if (not check("siphon_icon.png") or check("siphon_icon_1.png") or check("siphon_icon_0.png")){
+        if (not check("siphon_ready.png")){
+            swap()
+        }
+        weave(3)
+        Return True
+    }
+    Return false
+}
+
+mystic_orb(){
+    if (not check("mystic_orb.png")){
+        swap()
+    }
+    weave(2)
+}
+
+wall(){
+    if (not check("unstable_wall.png")){
+        swap()
+    }
+    weave(1)
+}
+
 goliath(){
     if (check("goliath_ready.png")){
-        activate_ability("R")
+        weave("R")
     }
 }
 
