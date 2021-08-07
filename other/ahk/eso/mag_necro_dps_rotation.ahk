@@ -8,7 +8,7 @@ SetTitleMatchMode 2
 #WinActivateForce
 SetKeyDelay, 35, 0
 
-global shades := 0
+global shades := 15
 
 wait_for(image_name = ""){ ; Waits for an image to be present on screen, loops until the image appears
     global shades
@@ -44,10 +44,10 @@ mage(pre_buff = false){
             swap()
         }
         if (pre_buff){
-            activate_ability(4)
+            activate_ability(1)
         }
         else {
-            weave(4)
+            weave(1)
         }
         Return True
     }
@@ -72,8 +72,11 @@ minor_force(pre_buff = false){
 
 degen(){
     if (!check("degen_icon.png") or check("degen_icon_1.png") or check("degen_icon_0.png")){
-        if (!check("degen.png")){
+        if (!(check("degen.png") or check("degen_dim.png"))){
             swap()
+        }
+        if (check("degen_dim.png")){
+            wait_for("degen.png")
         }
         weave(2)
         Return True
@@ -85,7 +88,9 @@ blastbones(pre_buff = false){
     if (!(check("blastbones_ready.png") or check("blastbones_disabled.png"))){
         swap()
     }
-    wait_for("blastbones_ready.png")
+    if (check("blastbones_disabled.png")){
+        wait_for("blastbones_ready.png")
+    }
     if (pre_buff){
         activate_ability(4)
     }
@@ -120,10 +125,11 @@ wall(){
 }
 
 boneyard(){
-    if (!check("boneyard.png")){
+    if (!check("unnerving_boneyard.png")){
         swap()
     }
-    weave(1)
+    weave(4)
+    Sleep 100
     Click
 }
 
@@ -142,27 +148,32 @@ goliath(){
 }
 
 static_rotation(){
-    if (WinActive("Elder Scrolls Online")){
+    if (WinActive("ahk_exe eso64.exe")){
         blastbones()
         swap()
         boneyard()
+        Sleep 900
         wall()
         swap()
         blastbones()
-        siphon()
-        swap()
-        mystic_orb()
-        swap()
-        blastbones()
-        minor_force()
-        rune()
-        swap()
-        blastbones()
-        degen()
-        mage()
+        ; siphon()
+        ; swap()
+        ; mystic_orb()
+        ; swap()
+        ; blastbones()
+        ; minor_force()
+        ; rune()
+        ; swap()
+        ; blastbones()
+        ; degen()
+        ; mage()
+    }
+    else {
+        Send 6
     }
 }
 
+#UseHook, On
 6::static_rotation()
 
 F11::Reload  ; Ctrl+Alt+R
