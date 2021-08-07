@@ -119,6 +119,14 @@ wall(){
     weave(1)
 }
 
+boneyard(){
+    if (not check("boneyard.png")){
+        swap()
+    }
+    weave(1)
+    Click
+}
+
 goliath(){
     if (check("goliath_ready.png")){
         weave("R")
