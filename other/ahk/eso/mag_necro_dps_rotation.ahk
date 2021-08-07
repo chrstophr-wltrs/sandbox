@@ -163,11 +163,6 @@ static_rotation(){
     }
 }
 
-#UseHook, On
-; 1::activate_ability("", 1)
-; 2::activate_ability("", 2)
-; 3::activate_ability("", 3)
-; 4::activate_ability("", 4)
-; 5::activate_ability("", 5)
+6::static_rotation()
 
 F11::Reload  ; Ctrl+Alt+R
