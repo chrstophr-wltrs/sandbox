@@ -1,7 +1,7 @@
 ﻿#NoEnv  ; Recommended for performance and compatibility with future AutoHotkey releases.
 #Warn  ; Enable warnings to assist with detecting common errors.
 SendMode Input  ; Recommended for new scripts due to its superior speed and reliability.
-SetWorkingDir %A_ScriptDir%  ; Ensures a consistent starting directory.
+SetWorkingDir %A_ScriptDir%/pics  ; Ensures a consistent starting directory.
 CoordMode, Mouse, Window
 #SingleInstance Force
 SetTitleMatchMode 2
@@ -29,16 +29,29 @@ swap(){
     Sleep 1000
 }
 
-activate_ability(image_name = "", key_to_press = 0){
+activate_ability(key_to_press = 0){
     Send %key_to_press%
 }
 
-weave(image_name = "", key_to_press = 0){
-    if (not check(image_name)){
-        swap()
-    }
+weave(key_to_press = 0){
     Click
-    activate_ability(image_name, key_to_press)
+    activate_ability(key_to_press)
+}
+
+mage(pre_buff = false){
+    if (not check("mage_icon.png") or check("mage_icon_1.png") or check("mage_icon_0.png")){
+        if (not check("mage.png")){
+            swap()
+        }
+        if (pre_buff){
+            activate_ability(4)
+        }
+        else {
+            weave(4)
+        }
+        Return True
+    }
+    Return false
 }
 
 #UseHook, On
