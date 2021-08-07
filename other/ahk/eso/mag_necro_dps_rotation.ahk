@@ -127,6 +127,14 @@ boneyard(){
     Click
 }
 
+rune(){
+    if (!check("rune.png")){
+        swap()
+    }
+    weave(5)
+    Click
+}
+
 goliath(){
     if (check("goliath_ready.png")){
         weave("R")
