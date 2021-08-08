@@ -144,6 +144,14 @@ rune(){
 goliath(){
     if (check("goliath_ready.png")){
         weave("R")
+        Return True
+    }
+    Return False
+}
+
+flex(){
+    if (!(goliath() or mage() or minor_force() or siphon() or degen())){
+        rune()
     }
 }
 
@@ -171,6 +179,31 @@ static_rotation(){
     else {
         Send 6
     }
+}
+
+dynamic_rotation(){
+    wall()
+    swap()
+    blastbones()
+    boneyard()
+    swap()
+    mystic_orb()
+    swap()
+    blastbones()
+    flex()
+    flex()
+    blastbones()
+    flex()
+}
+
+pre_buff(){
+    mage(True)
+    swap()
+    blastbones(True)
+    swap()
+    mystic_orb(True)
+    swap()
+    goliath()
 }
 
 #UseHook, On
