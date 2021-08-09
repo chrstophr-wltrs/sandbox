@@ -6,9 +6,9 @@ CoordMode, Mouse, Window
 #SingleInstance Force
 SetTitleMatchMode 2
 #WinActivateForce
-SetKeyDelay, 35, 0
+SetKeyDelay, 200, 0
 
-global shades := 15
+global shades := 30
 
 wait_for(image_name = ""){ ; Waits for an image to be present on screen, loops until the image appears
     global shades
@@ -26,7 +26,7 @@ check(image_name = ""){
 
 swap(){
     Send -
-    Sleep 1000
+    Sleep 900
 }
 
 activate_ability(key_to_press = 0){
@@ -39,15 +39,15 @@ weave(key_to_press = 0){
 }
 
 mage(pre_buff = false){
-    if (!check("mage_icon.png") or check("mage_icon_1.png") or check("mage_icon_0.png")){
+    if (!(check("mage_icon.png")) or check("mage_icon_1.png") or check("mage_icon_0.png")){
         if (!check("mage.png")){
             swap()
         }
         if (pre_buff){
-            activate_ability(1)
+            activate_ability(4)
         }
         else {
-            weave(1)
+            weave(4)
         }
         Return True
     }
@@ -65,6 +65,8 @@ minor_force(pre_buff = false){
         else {
             weave(3)
         }
+        Sleep 100
+        Click
         Return True
     }
     Return false
@@ -101,8 +103,11 @@ blastbones(pre_buff = false){
 
 siphon(){
     if (!check("siphon_icon.png") or check("siphon_icon_1.png") or check("siphon_icon_0.png")){
-        if (!check("siphon_ready.png")){
+        if (!(check("siphon_ready.png") or check("siphon_dim.png"))){
             swap()
+        }
+        if (check("siphon_dim.png")){
+            wait_for("siphon_ready.png")
         }
         weave(3)
         Return True
@@ -110,11 +115,16 @@ siphon(){
     Return false
 }
 
-mystic_orb(){
+mystic_orb(pre_buff = false){
     if (!check("mystic_orb.png")){
         swap()
     }
-    weave(2)
+    if (pre_buff){
+        activate_ability(2)
+    }
+    else {
+        weave(2)
+    }
 }
 
 wall(){
@@ -128,7 +138,7 @@ boneyard(){
     if (!check("unnerving_boneyard.png")){
         swap()
     }
-    weave(4)
+    weave(1)
     Sleep 100
     Click
 }
@@ -138,19 +148,22 @@ rune(){
         swap()
     }
     weave(5)
+    Sleep 100
     Click
 }
 
 goliath(){
     if (check("goliath_ready.png")){
         weave("R")
+        Sleep 100
+        Click
         Return True
     }
     Return False
 }
 
 flex(){
-    if (!(goliath() or mage() or minor_force() or siphon() or degen())){
+    if (!(goliath() or mage() or minor_force() siphon() or degen())){
         rune()
     }
 }
@@ -164,9 +177,9 @@ static_rotation(){
         wall()
         swap()
         blastbones()
-        ; siphon()
-        ; swap()
-        ; mystic_orb()
+        siphon()
+        swap()
+        mystic_orb()
         ; swap()
         ; blastbones()
         ; minor_force()
@@ -182,31 +195,37 @@ static_rotation(){
 }
 
 dynamic_rotation(){
-    wall()
-    swap()
-    blastbones()
-    boneyard()
-    swap()
-    mystic_orb()
-    swap()
-    blastbones()
-    flex()
-    flex()
-    blastbones()
-    flex()
+    if (WinActive("ahk_exe eso64.exe")){
+        wall()
+        swap()
+        blastbones()
+        Sleep 900
+        boneyard()
+        swap()
+        mystic_orb()
+        swap()
+        Sleep 100
+        blastbones()
+        flex()
+        flex()
+        blastbones()
+        flex()
+    }
 }
 
 pre_buff(){
-    mage(True)
-    swap()
-    blastbones(True)
-    swap()
-    mystic_orb(True)
-    swap()
-    goliath()
+    if (WinActive("ahk_exe eso64.exe")){
+        mage(True)
+        swap()
+        blastbones(True)
+        swap()
+        mystic_orb(True)
+        goliath()
+    }
 }
 
 #UseHook, On
-6::static_rotation()
+6::dynamic_rotation()
+7::pre_buff()
 
 F11::Reload  ; Ctrl+Alt+R
