@@ -28,7 +28,7 @@ check(image_name = ""){
 
 swap(){
     Send -
-    Sleep 1100
+    ; Sleep 1100
 }
 
 activate_ability(key_to_press = 0){
@@ -76,6 +76,7 @@ goliath(){
 }
 
 mage(pre_buff = false){
+    ; weave cooldown: 1000 ms
     if (pre_buff){
         activate_ability(2)
     }
@@ -112,6 +113,7 @@ rune(){
 }
 
 siphon(){
+    ; weave cooldown: 1000
     if (check("siphon_dim.png")){
         wait_for("siphon_ready.png")
     }
@@ -221,7 +223,8 @@ pre_buff(){
 
 cooldown_testing(){
     if (WinActive("ahk_exe eso64.exe")){
-        blastbones()
+        rune()
+        swap()
         Sleep 1000
         weave(5)
     }
