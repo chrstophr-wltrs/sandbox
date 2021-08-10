@@ -72,6 +72,7 @@ goliath(){
         weave("R")
         Sleep 100
         Click
+        Sleep 1000
     }
 }
 
@@ -154,10 +155,30 @@ experimental_rotation(toggle){
     ; toggle = !toggle
     ; while (toggle) {
         blastbones()
+        Sleep 1000
         siphon()
+        swap()
         wall()
+        swap()
         blastbones()
-        
+        Sleep 1000
+        boneyard()
+        swap()
+        rune()
+        swap()
+        blastbones()
+        Sleep 1000
+        degen()
+        swap()
+        mage()
+        swap()
+        blastbones()
+        swap()
+        mystic_orb()
+        Sleep 1000
+        minor_force()
+        swap()
+        goliath()
     ; }
 }
 Return
