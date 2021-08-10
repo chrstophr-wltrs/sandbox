@@ -6,8 +6,10 @@ CoordMode, Mouse, Window
 #SingleInstance Force
 SetTitleMatchMode 2
 #WinActivateForce
-SetKeyDelay, 200, 0
+SetKeyDelay, 200, 
+#maxThreadsPerHotkey, 2
 
+toggle := false
 global shades := 30
 
 wait_for(image_name = ""){ ; Waits for an image to be present on screen, loops until the image appears
@@ -225,7 +227,13 @@ pre_buff(){
 }
 
 #UseHook, On
-6::dynamic_rotation()
+6::
+toggle := !toggle
+while (toggle){
+    dynamic_rotation()
+}
+Return
+
 7::pre_buff()
 
 F11::Reload  ; Ctrl+Alt+R
