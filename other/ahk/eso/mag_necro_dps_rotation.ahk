@@ -28,7 +28,7 @@ check(image_name = ""){
 
 swap(){
     Send -
-    ; Sleep 1100
+    Sleep 1000
 }
 
 activate_ability(key_to_press = 0){
@@ -46,15 +46,15 @@ blastbones(pre_buff = false){
         wait_for("blastbones_ready.png")
     }
     if (pre_buff){
-        activate_ability(1)
+        activate_ability(4)
     }
     else {
-        weave(1)
+        weave(4)
     }
 }
 
 boneyard(){
-    weave(4)
+    weave(1)
     Sleep 100
     Click
 }
@@ -63,7 +63,7 @@ degen(){
     if (check("degen_dim.png")){
         wait_for("degen.png")
     }
-    weave(5)
+    weave(2)
     Return True
 }
 
@@ -78,19 +78,19 @@ goliath(){
 mage(pre_buff = false){
     ; weave cooldown: 1000 ms
     if (pre_buff){
-        activate_ability(2)
+        activate_ability(4)
     }
     else {
-        weave(2)
+        weave(4)
     }
 }
 
 minor_force(pre_buff = false){
     if (pre_buff){
-        activate_ability(1)
+        activate_ability(3)
     }
     else {
-        weave(1)
+        weave(3)
     }
     Sleep 100
     Click
@@ -98,18 +98,18 @@ minor_force(pre_buff = false){
 
 mystic_orb(pre_buff = false){
     if (pre_buff){
-        activate_ability(3)
+        activate_ability(2)
     }
     else {
-        weave(3)
+        weave(2)
     }
 }
 
 rune(){
     ; weave cooldown: 700
-    weave(4)
+    weave(5)
     Sleep 100
-    Send 4
+    Click
 }
 
 siphon(){
@@ -121,7 +121,7 @@ siphon(){
 }
 
 wall(){
-    weave(2)
+    weave(1)
 }
 
 static_rotation(toggle){
@@ -153,27 +153,11 @@ experimental_rotation(toggle){
     if (WinActive("ahk_exe eso64.exe")){
     ; toggle = !toggle
     ; while (toggle) {
-        ; blastbones()
-        ; swap()
-        ; minor_force()
-        ; swap()
-        ; mage()
-        ; blastbones()
-        ; swap()
-        ; wall()
-        ; swap()
-        ; siphon()
-        ; blastbones()
-        ; swap()
-        ; mystic_orb()
-        ; swap()
-        ; boneyard()
         blastbones()
-        swap()
-        rune()
-        Sleep 700
-        degen()
-        swap()
+        siphon()
+        wall()
+        blastbones()
+        
     ; }
 }
 Return
@@ -213,11 +197,15 @@ dynamic_rotation(toggle){
 pre_buff(){
     if (WinActive("ahk_exe eso64.exe")){
         mage(True)
+        Sleep 700
+        mystic_orb(True)
         swap()
         blastbones(True)
-        swap()
-        mystic_orb(True)
+        Sleep 700
         goliath()
+        swap()
+        minor_force()
+        swap()
     }
 }
 
