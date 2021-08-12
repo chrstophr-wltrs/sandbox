@@ -218,11 +218,11 @@ dynamic_rotation(toggle){
 pre_buff(){
     if (WinActive("ahk_exe eso64.exe")){
         mage(True)
-        Sleep 700
+        Sleep 1000
         mystic_orb(True)
         swap()
         blastbones(True)
-        Sleep 700
+        Sleep 1000
         goliath()
         swap()
         minor_force()
@@ -240,7 +240,38 @@ cooldown_testing(){
 }
 
 #UseHook, On
-6::cooldown_testing()
+6::
+if (WinActive("ahk_exe eso64.exe")){
+    ; toggle = !toggle
+    ; while (toggle) {
+        blastbones()
+        Sleep 800
+        siphon()
+        swap()
+        wall()
+        swap()
+        blastbones()
+        Sleep 1000
+        boneyard()
+        swap()
+        rune()
+        swap()
+        blastbones()
+        Sleep 800
+        degen()
+        swap()
+        mage()
+        swap()
+        blastbones()
+        swap()
+        mystic_orb()
+        Sleep 1000
+        minor_force()
+        swap()
+        goliath()
+    ; }
+}
+Return
 
 7::pre_buff()
 
