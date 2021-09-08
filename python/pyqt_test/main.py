@@ -1,8 +1,8 @@
-from PyQt5.QtWidgets import *
+from PyQt5 import QtWidgets as qtw
 
-app = QApplication([])
+app = qtw.QApplication([])
 
-w = QWidget(windowTitle = 'hello world')
+w = qtw.QWidget(windowTitle = 'hello world')
 
 def main():
     w.show()
