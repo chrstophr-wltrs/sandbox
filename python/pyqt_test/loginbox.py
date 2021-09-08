@@ -44,6 +44,10 @@ class Ui_LoginForm(object):
 
         self.retranslateUi(LoginForm)
         QtCore.QMetaObject.connectSlotsByName(LoginForm)
+        LoginForm.setTabOrder(self.username_input, self.password_input)
+        LoginForm.setTabOrder(self.password_input, self.legalese_checkbox)
+        LoginForm.setTabOrder(self.legalese_checkbox, self.login_button)
+        LoginForm.setTabOrder(self.login_button, self.cancel_button)
 
     def retranslateUi(self, LoginForm):
         _translate = QtCore.QCoreApplication.translate
