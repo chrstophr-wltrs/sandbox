@@ -31,6 +31,7 @@ class Ui_LoginForm(object):
         self.username_input.setObjectName("username_input")
         self.password_input = QtWidgets.QLineEdit(LoginForm)
         self.password_input.setGeometry(QtCore.QRect(130, 110, 201, 28))
+        self.password_input.setEchoMode(QtWidgets.QLineEdit.Password)
         self.password_input.setObjectName("password_input")
         self.legalese_checkbox = QtWidgets.QCheckBox(LoginForm)
         self.legalese_checkbox.setGeometry(QtCore.QRect(130, 160, 141, 21))
