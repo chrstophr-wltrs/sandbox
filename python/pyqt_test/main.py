@@ -1,9 +1,15 @@
+import sys
 from PyQt5 import QtWidgets as qtw
+from PyQt5 import QtCore as qtc
+from PyQt5 import QtGui as qtg
 
-app = qtw.QApplication([])
+class MainWindow(qtw.QWidget):
+    def __init__(self, *arg, **kwargs):
+        super().__init__(*arg, **kwargs)
 
-w = qtw.QWidget(windowTitle = 'hello world')
+        self.show()
 
 if __name__ == "__main__":
-    w.show()
-    app.exec_()
+    app = qtw.QApplication(sys.argv)
+    w = MainWindow()
+    sys.exit(app.exec_())
