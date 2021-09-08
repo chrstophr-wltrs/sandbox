@@ -4,9 +4,6 @@ app = qtw.QApplication([])
 
 w = qtw.QWidget(windowTitle = 'hello world')
 
-def main():
+if __name__ == "__main__":
     w.show()
     app.exec_()
-
-if __name__ == "__main__":
-    main()
