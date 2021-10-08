@@ -139,4 +139,4 @@ javascript/testing.js
 *node_modules
 *scratch.*
 other/ahk/eso/pics
-*.lnk
+python/reddit_scheduler/reddit_credentials.json

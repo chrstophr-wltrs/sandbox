@@ -1,8 +1,12 @@
 import sys
-from PyQt5 import QtWidgets as qtw
+
+import pandas as pnd
 from PyQt5 import QtCore as qtc
 from PyQt5 import QtGui as qtg
-import random as rnd
+from PyQt5 import QtWidgets as qtw
+
+from numberModule import generateBigNumber
+
 
 class MainWindow(qtw.QWidget):
     def __init__(self, *arg, **kwargs):
@@ -10,7 +14,7 @@ class MainWindow(qtw.QWidget):
 
         self.number_label = qtw.QLabel('00,000')
         self.generate_button = qtw.QPushButton('Generate')
-        self.generate_button.clicked.connect(self.generate_big_number)
+        self.generate_button.clicked.connect(self.set_label_to_number)
         
         layout = qtw.QVBoxLayout()
         layout.addWidget(self.number_label)
@@ -18,8 +22,8 @@ class MainWindow(qtw.QWidget):
         self.setLayout(layout)
         self.show()
     
-    def generate_big_number(self):
-        self.number_label.setText(f"{rnd.randint(10000, 99999):,}")
+    def set_label_to_number(self):
+        self.number_label.setText(generateBigNumber())
 
 if __name__ == "__main__":
     app = qtw.QApplication(sys.argv)
