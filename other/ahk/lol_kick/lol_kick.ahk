@@ -4,6 +4,10 @@ SendMode Input  ; Recommended for new scripts due to its superior speed and reli
 SetWorkingDir %A_ScriptDir%  ; Ensures a consistent starting directory.
 #Persistent
 
+if WinExist("Photos - advanced_details.png") {
+    WinClose
+}
+
 SetTimer, kick_me_from_league, 300
 
 kick_me_from_league() {
