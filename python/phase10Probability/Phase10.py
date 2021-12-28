@@ -4,11 +4,11 @@ from Classes import *
 
 rnd.seed()
 
-colors = ["Red", "Green", "Blue", "Yellow"]
+COLORS = ["Red", "Green", "Blue", "Yellow"]
 
-numbers = ["1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "11", "12", "Wild"]
+NUMBERS = ["1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "11", "12", "Wild"]
 
-duplicates = ["a", "b"]
+DUPLICATES = ["a", "b"]
 
 deck = []
 
@@ -16,21 +16,10 @@ deck = []
 def make_deck():
     for i in range(4):
         deck.append(Card("Blue", "SKIP", i))
-    for i in colors:
-        for j in numbers:
-            for k in duplicates:
+    for i in COLORS:
+        for j in NUMBERS:
+            for k in DUPLICATES:
                 deck.append(Card(i, j, k))
-
-
-def draw_hand(hand_size: int):
-    counter = 0
-    hand = []
-    while counter < hand_size:
-        card = rnd.choice(deck)
-        deck.remove(card)
-        hand.append(card)
-        counter += 1
-    return hand
 
 
 def check_for_sets(hand: list, set_size: int, number_of_sets: int = 1):
