@@ -15,7 +15,6 @@ class Card:
 
 class Hand:
     def __init__(self, deck: list[Card], hand_size: int = 10):
-        self.all_cards = []
         self.number_cards = []
         self.wilds = []
         self.all_cards = []
