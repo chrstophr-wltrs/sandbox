@@ -17,12 +17,12 @@ class Hand:
     def __init__(self, deck: list[Card], hand_size: int = 10):
         self.number_cards = []
         self.wilds = []
-        self.all_cards = []
-        while len(self.all_cards) < hand_size:
+        hand = []
+        while len(hand) < hand_size:
             card = rnd.choice(deck)
             deck.remove(card)
-            self.all_cards.append(card)
-        for card in self.all_cards:
+            hand.append(card)
+        for card in hand:
             if card.value == "Wild":
                 self.wilds.append(card)
             else:
@@ -63,3 +63,22 @@ class Hand:
         Args:
             size (int): the size (in cards) of the set
         """
+        for i in self.number_cards:
+            possible_set = []
+            for j in self.number_cards:
+                if i.value == j.value:
+                    possible_set.append(j)
+            card_count = len(possible_set)
+            if card_count >= size - len(self.wilds):
+                if card_count < size:
+                    """
+                    There's enough cards for a set IF
+                    we use some wild cards
+                    """
+                    # Remove JUST enough wild cards to finish the set
+                    for i in range(size - card_count):
+                        self.wilds.pop()
+                for card in possible_set:
+                    self.number_cards.remove(card)
+                return True
+        return False
