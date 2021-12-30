@@ -15,7 +15,7 @@ deck = []
 
 def make_deck():
     for i in range(4):
-        deck.append(Card("Blue", "SKIP", i))
+        deck.append(Card("Blue", "SKIP", i + 1))
     for i in COLORS:
         for j in NUMBERS:
             for k in DUPLICATES:
