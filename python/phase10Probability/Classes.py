@@ -14,9 +14,20 @@ class Card:
 
 
 class Hand:
-    def __init__(self, deck: list[Card], hand_size: int = 10):
+    def __init__(self):
         self.number_cards = []
         self.wilds = []
+
+    def set(self, cards: list[Card]):
+        self.number_cards = []
+        self.wilds = []
+        for card in cards:
+            if card.value == "Wild":
+                self.wilds.append(card)
+            else:
+                self.number_cards.append(card)
+
+    def deal(self, deck: list[Card], hand_size: int = 10):
         hand = []
         while len(hand) < hand_size:
             card = rnd.choice(deck)
@@ -58,7 +69,7 @@ class Hand:
 
     def check_for_color_set(self, size: int):
         """
-        Checks for a set of a number of cards that have a matching value
+        Checks for a set of a number of cards that have a matching color
 
         Args:
             size (int): the size (in cards) of the set
@@ -66,7 +77,7 @@ class Hand:
         for i in self.number_cards:
             possible_set = []
             for j in self.number_cards:
-                if i.value == j.value:
+                if i.color == j.color:
                     possible_set.append(j)
             card_count = len(possible_set)
             if card_count >= size - len(self.wilds):
