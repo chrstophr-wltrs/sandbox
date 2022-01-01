@@ -26,12 +26,12 @@ test_hands = [
     Hand().set(
         [
             Card("Red", "4", "a"),
-            Card("Blue", "4", "a"),
-            Card("Yellow", "7", "b"),
+            Card("Red", "4", "a"),
+            Card("Red", "7", "b"),
             Card("Yellow", "3", "a"),
-            Card("Green", "1", "a"),
+            Card("Yellow", "1", "a"),
             Card("Green", "12", "b"),
-            Card("Red", "11", "b"),
+            Card("Green", "11", "b"),
             Card("Blue", "11", "a"),
             Card("Blue", "Wild", "b"),
             Card("Green", "Wild", "a"),
@@ -40,12 +40,12 @@ test_hands = [
     Hand().set(
         [
             Card("Red", "4", "a"),
-            Card("Blue", "4", "a"),
-            Card("Yellow", "4", "b"),
+            Card("Red", "4", "a"),
+            Card("Red", "4", "b"),
             Card("Yellow", "3", "a"),
-            Card("Green", "1", "a"),
+            Card("Yellow", "1", "a"),
             Card("Green", "12", "b"),
-            Card("Red", "11", "b"),
+            Card("Green", "11", "b"),
             Card("Blue", "11", "a"),
             Card("Blue", "5", "b"),
             Card("Green", "9", "a"),
@@ -55,5 +55,5 @@ test_hands = [
 
 if __name__ == "__main__":
     print(f"Test Hand 2:")
-    print(f"\tFirst set of 3: {test_hands[1].check_for_value_set(3)}")
-    print(f"\tSecond set of 3: {test_hands[1].check_for_value_set(3)}")
+    print(f"\tColor Test 1: {test_hands[0].check_for_color_set(3)}")
+    print(f"\tColor Test 2: {test_hands[0].check_for_color_set(4)}")
