@@ -21,9 +21,39 @@ def make_deck():
             for k in DUPLICATES:
                 deck.append(Card(i, j, k))
 
+
+test_hands = [
+    Hand().set(
+        [
+            Card("Red", "4", "a"),
+            Card("Blue", "4", "a"),
+            Card("Yellow", "7", "b"),
+            Card("Yellow", "3", "a"),
+            Card("Green", "1", "a"),
+            Card("Green", "12", "b"),
+            Card("Red", "11", "b"),
+            Card("Blue", "11", "a"),
+            Card("Blue", "Wild", "b"),
+            Card("Green", "Wild", "a"),
+        ]
+    ),
+    Hand().set(
+        [
+            Card("Red", "4", "a"),
+            Card("Blue", "4", "a"),
+            Card("Yellow", "4", "b"),
+            Card("Yellow", "3", "a"),
+            Card("Green", "1", "a"),
+            Card("Green", "12", "b"),
+            Card("Red", "11", "b"),
+            Card("Blue", "11", "a"),
+            Card("Blue", "5", "b"),
+            Card("Green", "9", "a"),
+        ]
+    ),
+]
+
 if __name__ == "__main__":
-    print(int("1") < 2)
-    # make_deck()
-    # for i in range(5):
-    # my_hand = draw_hand(10)
-    # print(f"Hand {i+1}: {my_hand}")
+    print(f"Test Hand 2:")
+    print(f"\tFirst set of 3: {test_hands[1].check_for_value_set(3)}")
+    print(f"\tSecond set of 3: {test_hands[1].check_for_value_set(3)}")
