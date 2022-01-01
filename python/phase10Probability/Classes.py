@@ -12,6 +12,9 @@ class Card:
     def __str__(self):
         return f"{self.color}-{self.value}"
 
+    def __repr__(self):
+        return f"{self.color}-{self.value}"
+
 
 class Hand:
     def __init__(self):
@@ -54,18 +57,19 @@ class Hand:
             for j in self.number_cards:
                 if i.value == j.value:
                     possible_set.append(j)
-            card_count = len(possible_set)
-            if card_count >= size - len(self.wilds):
-                if card_count < size:
-                    """
-                    There's enough cards for a set IF
-                    we use some wild cards
-                    """
+            if len(possible_set) >= size - len(self.wilds):
+                # We only want to remove just
+                # enough cards to complete the set
+                while len(possible_set) > size:
+                    possible_set.pop()
+                while len(possible_set) < size:
+                    # There's enough cards for a set IF
+                    # we use some wild cards
                     # Remove JUST enough wild cards to finish the set
-                    for i in range(size - card_count):
-                        self.wilds.pop()
+                    possible_set.append(self.wilds.pop())
                 for card in possible_set:
-                    self.number_cards.remove(card)
+                    if card in self.number_cards:
+                        self.number_cards.remove(card)
                 return True
         return False
 
@@ -81,17 +85,35 @@ class Hand:
             for j in self.number_cards:
                 if i.color == j.color:
                     possible_set.append(j)
-            card_count = len(possible_set)
-            if card_count >= size - len(self.wilds):
-                if card_count < size:
-                    """
-                    There's enough cards for a set IF
-                    we use some wild cards
-                    """
+            if len(possible_set) >= size - len(self.wilds):
+                # We only want to remove just
+                # enough cards to complete the set
+                while len(possible_set) > size:
+                    possible_set.pop()
+                while len(possible_set) < size:
+                    # There's enough cards for a set IF
+                    # we use some wild cards
                     # Remove JUST enough wild cards to finish the set
-                    for i in range(size - card_count):
-                        self.wilds.pop()
+                    possible_set.append(self.wilds.pop())
                 for card in possible_set:
-                    self.number_cards.remove(card)
+                    if card in self.number_cards:
+                        self.number_cards.remove(card)
                 return True
+        return False
+
+    def run(self, size: int):
+        """
+        Checks for a continuous run of a given size
+        A run is a group of cards withcontinuously ascending values
+        Similar to a "straight" in poker
+        For the purposes of phase 10, a run can "wrap around" to the beginning
+
+        Example Runs:
+        1, 2, 3, 4, 5
+        10, 11, 12, 1, 2
+
+        Args:
+            size (int): the minimum size (in cards) of the run
+        """
+
         return False
