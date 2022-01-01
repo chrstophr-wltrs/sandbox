@@ -42,7 +42,7 @@ class Hand:
         self.number_cards.sort(key=lambda card: int(card.value))
         return self
 
-    def check_for_value_set(self, size: int):
+    def value_set(self, size: int):
         """
         Checks for a set of a number of cards that have a matching value
 
@@ -69,7 +69,7 @@ class Hand:
                 return True
         return False
 
-    def check_for_color_set(self, size: int):
+    def color_set(self, size: int):
         """
         Checks for a set of a number of cards that have a matching color
 
