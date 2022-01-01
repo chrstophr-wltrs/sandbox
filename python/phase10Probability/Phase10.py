@@ -21,23 +21,6 @@ def make_deck():
             for k in DUPLICATES:
                 deck.append(Card(i, j, k))
 
-
-def check_for_sets(hand: list, set_size: int, number_of_sets: int = 1):
-    set_count = 0
-    working_hand = hand.copy()
-    for i in hand:
-        if i.value != "Wild":
-            counter = 0
-            for j in working_hand:
-                if (i.value == j.value) or (j.value == "Wild"):
-                    counter += 1
-                    working_hand.remove(j)
-            set_count += 1 if counter >= set_size else 0
-        if set_count >= number_of_sets:
-            return True
-    return False
-
-
 if __name__ == "__main__":
     print(int("1") < 2)
     # make_deck()
