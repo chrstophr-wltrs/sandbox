@@ -25,6 +25,7 @@ class Hand:
                 self.wilds.append(card)
             else:
                 self.number_cards.append(card)
+        return self
 
     def deal(self, deck: list[Card], hand_size: int = 10):
         self.__init__()
@@ -39,6 +40,7 @@ class Hand:
             else:
                 self.number_cards.append(card)
         self.number_cards.sort(key=lambda card: int(card.value))
+        return self
 
     def check_for_value_set(self, size: int):
         """
