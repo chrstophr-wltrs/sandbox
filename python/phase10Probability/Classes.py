@@ -19,8 +19,7 @@ class Hand:
         self.wilds = []
 
     def set(self, cards: list[Card]):
-        self.number_cards = []
-        self.wilds = []
+        self.__init__()
         for card in cards:
             if card.value == "Wild":
                 self.wilds.append(card)
@@ -28,6 +27,7 @@ class Hand:
                 self.number_cards.append(card)
 
     def deal(self, deck: list[Card], hand_size: int = 10):
+        self.__init__()
         hand = []
         while len(hand) < hand_size:
             card = rnd.choice(deck)
