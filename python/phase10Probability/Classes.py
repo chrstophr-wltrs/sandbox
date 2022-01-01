@@ -6,7 +6,7 @@ rnd.seed()
 class Card:
     def __init__(self, color, value, duplicate):
         self.color = color
-        self.value = value
+        self.value = value if value == "Wild" else int(value)
         self.duplicate = duplicate
 
     def __str__(self):
