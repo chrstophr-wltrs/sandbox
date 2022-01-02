@@ -45,17 +45,20 @@ class Hand:
         self.number_cards.sort(key=lambda card: int(card.value))
         return self
 
-    def value_set(self, size: int):
+    def set(self, size: int, is_color_set: bool = False):
         """
-        Checks for a set of a number of cards that have a matching value
+        Checks for a set of a number of cards that have a matching value or color
 
         Args:
             size (int): the size (in cards) of the set
+            is_color_set (bool): If true, then the function searches for color sets
+                if false, the function searches for value sets
         """
         for i in self.number_cards:
             possible_set = []
             for j in self.number_cards:
-                if i.value == j.value:
+                match_flag = i.color == j.color if is_color_set else i.value == j.value
+                if match_flag:
                     possible_set.append(j)
             if len(possible_set) >= size - len(self.wilds):
                 # We only want to remove just
@@ -73,35 +76,7 @@ class Hand:
                 return True
         return False
 
-    def color_set(self, size: int):
-        """
-        Checks for a set of a number of cards that have a matching color
-
-        Args:
-            size (int): the size (in cards) of the set
-        """
-        for i in self.number_cards:
-            possible_set = []
-            for j in self.number_cards:
-                if i.color == j.color:
-                    possible_set.append(j)
-            if len(possible_set) >= size - len(self.wilds):
-                # We only want to remove just
-                # enough cards to complete the set
-                while len(possible_set) > size:
-                    possible_set.pop()
-                while len(possible_set) < size:
-                    # There's enough cards for a set IF
-                    # we use some wild cards
-                    # Remove JUST enough wild cards to finish the set
-                    possible_set.append(self.wilds.pop())
-                for card in possible_set:
-                    if card in self.number_cards:
-                        self.number_cards.remove(card)
-                return True
-        return False
-
-    def run(self, size: int):
+    def run(self, size: int, color_restricted: bool = False):
         """
         Checks for a continuous run of a given size
         A run is a group of cards withcontinuously ascending values
@@ -114,6 +89,14 @@ class Hand:
 
         Args:
             size (int): the minimum size (in cards) of the run
+            color_restricted (bool): whether the run should be restricted based on color
         """
+
+        def find_next(
+            current_card: Card,
+            source_list: list[Card],
+            color_resitricted: bool,
+        ):
+            pass
 
         return False
