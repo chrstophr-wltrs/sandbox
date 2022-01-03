@@ -20,8 +20,8 @@ class Hand:
     def __init__(self):
         self.cards = []
 
-    def set(self, cards: list[Card]):
-        self.cards = cards
+    def set(self, card_list: list[Card]):
+        self.cards = card_list
         return self
 
     def deal(self, deck: list[Card], hand_size: int = 10):
@@ -42,9 +42,9 @@ class Hand:
             is_color_set (bool): If true, then the function searches for color sets
                 if false, the function searches for value sets
         """
-        for i in self.number_cards:
+        for i in self.cards:
             possible_set = []
-            for j in self.number_cards:
+            for j in self.cards:
                 match_flag = i.color == j.color if is_color_set else i.value == j.value
                 if match_flag:
                     possible_set.append(j)
@@ -54,7 +54,7 @@ class Hand:
                 while len(possible_set) > size:
                     possible_set.pop()
                 for card in possible_set:
-                    self.number_cards.remove(card)
+                    self.cards.remove(card)
                 return True
         return False
 
