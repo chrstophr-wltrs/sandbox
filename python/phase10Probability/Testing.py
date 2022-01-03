@@ -25,35 +25,35 @@ def make_deck():
 test_hands = [
     Hand().set(
         [
-            Card("Red", "4", "a"),
-            Card("Red", "4", "a"),
-            Card("Red", "7", "b"),
-            Card("Yellow", "3", "a"),
-            Card("Yellow", "1", "a"),
+            Card("Red", "3", "a"),
+            Card("Red", "4", "b"),
+            Card("Yellow", "4", "b"),
+            Card("Yellow", "6", "a"),
+            Card("Green", "6", "a"),
+            Card("Green", "10", "b"),
             Card("Green", "12", "b"),
-            Card("Green", "11", "b"),
-            Card("Blue", "11", "a"),
-            Card("Blue", "Wild", "b"),
-            Card("Green", "Wild", "a"),
+            Card("Blue", "12", "a"),
+            Card("Blue", "8", "b"),
+            Card("Green", "9", "a"),
         ]
     ),
     Hand().set(
         [
-            Card("Red", "4", "a"),
-            Card("Red", "4", "a"),
-            Card("Red", "4", "b"),
-            Card("Yellow", "3", "a"),
-            Card("Yellow", "1", "a"),
-            Card("Green", "12", "b"),
-            Card("Green", "11", "b"),
-            Card("Blue", "11", "a"),
-            Card("Blue", "5", "b"),
-            Card("Green", "9", "a"),
+            Card("Red", "1", "a"),
+            Card("Red", "2", "a"),
+            Card("Red", "3", "b"),
+            Card("Yellow", "4", "a"),
+            Card("Yellow", "5", "a"),
+            Card("Green", "5", "b"),
+            Card("Green", "5", "b"),
+            Card("Blue", "5", "a"),
+            Card("Blue", "12", "b"),
+            Card("Green", "12", "a"),
         ]
     ),
 ]
 
 if __name__ == "__main__":
-    print(f"Test Hand 2:")
-    print(f"\tColor Test 1: {test_hands[0].check_for_color_set(3)}")
-    print(f"\tColor Test 2: {test_hands[0].check_for_color_set(4)}")
+    print(f"Test Hand 1:")
+    print(f"\tValue Test 1: {test_hands[1].find_run(5)}")
+    print(f"\tValue Test 2: {test_hands[1].find_set(3)}")
