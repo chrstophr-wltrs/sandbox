@@ -6,7 +6,7 @@ rnd.seed()
 class Card:
     def __init__(self, color, value, duplicate):
         self.color = color
-        self.value = value if value == "Wild" else int(value)
+        self.value = int(value)
         self.duplicate = duplicate
 
     def __str__(self):
@@ -100,6 +100,6 @@ class Hand:
                     possible_run.pop()
                 for card in possible_run:
                     self.cards.remove(card)
-                return True            
+                return True
 
         return False
