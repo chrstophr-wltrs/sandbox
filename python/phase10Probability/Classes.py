@@ -35,8 +35,8 @@ class Hand:
         hand = []
         while len(hand) < hand_size:
             card = rnd.choice(deck)
-            deck.remove(card)
-            hand.append(card)
+            if card not in hand:
+                hand.append(card)
         for card in hand:
             if card.value == "Wild":
                 self.wilds.append(card)
