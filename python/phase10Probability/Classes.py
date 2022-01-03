@@ -53,11 +53,6 @@ class Hand:
                 # enough cards to complete the set
                 while len(possible_set) > size:
                     possible_set.pop()
-                while len(possible_set) < size:
-                    # There's enough cards for a set IF
-                    # we use some wild cards
-                    # Remove JUST enough wild cards to finish the set
-                    possible_set.append(self.wilds.pop())
                 for card in possible_set:
                     self.number_cards.remove(card)
                 return True
