@@ -33,7 +33,7 @@ class Hand:
         self.cards.sort(key=lambda card: int(card.value))
         return self
 
-    def set(self, size: int, is_color_set: bool = False):
+    def find_set(self, size: int, is_color_set: bool = False):
         """
         Checks for a set of a number of cards that have a matching value or color
 
@@ -63,7 +63,7 @@ class Hand:
                 return True
         return False
 
-    def run(self, size: int, color_restricted: bool = False):
+    def find_run(self, size: int, color_restricted: bool = False):
         """
         Checks for a continuous run of a given size
         A run is a group of cards withcontinuously ascending values
