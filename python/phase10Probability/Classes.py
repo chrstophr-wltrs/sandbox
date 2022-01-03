@@ -61,7 +61,7 @@ class Hand:
     def find_run(self, size: int, color_restricted: bool = False):
         """
         Checks for a continuous run of a given size
-        A run is a group of cards withcontinuously ascending values
+        A run is a group of cards with continuously ascending values
         Similar to a "straight" in poker
         For the purposes of phase 10, a run can "wrap around" to the beginning
 
@@ -77,8 +77,16 @@ class Hand:
         def find_next(
             current_card: Card,
             source_list: list[Card],
-            color_resitricted: bool,
+            color_restricted: bool,
         ):
-            pass
+            target_value = 1 if current_card.value == 12 else current_card.value + 1
+            for card in source_list:
+                value_match = card.value == target_value
+                color_match = (not color_restricted) or (
+                    card.color == current_card.color
+                )
+                if value_match and color_match:
+                    return True, card
+            return False, None
 
         return False
