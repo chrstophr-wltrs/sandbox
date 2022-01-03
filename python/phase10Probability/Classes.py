@@ -76,11 +76,10 @@ class Hand:
 
         def find_next(
             current_card: Card,
-            source_list: list[Card],
             color_restricted: bool,
         ):
             target_value = 1 if current_card.value == 12 else current_card.value + 1
-            for card in source_list:
+            for card in self.cards:
                 value_match = card.value == target_value
                 color_match = (not color_restricted) or (
                     card.color == current_card.color
@@ -88,5 +87,19 @@ class Hand:
                 if value_match and color_match:
                     return True, card
             return False, None
+
+        for card in self.cards:
+            possible_run = []
+            current_card = card
+            found_next = True
+            while found_next:
+                possible_run.append(current_card)
+                found_next, current_card = find_next(current_card, color_restricted)
+            if len(possible_run) >= size:
+                while len(possible_run) > size:
+                    possible_run.pop()
+                for card in possible_run:
+                    self.cards.remove(card)
+                return True            
 
         return False
