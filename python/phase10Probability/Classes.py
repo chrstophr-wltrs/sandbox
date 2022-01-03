@@ -18,31 +18,19 @@ class Card:
 
 class Hand:
     def __init__(self):
-        self.number_cards = []
-        self.wilds = []
+        self.cards = []
 
     def set(self, cards: list[Card]):
-        self.__init__()
-        for card in cards:
-            if card.value == "Wild":
-                self.wilds.append(card)
-            else:
-                self.number_cards.append(card)
+        self.cards = cards
         return self
 
     def deal(self, deck: list[Card], hand_size: int = 10):
         self.__init__()
-        hand = []
-        while len(hand) < hand_size:
+        while len(self.cards) < hand_size:
             card = rnd.choice(deck)
-            if card not in hand:
-                hand.append(card)
-        for card in hand:
-            if card.value == "Wild":
-                self.wilds.append(card)
-            else:
-                self.number_cards.append(card)
-        self.number_cards.sort(key=lambda card: int(card.value))
+            if card not in self.cards:
+                self.cards.append(card)
+        self.cards.sort(key=lambda card: int(card.value))
         return self
 
     def set(self, size: int, is_color_set: bool = False):
@@ -60,7 +48,7 @@ class Hand:
                 match_flag = i.color == j.color if is_color_set else i.value == j.value
                 if match_flag:
                     possible_set.append(j)
-            if len(possible_set) >= size - len(self.wilds):
+            if len(possible_set) >= size:
                 # We only want to remove just
                 # enough cards to complete the set
                 while len(possible_set) > size:
@@ -71,8 +59,7 @@ class Hand:
                     # Remove JUST enough wild cards to finish the set
                     possible_set.append(self.wilds.pop())
                 for card in possible_set:
-                    if card in self.number_cards:
-                        self.number_cards.remove(card)
+                    self.number_cards.remove(card)
                 return True
         return False
 
