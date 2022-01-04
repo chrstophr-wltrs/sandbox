@@ -1,4 +1,5 @@
 import random as rnd
+from pickle import dump, load
 
 from Classes import *
 
@@ -6,7 +7,7 @@ rnd.seed()
 
 COLORS = ["Red", "Green", "Blue", "Yellow"]
 
-NUMBERS = ["1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "11", "12", "Wild"]
+NUMBERS = ["1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "11", "12"]
 
 DUPLICATES = ["a", "b"]
 
@@ -14,8 +15,6 @@ deck = []
 
 
 def make_deck():
-    for i in range(4):
-        deck.append(Card("Blue", "SKIP", i + 1))
     for i in COLORS:
         for j in NUMBERS:
             for k in DUPLICATES:
@@ -54,6 +53,11 @@ test_hands = [
 ]
 
 if __name__ == "__main__":
-    print(f"Test Hand 1:")
-    print(f"\tValue Test 1: {test_hands[1].find_run(4)}")
-    print(f"\tValue Test 2: {test_hands[1].find_set(3)}")
+    make_deck()
+    test_amounts = [1000000, 10000000, 25000000, 50000000, 100000000]
+    for amount in test_amounts:
+        hand_list = []
+        for i in range(amount):
+            hand_list.append(Hand().deal(deck))
+        with open(f"test_hands_{amount / 1000000}mill.pickle", "wb") as file:
+            dump(hand_list, file)
